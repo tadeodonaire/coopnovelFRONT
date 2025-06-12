@@ -1,1 +1,98 @@
-<p>creaeditarusuarios works!</p>
+<div>
+    <div><h1>Registro de Usuario</h1></div>
+    <br>
+    <div>
+        <form [formGroup]="form" (submit)="aceptar()">
+
+            <mat-form-field class="example-full-width">
+                <mat-label>Nombre del Usuario</mat-label>
+                <input matInput placeholder="Ex. Alex" formControlName="nombre" />
+                <mat-error *ngIf="form.get('nombre')?.hasError('required')">
+                    El nombre del usuario es obligatorio
+                </mat-error>
+            </mat-form-field>
+
+            <br>
+
+            <mat-form-field class="example-full-width">
+                <mat-label>Apellido</mat-label>
+                <input matInput placeholder="Ex. Donaire" formControlName="apellido" />
+                <mat-error *ngIf="form.get('nombre')?.hasError('required')">
+                    El apellido del usuario es obligatorio
+                </mat-error>
+            </mat-form-field>
+
+            <br>
+
+            <mat-form-field>
+                <mat-label>Fecha de Nacimiento</mat-label>
+                <input matInput [matDatepicker]="picker" formControlName="fecha">
+                <mat-hint>MM/DD/YYYY</mat-hint>
+                <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+                <mat-datepicker #picker></mat-datepicker>
+                <mat-error *ngIf="form.get('fecha')?.hasError('required')">
+                    La fecha de nacimiento es obligatoria
+                </mat-error>
+            </mat-form-field>   
+
+            <br>
+
+            <mat-form-field class="example-full-width">
+                <mat-label>Email</mat-label>
+                <input type="email" matInput formControlName="email" placeholder="Ex. pat@example.com">
+                <mat-error *ngIf="form.get('email')?.hasError('email') && !form.get('email')?.hasError('required')">
+                     Ingrese una dirección de correo válida
+                </mat-error>
+                <mat-error *ngIf="form.get('email')?.hasError('required')">
+                    El correo es obligatorio
+                </mat-error>
+            </mat-form-field>
+
+
+            <br>
+
+            <mat-form-field class="example-full-width">
+                <mat-label>Usuario</mat-label>
+                <input matInput placeholder="Ex. AlexD" formControlName="usuario" />
+                <mat-error *ngIf="form.get('usuario')?.hasError('required')">
+                    El usuario es obligatorio para que puedas iniciar sesión
+                </mat-error>
+            </mat-form-field>
+
+            <br>
+
+            <mat-form-field>
+                <mat-label>Enter your password</mat-label>
+                <input matInput [type]="hidePassword ? 'password' : 'text'" formControlName="contrasena" />
+                <button
+                    mat-icon-button
+                    matSuffix
+                    (click)="clickEvent($event)"
+                    [attr.aria-label]="hidePassword ? 'Show password' : 'Hide password'"
+                    [attr.aria-pressed]="!hidePassword"
+                    type="button"
+                >
+                <mat-icon>{{ hidePassword ? 'visibility_off' : 'visibility' }}</mat-icon>
+                </button>
+                <mat-error *ngIf="form.get('contrasena')?.hasError('required')">
+                    La contraseña es obligatoria para que puedas iniciar sesión
+                </mat-error>
+            </mat-form-field>
+
+            <br>
+
+            <mat-radio-group aria-label="Select an option" [ngModel]="estado" formControlName="estado">
+                <mat-radio-button [value]="true">Activo</mat-radio-button>
+                <mat-radio-button [value]="false">Inactivo</mat-radio-button>
+                <mat-error *ngIf="form.get('estado')?.hasError('required')">
+                    El estado es obligatorio para que puedas iniciar sesión
+                </mat-error>
+            </mat-radio-group>
+
+            <br>
+
+            <button mat-raised-button color="primary" type="submit">Registrarme</button>
+
+        </form>
+    </div>
+</div>
