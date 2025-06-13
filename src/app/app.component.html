@@ -9,4 +9,15 @@
   <button mat-menu-item routerLink="/usuarios/insertar" class="custom-menu-item">Registrar</button>
 </mat-menu>
 
+  <div>
+    <button mat-button [matMenuTriggerFor]="BIBLIOTECA" style="color: rgb(8, 6, 97)">
+    Biblioteca
+    </button>
+  </div>
+
+  <mat-menu #BIBLIOTECA="matMenu">
+    <button mat-menu-item routerLink="/biblioteca" class="custom-menu-item">Listar</button>
+    <button mat-menu-item routerLink="/biblioteca/insertar" class="custom-menu-item">Registrar</button>
+  </mat-menu>
+  
 <router-outlet></router-outlet>

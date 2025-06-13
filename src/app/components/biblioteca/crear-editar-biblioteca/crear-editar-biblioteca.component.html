@@ -1,0 +1,16 @@
+<div class="registro-container">
+  <h1>Registro de Biblioteca</h1>
+  <form [formGroup]="form" (submit)="aceptar()">
+    <mat-form-field appearance="fill" class="custom-form-field">
+      <mat-label>Biblioteca</mat-label>
+      <input matInput placeholder="Ejemplo: Ficción" formControlName="nombre" />
+      <mat-error *ngIf="form.get('nombre')?.hasError('required')">
+        El nombre de la biblioteca es obligatorio.
+      </mat-error>
+    </mat-form-field>
+
+    <button mat-raised-button color="primary" type="submit" class="submit-button">
+      Registrarme
+    </button>
+  </form>
+</div>
