@@ -2,6 +2,11 @@
   <h1>Registro de Usuario</h1>
   <form [formGroup]="form" (ngSubmit)="aceptar()">
 
+    <div *ngIf="edicion">
+    <label for="codigo">ID</label>
+    <input id="codigo" type="id" formControlName="codigo" readonly />
+    </div>
+    
     <label for="nombre">Nombre del Usuario</label>
     <input id="nombre" type="text" formControlName="nombre" placeholder="Ej. Alex" />
     <div class="error" *ngIf="form.get('nombre')?.hasError('required') && form.get('nombre')?.touched">
@@ -35,25 +40,27 @@
       El usuario es obligatorio
     </div>
 
-    <label for="contrasena">Contraseña</label>
-    <div class="password-wrapper">
-    <input
+    <div *ngIf="!edicion">
+      <label for="contrasena">Contraseña</label>
+      <div class="password-wrapper">
+        <input
         id="contrasena"
         [type]="hidePassword ? 'password' : 'text'"
         formControlName="contrasena"
         placeholder="Tu contraseña"
-    />
-    <button
+        />
+        <button
         type="button"
         class="toggle-password"
         (click)="togglePasswordVisibility()"
         [attr.aria-label]="hidePassword ? 'Mostrar contraseña' : 'Ocultar contraseña'"
-    >
+        >
         {{ hidePassword ? '🙈' : '👁️' }}
-    </button>
-    </div>
-    <div class="error" *ngIf="form.get('contrasena')?.hasError('required') && form.get('contrasena')?.touched">
-        La contraseña es obligatoria
+      </button>
+      </div>
+      <div class="error" *ngIf="form.get('contrasena')?.hasError('required') && form.get('contrasena')?.touched">
+         La contraseña es obligatoria
+      </div>
     </div>
 
 

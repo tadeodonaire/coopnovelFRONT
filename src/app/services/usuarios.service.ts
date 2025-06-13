@@ -4,15 +4,14 @@ import { Usuario } from '../models/usuarios';
 import { HttpClient } from '@angular/common/http';
 import { Subject } from 'rxjs';
 
-
 const base_url = environment.base;
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class UsuariosService {
   private url = `${base_url}/usuarios`;
-  private listaCambio= new Subject <Usuario[]> ()
+  private listaCambio = new Subject<Usuario[]>();
 
   constructor(private http: HttpClient) {}
   list() {
@@ -22,12 +21,24 @@ export class UsuariosService {
     return this.http.post(this.url, a);
   }
 
-  setList(listaNueva:Usuario[]) {
+  setList(listaNueva: Usuario[]) {
     this.listaCambio.next(listaNueva);
   }
 
-  getList(){
+  getList() {
     return this.listaCambio.asObservable();
   }
-  
+
+  listId(id: number) {
+    return this.http.get<Usuario>(`${this.url}/${id}`);
   }
+
+  update(u: Usuario) {
+    return this.http.put(this.url, u);
+  }
+
+  deleteU(id: number) {
+    return this.http.delete(`${this.url}/${id}`);
+  }
+  
+}
