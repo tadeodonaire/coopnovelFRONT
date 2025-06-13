@@ -1,14 +1,12 @@
-  <div>
-    <button mat-button [matMenuTriggerFor]="USUARIOS" style="color: rgb(8, 6, 97)">
-      Usuarios
-    </button>
-  </div>
+<div>
+  <button mat-button [matMenuTriggerFor]="USUARIOS" class="duolingo-menu-button">
+    Usuarios
+  </button>
+</div>
 
-
-  <mat-menu #USUARIOS="matMenu">
+<mat-menu #USUARIOS="matMenu" class="duolingo-menu">
   <button mat-menu-item routerLink="/usuarios" class="custom-menu-item">Listar</button>
-  <button mat-menu-item routerLink="/usuarios/insertar" class="custom-menu-item">Registrar</button> 
-  </mat-menu>
-
+  <button mat-menu-item routerLink="/usuarios/insertar" class="custom-menu-item">Registrar</button>
+</mat-menu>
 
 <router-outlet></router-outlet>
