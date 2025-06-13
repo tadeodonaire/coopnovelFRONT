@@ -13,6 +13,10 @@ export const routes: Routes = [
         path: 'insertar',
         component: CreaeditarusuariosComponent,
       },
+      {
+        path: 'editar/:id',
+        component: CreaeditarusuariosComponent,
+      }
     ]
   },
   {
