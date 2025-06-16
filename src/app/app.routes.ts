@@ -37,7 +37,7 @@ export const routes: Routes = [
     component: ProyectosComponent,
     children: [
       {
-        path: 'insertar',
+        path: 'registrar',
         component: CreareditarproyectosComponent,
       },
       {

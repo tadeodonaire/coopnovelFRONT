@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { provideNativeDateAdapter } from '@angular/material/core';
 import {
   FormBuilder,
   FormControl,
@@ -26,13 +27,14 @@ import { MatButtonModule } from '@angular/material/button';
     MatSelectModule,
     MatButtonModule,
   ],
+  providers: [provideNativeDateAdapter()],
   templateUrl: './creareditarproyectos.component.html',
   styleUrl: './creareditarproyectos.component.css',
 })
 export class CreareditarproyectosComponent implements OnInit {
   form: FormGroup = new FormGroup({});
   listaUsuarios: Usuario[] = [];
-  pro: Proyecto = new Proyecto();
+  proyecto: Proyecto = new Proyecto();
 
   id: number = 0;
   edicion: boolean = false;
@@ -66,25 +68,25 @@ export class CreareditarproyectosComponent implements OnInit {
 
   aceptar() {
     if (this.form.valid) {
-      this.pro.idProyecto = this.form.value.hcodigo;
-      this.pro.proyTitulo = this.form.value.htitulo;
-      this.pro.proyDescripcion = this.form.value.hdescripcion;
-      this.pro.usario = this.form.value.husuarios;
+      this.proyecto.idProyecto = this.form.value.hcodigo;
+      this.proyecto.proyTitulo = this.form.value.htitulo;
+      this.proyecto.proyDescripcion = this.form.value.hdescripcion;
+      this.proyecto.usuario = this.form.value.husuarios;
       if (this.edicion) {
-        this.pS.update(this.pro).subscribe(() => {
+        this.pS.update(this.proyecto).subscribe((data) => {
           this.pS.list().subscribe((data) => {
             this.pS.setList(data);
           });
         });
       } else {
-        this.pS.insert(this.pro).subscribe(() => {
+        this.pS.insert(this.proyecto).subscribe((data) => {
           this.pS.list().subscribe((data) => {
             this.pS.setList(data);
           });
         });
       }
     }
-    this.router.navigate(['/proyecto']);
+    this.router.navigate(['proyecto']);
   }
 
   init() {
@@ -94,7 +96,7 @@ export class CreareditarproyectosComponent implements OnInit {
           hcodigo: new FormControl(data.idProyecto),
           htitulo: new FormControl(data.proyTitulo),
           hdescripcion: new FormControl(data.proyDescripcion),
-          husuarios: new FormControl(data.usario),
+          husuarios: new FormControl(data.usuario),
         });
       });
     }
