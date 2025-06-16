@@ -8,6 +8,11 @@
     Biblioteca
   </button>
 </div>
+<div>
+  <button mat-button [matMenuTriggerFor]="PROYECTO" class="duolingo-menu-button">
+    Proyecto
+  </button>
+</div>
 
 <mat-menu #USUARIOS="matMenu" class="duolingo-menu">
   <button mat-menu-item routerLink="/usuarios" class="custom-menu-item">Listar</button>
@@ -18,6 +23,11 @@
 <mat-menu #BIBLIOTECA="matMenu" class="duolingo-menu">
   <button mat-menu-item routerLink="/biblioteca" class="custom-menu-item">Listar</button>
   <button mat-menu-item routerLink="/biblioteca/insertar" class="custom-menu-item">Registrar</button>
+</mat-menu>
+
+<mat-menu #PROYECTO="matMenu" class="duolingo-menu">
+  <button mat-menu-item routerLink="/proyecto" class="custom-menu-item">Listar</button>
+  <button mat-menu-item routerLink="/proyecto/registrar" class="custom-menu-item">Registrar</button>
 </mat-menu>
   
 <router-outlet></router-outlet>
