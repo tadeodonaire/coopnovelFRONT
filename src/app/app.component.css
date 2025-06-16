@@ -1,0 +1,29 @@
+
+.duolingo-menu-button {
+  color: #007bce;
+  font-weight: bold;
+  font-family: 'Segoe UI', sans-serif;
+  font-size: 16px;
+}
+
+
+::ng-deep .duolingo-menu .mat-menu-content {
+  background-color: #ffffff;
+  font-family: 'Segoe UI', sans-serif;
+  padding: 8px 0;
+}
+
+
+::ng-deep .custom-menu-item {
+  color: #222;
+  font-weight: 500;
+  font-size: 15px;
+  transition: background-color 0.2s ease, color 0.2s ease;
+  padding: 12px 20px;
+}
+
+::ng-deep .custom-menu-item:hover {
+  background-color: #d9f1ff;
+  color: #007bce;
+  font-weight: bold;
+}

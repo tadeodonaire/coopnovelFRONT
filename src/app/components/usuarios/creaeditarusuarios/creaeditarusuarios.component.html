@@ -1,98 +1,72 @@
-<div>
-    <div><h1>Registro de Usuario</h1></div>
-    <br>
-    <div>
-        <form [formGroup]="form" (submit)="aceptar()">
+<div class="form-container">
+  <h1>Registro de Usuario</h1>
+  <form [formGroup]="form" (ngSubmit)="aceptar()">
 
-            <mat-form-field class="example-full-width">
-                <mat-label>Nombre del Usuario</mat-label>
-                <input matInput placeholder="Ex. Alex" formControlName="nombre" />
-                <mat-error *ngIf="form.get('nombre')?.hasError('required')">
-                    El nombre del usuario es obligatorio
-                </mat-error>
-            </mat-form-field>
-
-            <br>
-
-            <mat-form-field class="example-full-width">
-                <mat-label>Apellido</mat-label>
-                <input matInput placeholder="Ex. Donaire" formControlName="apellido" />
-                <mat-error *ngIf="form.get('nombre')?.hasError('required')">
-                    El apellido del usuario es obligatorio
-                </mat-error>
-            </mat-form-field>
-
-            <br>
-
-            <mat-form-field>
-                <mat-label>Fecha de Nacimiento</mat-label>
-                <input matInput [matDatepicker]="picker" formControlName="fecha">
-                <mat-hint>MM/DD/YYYY</mat-hint>
-                <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
-                <mat-datepicker #picker></mat-datepicker>
-                <mat-error *ngIf="form.get('fecha')?.hasError('required')">
-                    La fecha de nacimiento es obligatoria
-                </mat-error>
-            </mat-form-field>   
-
-            <br>
-
-            <mat-form-field class="example-full-width">
-                <mat-label>Email</mat-label>
-                <input type="email" matInput formControlName="email" placeholder="Ex. pat@example.com">
-                <mat-error *ngIf="form.get('email')?.hasError('email') && !form.get('email')?.hasError('required')">
-                     Ingrese una dirección de correo válida
-                </mat-error>
-                <mat-error *ngIf="form.get('email')?.hasError('required')">
-                    El correo es obligatorio
-                </mat-error>
-            </mat-form-field>
-
-
-            <br>
-
-            <mat-form-field class="example-full-width">
-                <mat-label>Usuario</mat-label>
-                <input matInput placeholder="Ex. AlexD" formControlName="usuario" />
-                <mat-error *ngIf="form.get('usuario')?.hasError('required')">
-                    El usuario es obligatorio para que puedas iniciar sesión
-                </mat-error>
-            </mat-form-field>
-
-            <br>
-
-            <mat-form-field>
-                <mat-label>Enter your password</mat-label>
-                <input matInput [type]="hidePassword ? 'password' : 'text'" formControlName="contrasena" />
-                <button
-                    mat-icon-button
-                    matSuffix
-                    (click)="clickEvent($event)"
-                    [attr.aria-label]="hidePassword ? 'Show password' : 'Hide password'"
-                    [attr.aria-pressed]="!hidePassword"
-                    type="button"
-                >
-                <mat-icon>{{ hidePassword ? 'visibility_off' : 'visibility' }}</mat-icon>
-                </button>
-                <mat-error *ngIf="form.get('contrasena')?.hasError('required')">
-                    La contraseña es obligatoria para que puedas iniciar sesión
-                </mat-error>
-            </mat-form-field>
-
-            <br>
-
-            <mat-radio-group aria-label="Select an option" [ngModel]="estado" formControlName="estado">
-                <mat-radio-button [value]="true">Activo</mat-radio-button>
-                <mat-radio-button [value]="false">Inactivo</mat-radio-button>
-                <mat-error *ngIf="form.get('estado')?.hasError('required')">
-                    El estado es obligatorio para que puedas iniciar sesión
-                </mat-error>
-            </mat-radio-group>
-
-            <br>
-
-            <button mat-raised-button color="primary" type="submit">Registrarme</button>
-
-        </form>
+    <label for="nombre">Nombre del Usuario</label>
+    <input id="nombre" type="text" formControlName="nombre" placeholder="Ej. Alex" />
+    <div class="error" *ngIf="form.get('nombre')?.hasError('required') && form.get('nombre')?.touched">
+      El nombre del usuario es obligatorio
     </div>
+
+    <label for="apellido">Apellido</label>
+    <input id="apellido" type="text" formControlName="apellido" placeholder="Ej. Donaire" />
+    <div class="error" *ngIf="form.get('apellido')?.hasError('required') && form.get('apellido')?.touched">
+      El apellido es obligatorio
+    </div>
+
+    <label for="fecha">Fecha de Nacimiento</label>
+    <input id="fecha" type="date" formControlName="fecha" />
+    <div class="error" *ngIf="form.get('fecha')?.hasError('required') && form.get('fecha')?.touched">
+      La fecha de nacimiento es obligatoria
+    </div>
+
+    <label for="email">Correo Electrónico</label>
+    <input id="email" type="email" formControlName="email" placeholder="Ej. pat@example.com" />
+    <div class="error" *ngIf="form.get('email')?.hasError('required') && form.get('email')?.touched">
+      El correo es obligatorio
+    </div>
+    <div class="error" *ngIf="form.get('email')?.hasError('email') && form.get('email')?.touched">
+      Ingrese una dirección de correo válida
+    </div>
+
+    <label for="usuario">Usuario</label>
+    <input id="usuario" type="text" formControlName="usuario" placeholder="Ej. AlexD" />
+    <div class="error" *ngIf="form.get('usuario')?.hasError('required') && form.get('usuario')?.touched">
+      El usuario es obligatorio
+    </div>
+
+    <label for="contrasena">Contraseña</label>
+    <div class="password-wrapper">
+    <input
+        id="contrasena"
+        [type]="hidePassword ? 'password' : 'text'"
+        formControlName="contrasena"
+        placeholder="Tu contraseña"
+    />
+    <button
+        type="button"
+        class="toggle-password"
+        (click)="togglePasswordVisibility()"
+        [attr.aria-label]="hidePassword ? 'Mostrar contraseña' : 'Ocultar contraseña'"
+    >
+        {{ hidePassword ? '🙈' : '👁️' }}
+    </button>
+    </div>
+    <div class="error" *ngIf="form.get('contrasena')?.hasError('required') && form.get('contrasena')?.touched">
+        La contraseña es obligatoria
+    </div>
+
+
+    <label>Estado</label>
+    <div class="radio-group">
+      <label><input type="radio" [value]="true" formControlName="estado" /> Activo</label>
+      <label><input type="radio" [value]="false" formControlName="estado" /> Inactivo</label>
+    </div>
+    <div class="error" *ngIf="form.get('estado')?.hasError('required') && form.get('estado')?.touched">
+      El estado es obligatorio
+    </div>
+
+    <button type="submit" [disabled]="form.invalid">Registrarme</button>
+
+  </form>
 </div>

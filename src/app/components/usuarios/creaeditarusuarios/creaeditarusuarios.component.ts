@@ -75,4 +75,8 @@ export class CreaeditarusuariosComponent {
   }
 }
 
+togglePasswordVisibility() {
+    this.hidePassword = !this.hidePassword;
+  }
+
 }
