@@ -26,4 +26,13 @@ export class BibliotecaService {
   getList(){
     return this.listaCambio.asObservable()
   }
+  listId(id: number) {
+    return this.http.get<Biblioteca>(`${this.url}/${id}`);
+  }
+  modificifar(a: Biblioteca) {
+    return this.http.put(this.url, a);
+  }
+  delete(id:number){
+    return this.http.delete(`${this.url}/${id}`);
+  }
 }

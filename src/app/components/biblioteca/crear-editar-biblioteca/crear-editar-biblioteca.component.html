@@ -1,16 +1,22 @@
-<div class="registro-container">
-  <h1>Registro de Biblioteca</h1>
-  <form [formGroup]="form" (submit)="aceptar()">
-    <mat-form-field appearance="fill" class="custom-form-field">
-      <mat-label>Biblioteca</mat-label>
-      <input matInput placeholder="Ejemplo: Ficción" formControlName="nombre" />
-      <mat-error *ngIf="form.get('nombre')?.hasError('required')">
-        El nombre de la biblioteca es obligatorio.
-      </mat-error>
-    </mat-form-field>
+<div class="form-container">
+  <h1>{{ edicion ? 'Actualizar Biblioteca' : 'Registrar Biblioteca' }}</h1>
 
-    <button mat-raised-button color="primary" type="submit" class="submit-button">
-      Registrarme
+  <form [formGroup]="form" (ngSubmit)="aceptar()">
+
+    <div *ngIf="edicion">
+      <label for="codigo">ID</label>
+      <input id="codigo" type="text" formControlName="codigo" class="input-id" readonly />
+    </div>
+
+    <label for="nombre">Nombre de la Biblioteca</label>
+    <input id="nombre" type="text" formControlName="nombre" placeholder="Ej. Ficción" />
+    <div class="error" *ngIf="form.get('nombre')?.hasError('required') && form.get('nombre')?.touched">
+      El nombre de la biblioteca es obligatorio.
+    </div>
+
+    <button type="submit" [disabled]="form.invalid">
+      {{ edicion ? 'Actualizar' : 'Registrar' }}
     </button>
+
   </form>
 </div>
