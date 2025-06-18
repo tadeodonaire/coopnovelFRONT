@@ -4,5 +4,5 @@ export class Proyecto{
     idProyecto: number=0;
     proyTitulo: string="";
     proyDescripcion: string="";
-    usuario: Usuario = new Usuario();
+    usario: Usuario = new Usuario()
 }
