@@ -18,8 +18,8 @@ export class ProyectoService {
   list() {
     return this.http.get<Proyecto[]>(this.url);
   }
-  insert(p: Proyecto) {
-    return this.http.post(this.url, p);
+  insert(proyecto: Proyecto) {
+    return this.http.post(this.url, proyecto);
   }
   setList(listaNueva: Proyecto[]) {
     this.listaCambio.next(listaNueva);

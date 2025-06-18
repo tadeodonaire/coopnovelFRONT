@@ -34,7 +34,7 @@ import { MatButtonModule } from '@angular/material/button';
 export class CreareditarproyectosComponent implements OnInit {
   form: FormGroup = new FormGroup({});
   listaUsuarios: Usuario[] = [];
-  proyecto: Proyecto = new Proyecto();
+  proye: Proyecto = new Proyecto();
 
   id: number = 0;
   edicion: boolean = false;
@@ -68,18 +68,18 @@ export class CreareditarproyectosComponent implements OnInit {
 
   aceptar() {
     if (this.form.valid) {
-      this.proyecto.idProyecto = this.form.value.hcodigo;
-      this.proyecto.proyTitulo = this.form.value.htitulo;
-      this.proyecto.proyDescripcion = this.form.value.hdescripcion;
-      this.proyecto.usuario = this.form.value.husuarios;
+      this.proye.idProyecto = this.form.value.hcodigo;
+      this.proye.proyTitulo = this.form.value.htitulo;
+      this.proye.proyDescripcion = this.form.value.hdescripcion;
+      this.proye.usario = this.form.value.husuarios;
       if (this.edicion) {
-        this.pS.update(this.proyecto).subscribe((data) => {
+        this.pS.update(this.proye).subscribe((data) => {
           this.pS.list().subscribe((data) => {
             this.pS.setList(data);
           });
         });
       } else {
-        this.pS.insert(this.proyecto).subscribe((data) => {
+        this.pS.insert(this.proye).subscribe((data) => {
           this.pS.list().subscribe((data) => {
             this.pS.setList(data);
           });
@@ -96,7 +96,7 @@ export class CreareditarproyectosComponent implements OnInit {
           hcodigo: new FormControl(data.idProyecto),
           htitulo: new FormControl(data.proyTitulo),
           hdescripcion: new FormControl(data.proyDescripcion),
-          husuarios: new FormControl(data.usuario),
+          husuarios: new FormControl(data.usario),
         });
       });
     }
