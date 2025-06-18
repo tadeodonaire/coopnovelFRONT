@@ -1,0 +1,56 @@
+<div class="container">
+    <h1>Registro de Novela</h1>
+    <div>
+        <form [formGroup]="form" (submit)="aceptar()">
+            
+            <mat-form-field class="example-full-width" *ngIf="edicion">
+                <mat-label>ID</mat-label>
+                <input matInput formControlName="hcodigo" />
+                <mat-error *ngIf="form.get('codigo')?.hasError('required')">
+                    El codigo de la novela es obligatorio!!
+                </mat-error>
+                </mat-form-field>
+                <br />
+
+            <mat-form-field class="example-full-width">
+                <mat-label>Titulo</mat-label>
+                <input matInput placeholder="Titulo" formControlName="htitulo" />
+                <mat-error *ngIf="form.get('titulo')?.hasError('required')">
+                    El Titulo de la novela es obligatorio!!
+                </mat-error>
+                </mat-form-field>
+                <br />
+
+            <mat-form-field class="example-full-width">
+                <mat-label>Resumen</mat-label>
+                <input matInput placeholder="resumen" formControlName="hresumen" />
+                <mat-error *ngIf="form.get('resumen')?.hasError('required')">
+                    El resumen es obligatorio!!
+                </mat-error>
+                </mat-form-field>
+                <br>
+
+            <mat-form-field class="example-full-width">
+                <mat-label>Genero</mat-label>
+                <input matInput placeholder="genero" formControlName="hgenero" />
+                <mat-error *ngIf="form.get('genero')?.hasError('required')">
+                    El genero es obligatorio!!
+                </mat-error>
+                </mat-form-field>
+                <br>
+
+            <mat-form-field class="form-field">
+            <mat-label>Proyecto</mat-label>
+            <mat-select matInput placeholder="Proyecto" formControlName="hproyecto">
+                @for (m of listaProyectos; track m) {
+                <mat-option [value]="m.idProyecto">({{ m.idProyecto}}) {{m.proyTitulo}} </mat-option>
+                }
+            </mat-select>
+            </mat-form-field>
+            <br />
+
+            <button mat-flat-button="submit-button" type="submit">Aceptar</button>
+
+        </form>
+    </div>
+</div>
