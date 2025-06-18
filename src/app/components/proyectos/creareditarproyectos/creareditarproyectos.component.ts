@@ -71,7 +71,7 @@ export class CreareditarproyectosComponent implements OnInit {
       this.proye.idProyecto = this.form.value.hcodigo;
       this.proye.proyTitulo = this.form.value.htitulo;
       this.proye.proyDescripcion = this.form.value.hdescripcion;
-      this.proye.usario = this.form.value.husuarios;
+      this.proye.usario.idUsuario = this.form.value.husuarios;
       if (this.edicion) {
         this.pS.update(this.proye).subscribe((data) => {
           this.pS.list().subscribe((data) => {
@@ -96,7 +96,7 @@ export class CreareditarproyectosComponent implements OnInit {
           hcodigo: new FormControl(data.idProyecto),
           htitulo: new FormControl(data.proyTitulo),
           hdescripcion: new FormControl(data.proyDescripcion),
-          husuarios: new FormControl(data.usario),
+          husuarios: new FormControl(data.usario.idUsuario),
         });
       });
     }
