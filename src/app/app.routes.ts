@@ -5,6 +5,8 @@ import { BibliotecaComponent } from './components/biblioteca/biblioteca.componen
 import { CrearEditarBibliotecaComponent } from './components/biblioteca/crear-editar-biblioteca/crear-editar-biblioteca.component';
 import { ProyectosComponent } from './components/proyectos/proyectos.component';
 import { CreareditarproyectosComponent } from './components/proyectos/creareditarproyectos/creareditarproyectos.component';
+import { NovelaComponent } from './components/novela/novela.component';
+import { CreareditarnovelaComponent } from './components/novela/creareditarnovela/creareditarnovela.component';
 
 export const routes: Routes = [
   {
@@ -47,6 +49,21 @@ export const routes: Routes = [
       {
         path: 'ediciones/:id',
         component: CreareditarproyectosComponent,
+      },
+    ],
+  },
+
+  {
+    path: 'novela',
+    component: NovelaComponent,
+    children: [
+      {
+        path: 'insertar',
+        component: CreareditarnovelaComponent,
+      },
+      {
+        path: 'ediciones/:id',
+        component: CreareditarnovelaComponent,
       },
     ],
   },
