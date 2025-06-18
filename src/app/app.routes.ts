@@ -5,7 +5,6 @@ import { BibliotecaComponent } from './components/biblioteca/biblioteca.componen
 import { CrearEditarBibliotecaComponent } from './components/biblioteca/crear-editar-biblioteca/crear-editar-biblioteca.component';
 import { ProyectosComponent } from './components/proyectos/proyectos.component';
 import { CreareditarproyectosComponent } from './components/proyectos/creareditarproyectos/creareditarproyectos.component';
-import { Component } from '@angular/core';
 
 export const routes: Routes = [
   {
