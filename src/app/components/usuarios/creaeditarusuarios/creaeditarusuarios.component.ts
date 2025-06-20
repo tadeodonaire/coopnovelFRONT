@@ -70,7 +70,7 @@ export class CreaeditarusuariosComponent {
       fecha: ['', Validators.required],
       usuario: ['', Validators.required],
       contrasena: ['', Validators.required],
-      estado: ['', Validators.required],
+      estado: [''],
       email: ['', [Validators.required, Validators.email]],
     });
   }
@@ -84,7 +84,7 @@ export class CreaeditarusuariosComponent {
       this.usuario.usCorreo = this.form.value.email;
       this.usuario.username = this.form.value.usuario;
       this.usuario.password = this.form.value.contrasena;
-      this.usuario.usEnable = this.form.value.estado;
+      this.usuario.usEnable = true;
       if (this.edicion) {
         this.uS.update(this.usuario).subscribe(() => {
           this.uS.list().subscribe((data) => {

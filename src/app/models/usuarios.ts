@@ -6,5 +6,5 @@ export class Usuario {
     usCorreo: string="";
     username: string="";
     password: string="";
-    usEnable: boolean=false;
+    usEnable: boolean=true;
 }
