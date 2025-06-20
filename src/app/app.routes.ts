@@ -34,7 +34,7 @@ export const routes: Routes = [
         component: CrearEditarBibliotecaComponent,
       },
       {
-        path:'actualizar/:id',
+        path: 'actualizar/:id',
         component: CrearEditarBibliotecaComponent
       }
     ],
