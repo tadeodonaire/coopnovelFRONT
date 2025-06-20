@@ -64,7 +64,7 @@
     </div>
 
 
-    <label>Estado</label>
+    <label *ngIf="edicion" >Estado</label>
     <div class="radio-group" *ngIf="edicion">
       <label><input type="radio" [value]="true" formControlName="estado" /> Activo</label>
       <label><input type="radio" [value]="false" formControlName="estado" /> Inactivo</label>
