@@ -7,6 +7,7 @@ import { ProyectosComponent } from './components/proyectos/proyectos.component';
 import { CreareditarproyectosComponent } from './components/proyectos/creareditarproyectos/creareditarproyectos.component';
 import { NovelaComponent } from './components/novela/novela.component';
 import { CreareditarnovelaComponent } from './components/novela/creareditarnovela/creareditarnovela.component';
+import { ReunionComponent } from './components/reunion/reunion.component';
 
 export const routes: Routes = [
   {
@@ -32,7 +33,7 @@ export const routes: Routes = [
         component: CrearEditarBibliotecaComponent,
       },
       {
-        path:'actualizar/:id',
+        path: 'actualizar/:id',
         component: CrearEditarBibliotecaComponent
       }
     ],
@@ -66,5 +67,10 @@ export const routes: Routes = [
         component: CreareditarnovelaComponent,
       },
     ],
+  },
+
+  {
+    path: 'reunion',
+    component: ReunionComponent,
   },
 ];
