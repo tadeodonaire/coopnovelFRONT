@@ -1,52 +1,61 @@
-@import url('https://fonts.googleapis.com/css2?family=Nunito:wght@400;700&display=swap');
+.titulo-container {
+  text-align: center;
+  margin-bottom: 30px;
+}
 
 .titulo {
-  font-family: 'Nunito', sans-serif;
-  color: #00aaff;
-  text-align: center;
-  margin-bottom: 20px;
-}
-
-.tabla-container {
-  background-color: #ffffff;
-  padding: 20px;
-  border-radius: 12px;
-  box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.08);
-  margin: 0 auto;
-  max-width: 1000px;
-}
-
-.tabla-usuarios {
-  width: 100%;
-  font-family: 'Nunito', sans-serif;
-  border-collapse: collapse;
-  font-size: 16px;
-}
-
-.mat-header-row {
-  background-color: #e0f7ff;
+  font-size: 2rem;
+  color: #3C763D;
   font-weight: bold;
-  color: #007bce;
+  font-family: 'Quicksand', sans-serif;
 }
 
-.mat-header-cell {
-  background-color: #e5f6ff;
-  font-weight: 700;
-  color: #00aaff;
+.tarjetas-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  justify-content: center;
+  padding: 0 10px;
 }
 
-.mat-cell, .mat-header-cell {
-  padding: 12px;
+.tarjeta-usuario {
+  width: 280px;
+  border-radius: 20px;
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.15);
+  background: #fdfdfd;
+  transition: transform 0.2s;
 }
 
-.mat-row:hover {
-  background-color: #d9f1ff !important;
-  transition: background-color 0.2s ease;
-  cursor: pointer;
+.tarjeta-usuario:hover {
+  transform: scale(1.03);
 }
 
-
-.mat-cell {
-  color: #333;
+.avatar-icon {
+  background-color: #a2e66a;
+  color: white;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
+.estado-activo {
+  color: green;
+  font-weight: 600;
+}
+
+.estado-inactivo {
+  color: red;
+  font-weight: 600;
+}
+
+mat-card-content p {
+  margin: 8px 0;
+  font-size: 0.95rem;
+}
+
+mat-card-actions {
+  display: flex;
+  justify-content: flex-end;
+  padding: 8px 16px 16px;
+}

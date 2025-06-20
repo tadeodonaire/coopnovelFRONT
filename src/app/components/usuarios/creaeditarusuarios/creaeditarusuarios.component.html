@@ -1,5 +1,5 @@
 <div class="form-container">
-  <h1>Registro de Usuario</h1>
+  <h1>{{ edicion ? 'Editar Usuario' : 'Registro de Usuario' }}</h1>
   <form [formGroup]="form" (ngSubmit)="aceptar()">
 
     <div *ngIf="edicion">
@@ -65,7 +65,7 @@
 
 
     <label>Estado</label>
-    <div class="radio-group">
+    <div class="radio-group" *ngIf="edicion">
       <label><input type="radio" [value]="true" formControlName="estado" /> Activo</label>
       <label><input type="radio" [value]="false" formControlName="estado" /> Inactivo</label>
     </div>
@@ -73,7 +73,9 @@
       El estado es obligatorio
     </div>
 
-    <button type="submit" [disabled]="form.invalid">Registrarme</button>
+    <button type="submit" [disabled]="form.invalid">
+      {{ edicion ? 'Modificar Usuario' : 'Registrarme' }}
+    </button>
 
   </form>
 </div>

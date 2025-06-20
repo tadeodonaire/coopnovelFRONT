@@ -6,10 +6,11 @@ import { Usuario } from '../../../models/usuarios';
 import { RouterLink, RouterModule } from '@angular/router';
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
+import { MatCardModule } from '@angular/material/card';
 
 @Component({
   selector: 'app-listarusuarios',
-  imports: [CommonModule,MatTableModule,RouterModule,MatIconModule, MatButtonModule,RouterLink],
+  imports: [CommonModule,MatTableModule,RouterModule,MatIconModule, MatButtonModule,RouterLink, MatCardModule],
   templateUrl: './listarusuarios.component.html',
   styleUrl: './listarusuarios.component.css'
 })
