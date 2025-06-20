@@ -18,6 +18,11 @@
     Novela
   </button>
 </div>
+<div>
+  <button mat-button [matMenuTriggerFor]="CAPITULO" class="duolingo-menu-button">
+    Capitulos
+  </button>
+</div>
 
 <mat-menu #USUARIOS="matMenu" class="duolingo-menu">
   <button mat-menu-item routerLink="/usuarios" class="custom-menu-item">Listar</button>
@@ -38,6 +43,11 @@
 <mat-menu #NOVELA="matMenu" class="duolingo-menu">
   <button mat-menu-item routerLink="/novela" class="custom-menu-item">Listar</button>
   <button mat-menu-item routerLink="/novela/insertar" class="custom-menu-item">Registrar</button>
+</mat-menu>
+
+<mat-menu #CAPITULO="matMenu" class="duolingo-menu">
+  <button mat-menu-item routerLink="/capitulo" class="custom-menu-item">Listar</button>
+  <button mat-menu-item routerLink="/capitulo/insertar" class="custom-menu-item">Registrar</button>
 </mat-menu>
   
 <router-outlet></router-outlet>

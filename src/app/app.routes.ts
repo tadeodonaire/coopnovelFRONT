@@ -7,6 +7,8 @@ import { ProyectosComponent } from './components/proyectos/proyectos.component';
 import { CreareditarproyectosComponent } from './components/proyectos/creareditarproyectos/creareditarproyectos.component';
 import { NovelaComponent } from './components/novela/novela.component';
 import { CreareditarnovelaComponent } from './components/novela/creareditarnovela/creareditarnovela.component';
+import { CapituloComponent } from './components/capitulo/capitulo.component';
+import { CreaeditacapitulosComponent } from './components/capitulo/creaeditacapitulos/creaeditacapitulos.component';
 
 export const routes: Routes = [
   {
@@ -64,6 +66,20 @@ export const routes: Routes = [
       {
         path: 'ediciones/:id',
         component: CreareditarnovelaComponent,
+      },
+    ],
+  },
+  {
+    path: 'capitulo',
+    component: CapituloComponent,
+    children: [
+      {
+        path: 'insertar',
+        component: CreaeditacapitulosComponent,
+      },
+      {
+        path: 'ediciones/:id',
+        component: CreaeditacapitulosComponent,
       },
     ],
   },
