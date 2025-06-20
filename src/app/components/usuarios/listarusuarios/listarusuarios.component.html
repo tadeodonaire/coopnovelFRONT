@@ -8,25 +8,47 @@
       <div mat-card-avatar class="avatar-icon">
         <mat-icon>person</mat-icon>
       </div>
-      <mat-card-title>{{ element.usNombre }} {{ element.usApellido }}</mat-card-title>
+      <mat-card-title
+        >{{ element.usNombre }} {{ element.usApellido }}</mat-card-title
+      >
       <mat-card-subtitle>👤 {{ element.username }}</mat-card-subtitle>
     </mat-card-header>
 
     <mat-card-content>
       <p><strong>📧 Correo:</strong> {{ element.usCorreo }}</p>
-      <p><strong>🎂 Fecha de Nacimiento:</strong> {{ element.usFecNacimiento | date: 'dd/MM/yyyy' }}</p>
-      <p><strong>🔒 Estado:</strong> 
-        <span [ngClass]="element.usEnable ? 'estado-activo' : 'estado-inactivo'">
-          {{ element.usEnable ? 'Habilitado ✅' : 'Deshabilitado ❌' }}
+      <p>
+        <strong>🎂 Fecha de Nacimiento:</strong>
+        {{ element.usFecNacimiento | date : "dd/MM/yyyy" }}
+      </p>
+      <p>
+        <strong>🔒 Estado:</strong>
+        <span
+          [ngClass]="element.usEnable ? 'estado-activo' : 'estado-inactivo'"
+          [routerLink]="['editar', element.idUsuario]"
+          style="cursor: pointer; text-decoration: underline"
+        >
+          {{ element.usEnable ? "Habilitado ✅" : "Deshabilitado ❌" }}
         </span>
       </p>
     </mat-card-content>
 
     <mat-card-actions align="end">
-      <button mat-mini-fab color="primary" [routerLink]="['editar', element.idUsuario]" aria-label="Editar usuario">
+      <button
+        mat-mini-fab
+        color="primary"
+        [routerLink]="['editar', element.idUsuario]"
+        aria-label="Editar usuario"
+      >
         <mat-icon>edit</mat-icon>
       </button>
-      <button mat-mini-fab color="warn" (click)="eliminar(element.idUsuario)" aria-label="Eliminar usuario">
+
+      <button
+        mat-mini-fab
+        matColumnDef="eliminar"
+        color="warn"
+        (click)="eliminar(element.idUsuario)"
+        aria-label="Eliminar usuario"
+      >
         <mat-icon>delete</mat-icon>
       </button>
     </mat-card-actions>

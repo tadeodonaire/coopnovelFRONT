@@ -57,12 +57,6 @@ export class CreaeditarusuariosComponent {
   ) {}
 
   ngOnInit() {
-    this.route.params.subscribe((data: Params) => {
-      this.id = data['id'];
-      this.edicion = data['id'] != null;
-      this.init();
-    });
-
     this.form = this.formBuilder.group({
       codigo: [''],
       nombre: ['', Validators.required],
@@ -72,6 +66,12 @@ export class CreaeditarusuariosComponent {
       contrasena: ['', Validators.required],
       estado: [''],
       email: ['', [Validators.required, Validators.email]],
+    });
+
+    this.route.params.subscribe((data: Params) => {
+      this.id = data['id'];
+      this.edicion = this.id != null;
+      this.init();
     });
   }
 
@@ -84,7 +84,7 @@ export class CreaeditarusuariosComponent {
       this.usuario.usCorreo = this.form.value.email;
       this.usuario.username = this.form.value.usuario;
       this.usuario.password = this.form.value.contrasena;
-      this.usuario.usEnable = true;
+      this.usuario.usEnable = this.edicion ? this.form.value.estado : true;
       if (this.edicion) {
         this.uS.update(this.usuario).subscribe(() => {
           this.uS.list().subscribe((data) => {
@@ -99,12 +99,12 @@ export class CreaeditarusuariosComponent {
         });
       }
     }
-    this.router.navigate(['/usuarios']);
+    this.router.navigate(['usuarios']);
   }
 
-  init(){
-    if(this.edicion) {
-      this.uS.listId(this.id).subscribe((data)=>{
+  init() {
+    if (this.edicion) {
+      this.uS.listId(this.id).subscribe((data) => {
         this.form = new FormGroup({
           codigo: new FormControl(data.idUsuario),
           nombre: new FormControl(data.usNombre),
@@ -118,10 +118,8 @@ export class CreaeditarusuariosComponent {
       });
     }
   }
-  
 
   togglePasswordVisibility() {
     this.hidePassword = !this.hidePassword;
   }
-
 }
