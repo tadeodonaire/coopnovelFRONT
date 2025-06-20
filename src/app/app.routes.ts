@@ -83,4 +83,8 @@ export const routes: Routes = [
       },
     ],
   },
+  {
+    path: 'reunion',
+    component: CapituloComponent,
+  },
 ];

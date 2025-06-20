@@ -36,6 +36,12 @@
         <span *ngIf="isExpanded">Capítulo</span>
       </button>
 
+      <!-- REUNION -->
+      <button mat-button [matMenuTriggerFor]="REUNION">
+        <mat-icon>notes</mat-icon>
+        <span *ngIf="isExpanded">Reunion</span>
+      </button>
+
     </mat-nav-list>
   </mat-sidenav>
 
@@ -67,4 +73,8 @@
 <mat-menu #CAPITULO="matMenu">
   <button mat-menu-item routerLink="/capitulo">Listar</button>
   <button mat-menu-item routerLink="/capitulo/insertar">Registrar</button>
+</mat-menu>
+
+<mat-menu #REUNION="matMenu">
+  <button mat-menu-item routerLink="/reunion">Listar</button>
 </mat-menu>
