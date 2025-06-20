@@ -1,0 +1,56 @@
+<div>
+  <h1 class="titulo">Listar Capitulos</h1>
+</div>
+
+<div class="tabla-container">
+  <table mat-table [dataSource]="dataSource" class="mat-elevation-z8 tabla-usuarios">
+
+    <ng-container matColumnDef="novela">
+      <th mat-header-cell *matHeaderCellDef> Titulo de Novela </th>
+      <td mat-cell *matCellDef="let element"> {{element.novelas.novTitulo}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="titulo">
+      <th mat-header-cell *matHeaderCellDef> Titulo del Capitulo </th>
+      <td mat-cell *matCellDef="let element"> {{element.capTitulo}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="contenido">
+      <th mat-header-cell *matHeaderCellDef> Contenido </th>
+      <td mat-cell *matCellDef="let element"> {{element.capContenido}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="descarga">
+      <th mat-header-cell *matHeaderCellDef> Descarga </th>
+      <td mat-cell *matCellDef="let element"> {{element.descargas.idDescarga}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="id">
+      <th mat-header-cell *matHeaderCellDef> ID </th>
+      <td mat-cell *matCellDef="let element"> {{element.idCapitulo}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="editar">
+      <th mat-header-cell *matHeaderCellDef>  Editar </th>
+      <td mat-cell *matCellDef="let element">
+        <button mat-flat-button [routerLink]="['ediciones',element.idCapitulo]">
+          <mat-icon>edit</mat-icon> Editar
+        </button>
+      </td>
+    </ng-container>
+
+    <!-- Symbol Column -->
+    <ng-container matColumnDef="eliminar">
+      <th mat-header-cell *matHeaderCellDef>  Eliminar </th>
+      <td mat-cell *matCellDef="let element">
+        <button mat-flat-button (click)="eliminar(element.idCapitulo)">
+          <mat-icon>delete</mat-icon> Eliminar
+        </button>
+      </td>
+    </ng-container>
+  
+
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+  </table>
+</div>
