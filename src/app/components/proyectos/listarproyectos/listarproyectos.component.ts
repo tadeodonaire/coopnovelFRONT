@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
 import { MatTableDataSource, MatTableModule } from '@angular/material/table';
 import { Proyecto } from '../../../models/proyecto';
 import { ProyectoService } from '../../../services/proyecto.service';
@@ -6,14 +6,15 @@ import { CommonModule } from '@angular/common';
 import { MatButtonModule } from '@angular/material/button';
 import { RouterLink } from '@angular/router';
 import { MatIconModule } from '@angular/material/icon';
+import { MatPaginator, MatPaginatorModule } from '@angular/material/paginator';
 
 @Component({
   selector: 'app-listarproyectos',
-  imports: [MatTableModule, CommonModule,MatButtonModule,RouterLink, MatIconModule],
+  imports: [MatTableModule, CommonModule,MatButtonModule,RouterLink, MatIconModule, MatPaginatorModule],
   templateUrl: './listarproyectos.component.html',
   styleUrl: './listarproyectos.component.css'
 })
-export class ListarproyectosComponent implements OnInit{
+export class ListarproyectosComponent implements OnInit, AfterViewInit{
   dataSource:MatTableDataSource<Proyecto>=new MatTableDataSource();
   displayedColumns:string[]=["c1","c2","c3","c4","c5","c6"];
 
@@ -35,4 +36,10 @@ export class ListarproyectosComponent implements OnInit{
       });
     });
   }
-}
+  @ViewChild(MatPaginator) paginator!: MatPaginator;
+  ngAfterViewInit() {
+  this.dataSource.paginator = this.paginator;
+}}
+
+
+
