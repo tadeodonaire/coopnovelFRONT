@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import {
   FormBuilder,
   FormControl,
@@ -31,7 +31,7 @@ import { ActivatedRoute, Params, Router } from '@angular/router';
   templateUrl: './creaeditacapitulos.component.html',
   styleUrl: './creaeditacapitulos.component.css',
 })
-export class CreaeditacapitulosComponent {
+export class CreaeditacapitulosComponent  implements OnInit{
   form: FormGroup = new FormGroup({});
   listaNovelas: Novela[] = [];
   listaDescargas: Descargas[] = [];
@@ -76,8 +76,8 @@ export class CreaeditacapitulosComponent {
       this.capitulo.idCapitulo = this.form.value.id;
       this.capitulo.capTitulo = this.form.value.titulo;
       this.capitulo.capContenido = this.form.value.contenido;
-      this.capitulo.descargas.idDescarga = this.form.value.descarga;
-      this.capitulo.novelas.idNovela = this.form.value.novela;
+      this.capitulo.descargas.idDescarga = this.form.value.descargas;
+      this.capitulo.novelas.idNovela = this.form.value.novelas;
 
       console.log(this.form.value);
 

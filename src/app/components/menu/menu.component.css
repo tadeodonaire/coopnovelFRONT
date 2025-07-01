@@ -1,0 +1,21 @@
+.sidenav-container {
+  height: 100vh;
+}
+
+.sidenav {
+  width: 220px;
+  transition: width 0.3s;
+  background: #f4f4f4;
+}
+
+.sidenav.collapsed {
+  width: 60px;
+}
+
+.toggle-button {
+  margin: 10px;
+}
+
+mat-icon {
+  margin-right: 10px;
+}
