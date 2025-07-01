@@ -1,0 +1,75 @@
+/* Contenedor principal del formulario */
+.form-container {
+  background-color: #fff;
+  border-radius: 16px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
+  padding: 30px;
+  width: 100%;
+  max-width: 500px;
+  margin: 40px auto;
+  font-family: 'Nunito', sans-serif;
+}
+
+/* Título */
+h1 {
+  color: #1cb0f6;
+  font-size: 28px;
+  margin-bottom: 24px;
+  text-align: center;
+}
+
+/* Campos de Angular Material */
+mat-form-field {
+  width: 100%;
+  margin-bottom: 16px;
+}
+
+/* Entrada deshabilitada (para ID) */
+.input-id {
+  background-color: #f5f5f5 !important;
+  color: #999 !important;
+  pointer-events: none;
+}
+
+/* Estilo de errores: más separados del campo */
+mat-error,
+.error {
+  color: #e53935;
+  font-size: 14px;
+  margin-top: 4px;   /* antes era -12px */
+  margin-bottom: 12px;
+  display: block;
+}
+
+
+/* Botón de envío */
+button[type="submit"] {
+  background-color: #1cb0f6;
+  color: white;
+  font-size: 16px;
+  font-weight: 600;
+  padding: 12px 20px;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  width: 100%;
+  transition: background 0.3s ease;
+}
+
+button[type="submit"]:hover {
+  background-color: #1199d6;
+}
+
+button[type="submit"]:disabled {
+  background-color: #a0dffb;
+  cursor: not-allowed;
+}
+
+/* Aumentar tamaño del textarea */
+textarea[matInput] {
+  min-height: 200px;
+  resize: vertical;
+  font-family: 'Nunito', sans-serif;
+  font-size: 16px;
+  padding: 10px 14px;
+}

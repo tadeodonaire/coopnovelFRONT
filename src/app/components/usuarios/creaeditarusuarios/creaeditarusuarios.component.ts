@@ -85,6 +85,7 @@ export class CreaeditarusuariosComponent {
       this.usuario.username = this.form.value.usuario;
       this.usuario.password = this.form.value.contrasena;
       this.usuario.usEnable = this.edicion ? this.form.value.estado : true;
+      
       if (this.edicion) {
         this.uS.update(this.usuario).subscribe(() => {
           this.uS.list().subscribe((data) => {
