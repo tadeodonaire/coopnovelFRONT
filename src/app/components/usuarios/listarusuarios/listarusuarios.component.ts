@@ -51,11 +51,11 @@ export class ListarusuariosComponent implements OnInit {
   ngOnInit(): void {
     this.uS.list().subscribe((data) => {
       this.dataSource = new MatTableDataSource(data);
-      this.updatePaginatedData(0, 6); // Primera página
+      this.updatePaginatedData(0, 6); 
     });
     this.uS.getList().subscribe((data) => {
       this.dataSource = new MatTableDataSource(data);
-      this.updatePaginatedData(0, 6); // Primera página
+      this.updatePaginatedData(0, 6)
     });
   }
 
