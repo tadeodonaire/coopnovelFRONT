@@ -85,7 +85,7 @@ export class CreaeditarusuariosComponent {
       this.usuario.username = this.form.value.usuario;
       this.usuario.password = this.form.value.contrasena;
       this.usuario.usEnable = this.edicion ? this.form.value.estado : true;
-      
+
       if (this.edicion) {
         this.uS.update(this.usuario).subscribe(() => {
           this.uS.list().subscribe((data) => {
@@ -106,15 +106,17 @@ export class CreaeditarusuariosComponent {
   init() {
     if (this.edicion) {
       this.uS.listId(this.id).subscribe((data) => {
-        this.form = new FormGroup({
-          codigo: new FormControl(data.idUsuario),
-          nombre: new FormControl(data.usNombre),
-          apellido: new FormControl(data.usApellido),
-          email: new FormControl(data.usCorreo),
-          fecha: new FormControl(data.usFecNacimiento),
-          usuario: new FormControl(data.username),
-          contrasena: new FormControl(data.password),
-          estado: new FormControl(data.usEnable),
+        this.usuario = data;
+
+        this.form.patchValue({
+          codigo: data.idUsuario,
+          nombre: data.usNombre,
+          apellido: data.usApellido,
+          email: data.usCorreo,
+          fecha: data.usFecNacimiento,
+          usuario: data.username,
+          contrasena: data.password,
+          estado: data.usEnable,
         });
       });
     }
