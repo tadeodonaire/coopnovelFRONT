@@ -41,6 +41,12 @@
         <mat-icon>notes</mat-icon>
         <span *ngIf="isExpanded">Reunion</span>
       </button>
+      
+      <!-- DESCARGAS -->
+      <button mat-button [matMenuTriggerFor]="DESCARGAS">
+        <mat-icon>cloud_download</mat-icon>
+        <span *ngIf="isExpanded">Descargas</span>
+      </button>
 
     </mat-nav-list>
   </mat-sidenav>
@@ -77,4 +83,9 @@
 
 <mat-menu #REUNION="matMenu">
   <button mat-menu-item routerLink="/reunion">Listar</button>
+</mat-menu>
+
+<mat-menu #DESCARGAS="matMenu">
+  <button mat-menu-item routerLink="/descargas">Listar</button>
+  <button mat-menu-item routerLink="/descargas/insertar">Registrar</button>
 </mat-menu>

@@ -9,6 +9,8 @@ import { NovelaComponent } from './components/novela/novela.component';
 import { CreareditarnovelaComponent } from './components/novela/creareditarnovela/creareditarnovela.component';
 import { CapituloComponent } from './components/capitulo/capitulo.component';
 import { CreaeditacapitulosComponent } from './components/capitulo/creaeditacapitulos/creaeditacapitulos.component';
+import { DescargasComponent } from './components/descargas/descargas.component';
+import { CreareditardescargasComponent } from './components/descargas/creareditardescargas/creareditardescargas.component';
 
 export const routes: Routes = [
   {
@@ -22,6 +24,20 @@ export const routes: Routes = [
       {
         path: 'editar/:id',
         component: CreaeditarusuariosComponent,
+      },
+    ],
+  },
+    {
+    path: 'descargas',
+    component: DescargasComponent,
+    children: [
+      {
+        path: 'insertar',
+        component: CreareditardescargasComponent,
+      },
+      {
+        path: 'editar/:id',
+        component: CreareditardescargasComponent,
       },
     ],
   },
