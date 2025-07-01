@@ -2,7 +2,8 @@ import { Injectable } from '@angular/core';
 import { environment } from '../../environments/environment';
 import { Usuario } from '../models/usuarios';
 import { HttpClient } from '@angular/common/http';
-import { Subject } from 'rxjs';
+import { Observable, Subject } from 'rxjs';
+import { EdadDTO } from '../models/edadDTO';
 
 const base_url = environment.base;
 
@@ -41,4 +42,8 @@ export class UsuariosService {
     return this.http.delete(`${this.url}/${id}`);
   }
   
+  getEdad():Observable<EdadDTO[]>{
+    return this.http.get<EdadDTO[]>(`${this.url}/edad`);
+  }
+
 }
