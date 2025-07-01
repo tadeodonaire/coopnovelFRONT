@@ -3,7 +3,7 @@
 </div>
 
 <div class="tarjetas-container">
-  <mat-card *ngFor="let element of dataSource.data" class="tarjeta-usuario">
+  <mat-card *ngFor="let element of paginatedData" class="tarjeta-usuario">
     <mat-card-header>
       <div mat-card-avatar class="avatar-icon">
         <mat-icon>person</mat-icon>
@@ -32,3 +32,9 @@
     </mat-card-actions>
   </mat-card>
 </div>
+
+<mat-paginator [length]="dataSource.data.length"
+               [pageSize]="6"
+               [pageSizeOptions]="[3, 6, 9]"
+               (page)="onPageChange($event)">
+</mat-paginator>

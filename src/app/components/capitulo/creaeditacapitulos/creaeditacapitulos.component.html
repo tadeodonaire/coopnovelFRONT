@@ -1,62 +1,56 @@
-<div class="container">
+<div class="form-container">
   <h1>Registro de Capitulos</h1>
-  <div>
-    <form [formGroup]="form" (submit)="aceptar()">
-      <mat-form-field class="example-full-width" *ngIf="edicion">
-        <mat-label>ID</mat-label>
-        <input matInput formControlName="id" />
-      </mat-form-field>
+  <form [formGroup]="form" (submit)="aceptar()">
+    
+    <mat-form-field class="example-full-width" *ngIf="edicion">
+      <mat-label>ID</mat-label>
+      <input matInput formControlName="id" class="input-id" readonly />
+    </mat-form-field>
 
-      <br />
-
-      <mat-form-field class="form-field">
-        <mat-label>Titulo de Novela</mat-label>
-        <mat-select matInput placeholder="Novela" formControlName="novelas">
-          @for (m of listaNovelas; track m) {
-          <mat-option [value]="m.idNovela"
-            >({{ m.idNovela }}) - {{ m.novTitulo }}
+    <mat-form-field class="example-full-width">
+      <mat-label>Titulo de Novela</mat-label>
+      <mat-select placeholder="Novela" formControlName="novelas">
+        @for (m of listaNovelas; track m) {
+          <mat-option [value]="m.idNovela">
+            ({{ m.idNovela }}) - {{ m.novTitulo }}
           </mat-option>
-          }
-        </mat-select>
-      </mat-form-field>
+        }
+      </mat-select>
+    </mat-form-field>
 
-      <br />
+    <mat-form-field class="example-full-width">
+      <mat-label>Titulo de Capitulo</mat-label>
+      <input matInput placeholder="Capitulo" formControlName="titulo" />
+      <mat-error *ngIf="form.get('titulo')?.hasError('required')">
+        El titulo del capitulo es obligatorio!!
+      </mat-error>
+    </mat-form-field>
 
-      <mat-form-field class="example-full-width">
-        <mat-label>Titulo de Capitulo</mat-label>
-        <input matInput placeholder="Capitulo" formControlName="titulo" />
-        <mat-error *ngIf="form.get('descripcion')?.hasError('required')">
-          El titulo del capitulo obligatorio!!
-        </mat-error>
-      </mat-form-field>
+    <mat-form-field class="example-full-width">
+      <mat-label>Contenido de Capitulo</mat-label>
+      <textarea
+        matInput
+        placeholder="Contenido"
+        formControlName="contenido"
+        rows="12"
+        style="resize: vertical;"
+      ></textarea>
+      <mat-error *ngIf="form.get('contenido')?.hasError('required')">
+        El contenido es obligatorio!!
+      </mat-error>
+    </mat-form-field>
 
-      <br />
-
-      <mat-form-field class="example-full-width">
-        <mat-label>Contenido de Capitulo</mat-label>
-        <input matInput placeholder="Contenido" formControlName="contenido" />
-        <mat-error *ngIf="form.get('titulo')?.hasError('required')">
-          El contenido es obligatorio!!
-        </mat-error>
-      </mat-form-field>
-      <br />
-
-      <br />
-
-      <mat-form-field class="form-field">
-        <mat-label>Descargas</mat-label>
-        <mat-select matInput placeholder="Descarga" formControlName="descargas">
-          @for (m of listaDescargas; track m) {
-          <mat-option [value]="m.idDescarga"
-            >({{ m.idDescarga }}) - {{ m.hisFecha }}
+    <mat-form-field class="example-full-width">
+      <mat-label>Descargas</mat-label>
+      <mat-select placeholder="Descarga" formControlName="descargas">
+        @for (m of listaDescargas; track m) {
+          <mat-option [value]="m.idDescarga">
+            ({{ m.idDescarga }}) - {{ m.hisFecha }}
           </mat-option>
-          }
-        </mat-select>
-      </mat-form-field>
+        }
+      </mat-select>
+    </mat-form-field>
 
-      <br />
-
-      <button mat-flat-button="submit-button" type="submit">Aceptar</button>
-    </form>
-  </div>
+    <button mat-flat-button type="submit">Aceptar</button>
+  </form>
 </div>

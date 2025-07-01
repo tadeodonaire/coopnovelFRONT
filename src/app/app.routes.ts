@@ -9,6 +9,8 @@ import { NovelaComponent } from './components/novela/novela.component';
 import { CreareditarnovelaComponent } from './components/novela/creareditarnovela/creareditarnovela.component';
 import { CapituloComponent } from './components/capitulo/capitulo.component';
 import { CreaeditacapitulosComponent } from './components/capitulo/creaeditacapitulos/creaeditacapitulos.component';
+import { ReunionComponent } from './components/reunion/reunion.component';
+import { ReportesComponent } from './components/reportes/reportes.component';
 import { DescargasComponent } from './components/descargas/descargas.component';
 import { CreareditardescargasComponent } from './components/descargas/creareditardescargas/creareditardescargas.component';
 
@@ -101,6 +103,22 @@ export const routes: Routes = [
   },
   {
     path: 'reunion',
-    component: CapituloComponent,
+    component: ReunionComponent,
   },
+
+
+  /* TODAS LAS RUTAS DE LOS COMPONENTES (ES ANTES DE REPORTES / REPORTES POR ORDEN VA ULTIMO)
+
+  */
+  {
+  path: 'reportes',
+  component: ReportesComponent, /*
+  children: [
+    {
+      path: 'otro reporte',
+      component: otro component de reporte,
+    },
+  ],
+  */
+},
 ];

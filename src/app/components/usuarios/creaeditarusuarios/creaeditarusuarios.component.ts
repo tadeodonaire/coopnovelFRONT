@@ -57,20 +57,22 @@ export class CreaeditarusuariosComponent {
   ) {}
 
   ngOnInit() {
-    this.form = this.formBuilder.group({
-      codigo: [''],
-      nombre: ['', Validators.required],
-      apellido: ['', Validators.required],
-      fecha: ['', Validators.required],
-      usuario: ['', Validators.required],
-      contrasena: ['', Validators.required],
-      estado: [''],
-      email: ['', [Validators.required, Validators.email]],
-    });
-
     this.route.params.subscribe((data: Params) => {
       this.id = data['id'];
       this.edicion = this.id != null;
+
+      // Luego de saber si es edición, recién aquí construimos el form
+      this.form = this.formBuilder.group({
+        codigo: [''],
+        nombre: ['', Validators.required],
+        apellido: ['', Validators.required],
+        fecha: ['', Validators.required],
+        usuario: ['', Validators.required],
+        contrasena: ['', this.edicion ? [] : Validators.required],
+        estado: ['', Validators.required],
+        email: ['', [Validators.required, Validators.email]],
+      });
+
       this.init();
     });
   }
@@ -85,6 +87,7 @@ export class CreaeditarusuariosComponent {
       this.usuario.username = this.form.value.usuario;
       this.usuario.password = this.form.value.contrasena;
       this.usuario.usEnable = this.edicion ? this.form.value.estado : true;
+
       if (this.edicion) {
         this.uS.update(this.usuario).subscribe(() => {
           this.uS.list().subscribe((data) => {
@@ -105,15 +108,17 @@ export class CreaeditarusuariosComponent {
   init() {
     if (this.edicion) {
       this.uS.listId(this.id).subscribe((data) => {
-        this.form = new FormGroup({
-          codigo: new FormControl(data.idUsuario),
-          nombre: new FormControl(data.usNombre),
-          apellido: new FormControl(data.usApellido),
-          email: new FormControl(data.usCorreo),
-          fecha: new FormControl(data.usFecNacimiento),
-          usuario: new FormControl(data.username),
-          contrasena: new FormControl(data.password),
-          estado: new FormControl(data.usEnable),
+        this.usuario = data;
+
+        this.form.patchValue({
+          codigo: data.idUsuario,
+          nombre: data.usNombre,
+          apellido: data.usApellido,
+          email: data.usCorreo,
+          fecha: data.usFecNacimiento,
+          usuario: data.username,
+          contrasena: data.password,
+          estado: data.usEnable,
         });
       });
     }
