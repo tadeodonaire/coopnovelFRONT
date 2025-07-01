@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatTableDataSource, MatTableModule } from '@angular/material/table';
 import { UsuariosService } from '../../../services/usuarios.service';
 import { Usuario } from '../../../models/usuarios';
@@ -8,6 +8,11 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import {
+  MatPaginator,
+  MatPaginatorModule,
+  PageEvent,
+} from '@angular/material/paginator';
 
 @Component({
   selector: 'app-listarusuarios',
@@ -19,12 +24,16 @@ import { MatSnackBar } from '@angular/material/snack-bar';
     MatButtonModule,
     RouterLink,
     MatCardModule,
+    MatPaginatorModule,
   ],
   templateUrl: './listarusuarios.component.html',
   styleUrl: './listarusuarios.component.css',
 })
 export class ListarusuariosComponent implements OnInit {
   dataSource: MatTableDataSource<Usuario> = new MatTableDataSource();
+  paginatedData: Usuario[] = [];
+  @ViewChild(MatPaginator) paginator!: MatPaginator;
+
   displayedColumns: string[] = [
     'id',
     'nombre',
@@ -42,10 +51,21 @@ export class ListarusuariosComponent implements OnInit {
   ngOnInit(): void {
     this.uS.list().subscribe((data) => {
       this.dataSource = new MatTableDataSource(data);
+      this.updatePaginatedData(0, 6); // Primera página
     });
     this.uS.getList().subscribe((data) => {
       this.dataSource = new MatTableDataSource(data);
+      this.updatePaginatedData(0, 6); // Primera página
     });
+  }
+
+  updatePaginatedData(startIndex: number, pageSize: number) {
+    const data = this.dataSource.data;
+    this.paginatedData = data.slice(startIndex, startIndex + pageSize);
+  }
+
+  onPageChange(event: PageEvent) {
+    this.updatePaginatedData(event.pageIndex * event.pageSize, event.pageSize);
   }
 
   eliminar(id: number) {
