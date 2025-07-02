@@ -10,6 +10,7 @@ import { CreareditarnovelaComponent } from './components/novela/creareditarnovel
 import { CapituloComponent } from './components/capitulo/capitulo.component';
 import { CreaeditacapitulosComponent } from './components/capitulo/creaeditacapitulos/creaeditacapitulos.component';
 import { ReunionComponent } from './components/reunion/reunion.component';
+import { CreateEditReunionComponent } from './components/reunion/create-edit-reunion/create-edit-reunion.component';
 
 export const routes: Routes = [
   {
@@ -87,5 +88,15 @@ export const routes: Routes = [
   {
     path: 'reunion',
     component: ReunionComponent,
+    children: [
+      {
+        path: 'insertar',
+        component: CreateEditReunionComponent,
+      },
+      {
+        path: 'ediciones/:id',
+        component: CreateEditReunionComponent,
+      }
+    ]
   },
 ];

@@ -1,0 +1,117 @@
+<div>
+    <div>
+        <h1>{{ edicion ? 'Actualizar Reunión' : 'Registro de Reunión' }}</h1>
+    </div>
+    <div>
+        <form [formGroup]="form" (submit)="aceptar()">
+
+            <!-- ID -->
+            <mat-form-field class="example-full-width" *ngIf="edicion">
+                <mat-label>Codigo de la Reunion</mat-label>
+                <input matInput placeholder="Eg: 123" formControlName="codigo" readonly>
+
+                <mat-error *ngIf="form.get('codigo')?.hasError('required') && form.get('codigo')?.touched">
+                    Este campo es obligatorio
+                </mat-error>
+            </mat-form-field>
+
+            <br><!--Space-->
+
+            <!-- Tema -->
+            <mat-form-field class="example-full-width">
+                <mat-label>Tema de la Reunion</mat-label>
+                <input matInput placeholder="Eg: La muerte LN" formControlName="tema">
+
+                <mat-error *ngIf="form.get('tema')?.hasError('required') && form.get('tema')?.touched">
+                    Este campo es obligatorio
+                </mat-error>
+                <mat-error *ngIf="form.get('tema')?.hasError('minlength') && form.get('tema')?.touched">
+                    El tema debe tener al menos 3 caracteres
+                </mat-error>
+                <mat-error *ngIf="form.get('tema')?.hasError('pattern') && form.get('tema')?.touched">
+                    El tema debe tener solo letras y espacios
+                </mat-error>
+            </mat-form-field>
+
+            <br><!--Space-->
+
+            <!-- Link -->
+            <mat-form-field class="example-full-width">
+                <mat-label>Link de la Reunion</mat-label>
+                <input matInput placeholder="Eg: www.link/teams?reunion=1.com" formControlName="link">
+
+                <mat-error *ngIf="form.get('link')?.hasError('required') && form.get('link')?.touched">
+                    Este campo es obligatorio
+                </mat-error>
+                <mat-error *ngIf="form.get('link')?.hasError('minlength') && form.get('link')?.touched">
+                    El link debe tener al menos 8 caracteres
+                </mat-error>
+                <mat-error *ngIf="form.get('link')?.hasError('maxlength') && form.get('link')?.touched">
+                    El link no debe superar los 50 caracteres
+                </mat-error>
+                <mat-error *ngIf="form.get('link')?.hasError('pattern') && form.get('link')?.touched">
+                    Solo se permiten URL válidas
+                </mat-error>
+            </mat-form-field>
+
+            <br><!--Space-->
+
+            <!-- Fecha -->
+            <mat-form-field>
+                <mat-label>Escoja la fecha</mat-label>
+                <input matInput [matDatepicker]="picker" formControlName="fecha">
+                <mat-hint>MM/DD/YYYY</mat-hint>
+                <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+                <mat-datepicker #picker></mat-datepicker>
+
+                <mat-error *ngIf="form.get('fecha')?.hasError('required') && form.get('fecha')?.touched">
+                    Este campo es obligatorio
+                </mat-error>
+                <mat-error *ngIf="form.get('fecha')?.hasError('fechaFutura') && form.get('fecha')?.touched">
+                    No se permiten fechas futuras. Selecciona hoy o una fecha superior.
+                </mat-error>
+            </mat-form-field>
+
+            <br><!--Space-->
+
+            <!--Organizador-->
+            <mat-form-field class="example-full-width" *ngIf="!edicion">
+                <mat-label>Organizador</mat-label>
+                <mat-select formControlName="organizador">
+                    @for (food of listaUsuarios; track food) {
+                    <mat-option [value]="food.idUsuario">{{food.usNombre}}</mat-option>
+                    }
+                </mat-select>
+
+                <mat-error *ngIf="form.get('organizador')?.hasError('required') && form.get('organizador')?.touched">
+                    Este campo es obligatorio
+                </mat-error>
+            </mat-form-field>
+
+            <br><!--Space-->
+
+            <!--Participante-->
+            <mat-form-field class="example-full-width">
+                <mat-label>Participante</mat-label>
+                <mat-select formControlName="participante">
+                    @for (food of listaUsuarios; track food) {
+                    <mat-option [value]="food.idUsuario">{{food.usNombre}}</mat-option>
+                    }
+                </mat-select>
+
+                <mat-error *ngIf="form.get('participante')?.hasError('required') && form.get('participante')?.touched">
+                    Este campo es obligatorio
+                </mat-error>
+            </mat-form-field>
+
+            <br><!--Space-->
+
+            <!--Botones-->
+            <button matButton="outlined" [disabled]="form.invalid" (click)="openSnackBar(message, action)">{{ edicion ?
+                'Actualizar' : 'Registrar' }}</button>
+            <button (click)="cancelar()">Cancelar</button>
+
+        </form>
+    </div>
+
+</div>

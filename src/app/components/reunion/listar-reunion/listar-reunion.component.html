@@ -1,48 +1,69 @@
 <div>
-    <h1>Lista de Reuniones</h1>
-  </div>
-  <div>
-    <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
-  
-      <!-- ID Column -->
-      <ng-container matColumnDef="c1">
-        <th mat-header-cell *matHeaderCellDef> ID </th>
-        <td mat-cell *matCellDef="let element"> {{element.idReunion}} </td>
-      </ng-container>
-  
-      <!-- Topic Column -->
-      <ng-container matColumnDef="c2">
-        <th mat-header-cell *matHeaderCellDef> Tema </th>
-        <td mat-cell *matCellDef="let element"> {{element.reuTema}} </td> 
-      </ng-container>
-  
-      <!-- Date Column -->
-      <ng-container matColumnDef="c3">
-        <th mat-header-cell *matHeaderCellDef> Fecha </th>
-        <td mat-cell *matCellDef="let element"> {{element.reuFecha  | date:'dd/MM/yyyy'}} </td> <!-- {{element.StateApp ? 'Activo' : 'Inactivo'}}-->
-      </ng-container>
-  
-      <!-- Link Column -->
-      <ng-container matColumnDef="c4">
-        <th mat-header-cell *matHeaderCellDef> Link </th>
-        <td mat-cell *matCellDef="let element"> {{element.reuLink}} </td> <!-- al costado | date:'dd/MM/yyyy'-->
-      </ng-container>
-  
-      <!-- Organizer Column -->
-      <ng-container matColumnDef="c5">
-        <th mat-header-cell *matHeaderCellDef> Organizador </th>
-        <td mat-cell *matCellDef="let element"> {{element.organizadorReu.usNombre}} </td>
-      </ng-container>
-  
-      <!-- Participant Column -->
-      <ng-container matColumnDef="c6">
-        <th mat-header-cell *matHeaderCellDef> Participante </th>
-        <td mat-cell *matCellDef="let element"> {{element.participanteReu.usNombre}} </td>
-      </ng-container>
-    
-      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-      <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
-    </table>
-  
-  
-  </div>
+  <h1>Lista de Reuniones</h1>
+</div>
+<div>
+  <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+
+    <!-- ID Column -->
+    <ng-container matColumnDef="c1">
+      <th mat-header-cell *matHeaderCellDef> ID </th>
+      <td mat-cell *matCellDef="let element"> {{element.idReunion}} </td>
+    </ng-container>
+
+    <!-- Topic Column -->
+    <ng-container matColumnDef="c2">
+      <th mat-header-cell *matHeaderCellDef> Tema </th>
+      <td mat-cell *matCellDef="let element"> {{element.reuTema}} </td>
+    </ng-container>
+
+    <!-- Date Column -->
+    <ng-container matColumnDef="c3">
+      <th mat-header-cell *matHeaderCellDef> Fecha </th>
+      <td mat-cell *matCellDef="let element"> {{element.reuFecha | date:'dd/MM/yyyy'}} </td>
+      <!-- {{element.StateApp ? 'Activo' : 'Inactivo'}}-->
+    </ng-container>
+
+    <!-- Link Column -->
+    <ng-container matColumnDef="c4">
+      <th mat-header-cell *matHeaderCellDef> Link </th>
+      <td mat-cell *matCellDef="let element"> {{element.reuLink}} </td> <!-- al costado | date:'dd/MM/yyyy'-->
+    </ng-container>
+
+    <!-- Organizer Column -->
+    <ng-container matColumnDef="c5">
+      <th mat-header-cell *matHeaderCellDef> Organizador </th>
+      <td mat-cell *matCellDef="let element"> {{element.organizadorReu.usNombre}} </td>
+    </ng-container>
+
+    <!-- Participant Column -->
+    <ng-container matColumnDef="c6">
+      <th mat-header-cell *matHeaderCellDef> Participante </th>
+      <td mat-cell *matCellDef="let element"> {{element.participanteReu.usNombre}} </td>
+    </ng-container>
+
+    <!-- Edit -->
+    <ng-container matColumnDef="c7">
+      <th mat-header-cell *matHeaderCellDef> Actualizar </th>
+      <td mat-cell *matCellDef="let element">
+        <button mat-flat-button [routerLink]="['ediciones', element.idReunion]">
+          <mat-icon>edit</mat-icon>Editar
+        </button>
+      </td>
+    </ng-container>
+
+    <!-- Delete -->
+    <ng-container matColumnDef="c8">
+      <th mat-header-cell *matHeaderCellDef> Eliminar </th>
+      <td mat-cell *matCellDef="let element"> 
+        <button mat-flat-button (click)="eliminar(element.idReunion)">
+          <mat-icon>delete</mat-icon>Eliminar
+        </button>
+      </td>
+    </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+  </table>
+
+
+</div>
