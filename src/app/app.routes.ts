@@ -15,16 +15,11 @@ import { ReportesComponent } from './components/reportes/reportes.component';
 import { DescargasComponent } from './components/descargas/descargas.component';
 import { CreareditardescargasComponent } from './components/descargas/creareditardescargas/creareditardescargas.component';
 import { VerLibrosComponent } from './components/ver-libros/ver-libros.component';
-<<<<<<<<< Temporary merge branch 1
-import { ComentariosComponent } from './components/comentarios/comentarios.component';
 import { CreateEditReunionComponent } from './components/reunion/create-edit-reunion/create-edit-reunion.component';
 import { ComentariosComponent } from './components/comentarios/comentarios.component';
 import { CreateEditComentarioComponent } from './components/comentarios/create-edit-comentario/create-edit-comentario.component';
 import { CapitulosdescargadosxusuarioComponent } from './components/reportes/capitulosdescargadosxusuario/capitulosdescargadosxusuario.component';
-=========
-import { EdadComponent } from './components/reportes/edad/edad.component';
 import { NumeroCapitulosComponent } from './components/reportes/numero-capitulos/numero-capitulos.component';
->>>>>>>>> Temporary merge branch 2
 
 export const routes: Routes = [
   {
@@ -150,10 +145,13 @@ export const routes: Routes = [
 
   */
   {
-<<<<<<<<< Temporary merge branch 1
     path: 'reportes',
     component: ReportesComponent,
     children: [
+      {
+        path: 'numero-capitulo',
+        component: NumeroCapitulosComponent,
+      },
       {
         path: 'reportecapitulosdescargados',
         component: CapitulosdescargadosxusuarioComponent,
@@ -163,17 +161,5 @@ export const routes: Routes = [
         component: CantidadcomentariosxusuarioComponent,
       },
     ],
-  },
-=========
-  path: 'reportes',
-  component: ReportesComponent, 
-  children: [
-    {
-      path: 'numero-capitulo',
-      component: NumeroCapitulosComponent,
-    },
-  ],
-  
-},
->>>>>>>>> Temporary merge branch 2
+  }, 
 ];
