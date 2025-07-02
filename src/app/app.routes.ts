@@ -14,6 +14,7 @@ import { ReportesComponent } from './components/reportes/reportes.component';
 import { DescargasComponent } from './components/descargas/descargas.component';
 import { CreareditardescargasComponent } from './components/descargas/creareditardescargas/creareditardescargas.component';
 import { VerLibrosComponent } from './components/ver-libros/ver-libros.component';
+import { CapitulosdescargadosxusuarioComponent } from './components/reportes/capitulosdescargadosxusuario/capitulosdescargadosxusuario.component';
 
 export const routes: Routes = [
   {
@@ -117,13 +118,12 @@ export const routes: Routes = [
   */
   {
   path: 'reportes',
-  component: ReportesComponent, /*
+  component: ReportesComponent, 
   children: [
     {
-      path: 'otro reporte',
-      component: otro component de reporte,
+      path: 'reportecapitulosdescargados',
+      component: CapitulosdescargadosxusuarioComponent,
     },
   ],
-  */
 },
 ];
