@@ -6,6 +6,7 @@ import { CommonModule } from '@angular/common';
 import { MatButtonModule } from '@angular/material/button';
 import { RouterLink } from '@angular/router';
 import { MatIconModule } from '@angular/material/icon';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { MatPaginator, MatPaginatorModule } from '@angular/material/paginator';
 
 @Component({
@@ -14,18 +15,21 @@ import { MatPaginator, MatPaginatorModule } from '@angular/material/paginator';
   templateUrl: './listarproyectos.component.html',
   styleUrl: './listarproyectos.component.css'
 })
-export class ListarproyectosComponent implements OnInit, AfterViewInit{
+export class ListarproyectosComponent implements OnInit{
   dataSource:MatTableDataSource<Proyecto>=new MatTableDataSource();
   displayedColumns:string[]=["c1","c2","c3","c4","c5","c6"];
 
-  constructor(private pS:ProyectoService){}
+  @ViewChild(MatPaginator) paginator!: MatPaginator;
+
+  constructor(private pS:ProyectoService, private snacbar: MatSnackBar){}
 
   ngOnInit(): void {
     this.pS.list().subscribe((data=>{
-      this.dataSource=new MatTableDataSource(data);
+      this.pS.setList(data);
     }));
     this.pS.getList().subscribe((data=>{
-      this.dataSource=new MatTableDataSource(data);
+      this.dataSource.data = data;
+      this.dataSource.paginator = this.paginator;
     }));
   }
 
@@ -35,11 +39,26 @@ export class ListarproyectosComponent implements OnInit, AfterViewInit{
         this.pS.setList(data);
       });
     });
+
+    this.snacbar.open('Se eliminó correctamente', 'Cerrar', {
+    duration: 3000,
+    verticalPosition: 'top',
+    });
   }
-  @ViewChild(MatPaginator) paginator!: MatPaginator;
+
   ngAfterViewInit() {
   this.dataSource.paginator = this.paginator;
-}}
+  }
+
+  applyFilter(value: string) {
+    this.dataSource.filter = value.trim().toLowerCase();
+
+    if (this.dataSource.paginator) {
+      this.dataSource.paginator.firstPage(); // Reiniciar al inicio de paginado
+    }
+  }
+
+}
 
 
 
