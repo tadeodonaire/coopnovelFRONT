@@ -2,7 +2,8 @@ import { Injectable } from '@angular/core';
 import { environment } from '../../environments/environment';
 import { Capitulos } from '../models/capitulos';
 import { HttpClient } from '@angular/common/http';
-import { Subject } from 'rxjs';
+import { Observable, Subject } from 'rxjs';
+import { CapitulosDescargadosxUsuarioDTO } from '../models/CapitulosDescargadosxUsuarioDTO';
 
 const base_url = environment.base;
 
@@ -42,4 +43,9 @@ export class CapituloService {
   deleteC(id: number) {
     return this.http.delete(`${this.url}/${id}`);
   }
+
+  getQuantityCapDes():Observable<CapitulosDescargadosxUsuarioDTO[]>{
+    return this.http.get<[CapitulosDescargadosxUsuarioDTO]>(`${this.url}/capitulos-descargados`);
+  }
+  
 }
