@@ -1,8 +1,9 @@
 import { Injectable } from '@angular/core';
 import { environment } from '../../environments/environment';
-import { Subject } from 'rxjs';
+import { Observable, Subject } from 'rxjs';
 import { Comentario } from '../models/comentario';
 import { HttpClient } from '@angular/common/http';
+import { CantidadComentariosxCapituloDTO } from '../models/CantidadComentariosxCapituloDTO';
 
 const base_url = environment.base;
 
@@ -41,5 +42,9 @@ export class ComentarioService {
 
   delete(id: number) {
     return this.http.delete(`${this.url}/${id}`);
+  }
+
+  getQuantityComUs():Observable<CantidadComentariosxCapituloDTO[]>{
+    return this.http.get<[CantidadComentariosxCapituloDTO]>(`${this.url}/cantidad-comentarios`);
   }
 }
