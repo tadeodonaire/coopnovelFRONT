@@ -13,7 +13,7 @@ import { ReunionComponent } from './components/reunion/reunion.component';
 import { ReportesComponent } from './components/reportes/reportes.component';
 import { DescargasComponent } from './components/descargas/descargas.component';
 import { CreareditardescargasComponent } from './components/descargas/creareditardescargas/creareditardescargas.component';
-import { VerLibrosComponent } from './components/ver-libros/ver-libros.component';
+import { CantSuscripcionComponent } from './components/reportes/cant-suscripcion/cant-suscripcion.component';
 
 export const routes: Routes = [
   {
@@ -29,10 +29,6 @@ export const routes: Routes = [
         component: CreaeditarusuariosComponent,
       },
     ],
-  },
-    {
-    path: 'API',
-    component: VerLibrosComponent,
   },
     {
     path: 'descargas',
@@ -117,13 +113,13 @@ export const routes: Routes = [
   */
   {
   path: 'reportes',
-  component: ReportesComponent, /*
+  component: ReportesComponent, 
   children: [
     {
-      path: 'otro reporte',
-      component: otro component de reporte,
+      path: 'SusccripcionMes',
+      component: CantSuscripcionComponent,
     },
   ],
-  */
+  
 },
 ];
