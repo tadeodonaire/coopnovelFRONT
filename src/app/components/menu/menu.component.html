@@ -95,6 +95,13 @@
         <span *ngIf="isExpanded">Descargas</span>
       </button>
 
+<<<<<<<<< Temporary merge branch 1
+      <!-- COMENTARIOS -->
+      <button mat-button [matMenuTriggerFor]="COMENTARIOS">
+        <mat-icon>comment</mat-icon>
+        <span *ngIf="isExpanded">Comentarios</span>
+      </button>
+
       <!--TODOS LAS DIRECCIONES ANTES DE REPORTES (REPORTES POR ORDEN VA AL ÚLTIMO)-->
 
       <!-- REPORTE -->
@@ -173,9 +180,22 @@
 <mat-menu #DESCARGAS="matMenu">
   <button mat-menu-item routerLink="/descargas">Listar</button>
   <button mat-menu-item routerLink="/descargas/insertar">Registrar</button>
+<<<<<<<<< Temporary merge branch 1
+</mat-menu>
 
+<mat-menu #COMENTARIOS="matMenu">
+  <button mat-menu-item routerLink="/comentario">Listar</button>
+  <button mat-menu-item routerLink="/comentario/insertar">Registrar</button>
+=========
+>>>>>>>>> Temporary merge branch 2
 </mat-menu>
 
 <mat-menu #REPORTES="matMenu">
   <button mat-menu-item routerLink="/reportes">Edad</button>
+<<<<<<<<< Temporary merge branch 1
+  <button mat-menu-item routerLink="/reportes/reportecapitulosdescargados">CapDescargados</button>
+  <button mat-menu-item routerLink="/reportes/reportecomentariosxusuarios">Cantidad Comentarios</button>
+=========
+  <button mat-menu-item routerLink="/reportes/numero-capitulo">Cantidad de Capitulos</button>
+>>>>>>>>> Temporary merge branch 2
 </mat-menu>
