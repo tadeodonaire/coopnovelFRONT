@@ -19,6 +19,7 @@ import { ComentariosComponent } from './components/comentarios/comentarios.compo
 import { CreateEditReunionComponent } from './components/reunion/create-edit-reunion/create-edit-reunion.component';
 import { CreateEditComentarioComponent } from './components/comentarios/create-edit-comentario/create-edit-comentario.component';
 import { CapitulosdescargadosxusuarioComponent } from './components/reportes/capitulosdescargadosxusuario/capitulosdescargadosxusuario.component';
+import { TopThreeCommentatorsComponent } from './components/reportes/top-three-commentators/top-three-commentators.component';
 
 export const routes: Routes = [
   {
@@ -155,6 +156,10 @@ export const routes: Routes = [
         path: 'reportecomentariosxusuarios',
         component: CantidadcomentariosxusuarioComponent,
       },
+      {//Victor
+        path:'reporte-top-three-comentarios',
+        component: TopThreeCommentatorsComponent,
+      }
     ],
   },
 ];
