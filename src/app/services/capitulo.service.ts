@@ -49,9 +49,8 @@ export class CapituloService {
   const params = { titulo: `%${titulo}%` }; 
   return this.http.get<NumeroCapitulosPorNovelaDTO[]>(`${this.url}/cantidad-capitulo`, { params });
   }
-  
+
   getQuantityCapDes():Observable<CapitulosDescargadosxUsuarioDTO[]>{
     return this.http.get<[CapitulosDescargadosxUsuarioDTO]>(`${this.url}/capitulos-descargados`);
   }
-  
 }
