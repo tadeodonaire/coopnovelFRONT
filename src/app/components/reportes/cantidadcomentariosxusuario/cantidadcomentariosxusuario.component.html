@@ -1,0 +1,16 @@
+<div>
+    <div style="text-align: center" class="title-container">
+        <h1 class="title">Reporte de Cantidad de Comentarios por Usuario</h1>
+    </div>
+    <div style="text-align: center"  class="chart-container">
+        <canvas
+        baseChart
+        [datasets]="barChartData"
+        [labels]="barChartLabels"
+        [options]="barChartOptions"
+        [legend]="barChartLegend"
+        [type]="barChartType"
+        >
+        </canvas>
+    </div>
+</div>

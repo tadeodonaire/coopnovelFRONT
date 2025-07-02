@@ -1,0 +1,69 @@
+:root {
+  --morado: #7e57c2;
+  --celeste: #81d4fa;
+  --blanco: #ffffff;
+}
+
+body {
+  background-color: #f0f4f8;
+}
+
+.busqueda-container {
+  display: flex;
+  justify-content: center;
+  margin: 1.5rem 0;
+}
+
+.formulario-busqueda {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  width: 100%;
+  max-width: 600px;
+}
+
+.input-busqueda {
+  flex: 1;
+  background-color: var(--blanco);
+  border-radius: 6px;
+}
+
+.btn-buscar {
+  background-color: var(--morado);
+  color: var(--blanco);
+}
+
+.btn-buscar:hover {
+  background-color: #6a45b2;
+}
+
+.cards-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+  gap: 1.5rem;
+  padding: 1rem 2rem;
+}
+
+.novela-card {
+  background: linear-gradient(135deg, var(--morado), var(--celeste));
+  color: var(--blanco);
+  border-radius: 12px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.novela-card mat-card-title,
+.novela-card mat-card-subtitle {
+  color: var(--blanco);
+}
+
+.novela-card .titulo {
+  font-size: 1.2rem;
+  font-weight: bold;
+}
+
+.no-result {
+  text-align: center;
+  margin-top: 2rem;
+  font-size: 1.2rem;
+  color: #888;
+}

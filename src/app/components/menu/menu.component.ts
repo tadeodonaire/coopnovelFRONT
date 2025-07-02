@@ -6,7 +6,7 @@ import { MatListModule } from '@angular/material/list';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatToolbarModule } from '@angular/material/toolbar';
-import { RouterLink, RouterOutlet } from '@angular/router';
+import { RouterLink, RouterLinkActive, RouterOutlet } from '@angular/router';
 import { interval, Subscription } from 'rxjs';
 import { VerLibrosService } from '../../services/ver-libros.service';
 
@@ -22,6 +22,7 @@ import { VerLibrosService } from '../../services/ver-libros.service';
     MatSidenavModule,
     CommonModule,
     MatListModule,
+    RouterLinkActive
   ],
   templateUrl: './menu.component.html',
   styleUrl: './menu.component.css',

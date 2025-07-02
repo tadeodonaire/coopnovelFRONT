@@ -1,1 +1,15 @@
-<p>edad works!</p>
+<div class="card-container">
+  <div class="title-container">
+    <h1>Edad de Usuarios</h1>
+  </div>
+
+  <div class="user-card" *ngFor="let usuario of dataSource.data">
+    <div class="card-header">
+      <div class="avatar">👤</div>
+      <div>
+        <h2>{{ usuario.usNombre }} {{ usuario.usApellido }}</h2>
+        <p class="label">🎂 Edad: <strong>{{ usuario.usEdad }}</strong> años</p>
+      </div>
+    </div>
+  </div>
+</div>
