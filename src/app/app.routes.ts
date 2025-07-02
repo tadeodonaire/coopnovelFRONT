@@ -1,3 +1,4 @@
+import { CantidadcomentariosxusuarioComponent } from './components/reportes/cantidadcomentariosxusuario/cantidadcomentariosxusuario.component';
 import { Routes } from '@angular/router';
 import { UsuariosComponent } from './components/usuarios/usuarios.component';
 import { CreaeditarusuariosComponent } from './components/usuarios/creaeditarusuarios/creaeditarusuarios.component';
@@ -14,8 +15,11 @@ import { ReportesComponent } from './components/reportes/reportes.component';
 import { DescargasComponent } from './components/descargas/descargas.component';
 import { CreareditardescargasComponent } from './components/descargas/creareditardescargas/creareditardescargas.component';
 import { VerLibrosComponent } from './components/ver-libros/ver-libros.component';
-import { EdadComponent } from './components/reportes/edad/edad.component';
 import { NumeroCapitulosComponent } from './components/reportes/numero-capitulos/numero-capitulos.component';
+import { CreateEditReunionComponent } from './components/reunion/create-edit-reunion/create-edit-reunion.component';
+import { ComentariosComponent } from './components/comentarios/comentarios.component';
+import { CreateEditComentarioComponent } from './components/comentarios/create-edit-comentario/create-edit-comentario.component';
+import { CapitulosdescargadosxusuarioComponent } from './components/reportes/capitulosdescargadosxusuario/capitulosdescargadosxusuario.component';
 
 export const routes: Routes = [
   {
@@ -32,11 +36,11 @@ export const routes: Routes = [
       },
     ],
   },
-    {
+  {
     path: 'API',
     component: VerLibrosComponent,
   },
-    {
+  {
     path: 'descargas',
     component: DescargasComponent,
     children: [
@@ -60,8 +64,8 @@ export const routes: Routes = [
       },
       {
         path: 'actualizar/:id',
-        component: CrearEditarBibliotecaComponent
-      }
+        component: CrearEditarBibliotecaComponent,
+      },
     ],
   },
 
@@ -111,8 +115,31 @@ export const routes: Routes = [
   {
     path: 'reunion',
     component: ReunionComponent,
+    children: [
+      {
+        path: 'insertar',
+        component: CreateEditReunionComponent, // Aquí se puede cambiar a un componente específico si es necesario
+      },
+      {
+        path: 'ediciones/:id',
+        component: CreateEditReunionComponent, // Aquí se puede cambiar a un componente específico si es necesario
+      },
+    ],
   },
-
+  {
+    path: 'comentario',
+    component: ComentariosComponent,
+    children: [
+      {
+        path: 'insertar',
+        component: CreateEditComentarioComponent,
+      },
+      {
+        path: 'ediciones/:id',
+        component: CreateEditComentarioComponent,
+      },
+    ],
+  },
 
   /* TODAS LAS RUTAS DE LOS COMPONENTES (ES ANTES DE REPORTES / REPORTES POR ORDEN VA ULTIMO)
 
@@ -125,7 +152,15 @@ export const routes: Routes = [
       path: 'numero-capitulo',
       component: NumeroCapitulosComponent,
     },
+    {
+      path: 'reportecapitulosdescargados',
+      component: CapitulosdescargadosxusuarioComponent,
+    },
+    {
+      path: 'reportecomentariosxusuarios',
+      component: CantidadcomentariosxusuarioComponent,
+    },
   ],
-  
 },
+
 ];

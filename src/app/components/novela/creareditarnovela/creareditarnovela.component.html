@@ -1,12 +1,12 @@
 <div class="container">
-    <h1>Registro de Novela</h1>
+    <h1>{{ edicion ? "Actualizar Novela" : "Registrar Novela" }}</h1>
     <div>
         <form [formGroup]="form" (submit)="aceptar()">
             
             <mat-form-field class="example-full-width" *ngIf="edicion">
                 <mat-label>ID</mat-label>
                 <input matInput formControlName="hcodigo" />
-                <mat-error *ngIf="form.get('codigo')?.hasError('required')">
+                <mat-error *ngIf="form.get('hcodigo')?.hasError('required')">
                     El codigo de la novela es obligatorio!!
                 </mat-error>
                 </mat-form-field>
@@ -15,8 +15,8 @@
             <mat-form-field class="example-full-width">
                 <mat-label>Titulo</mat-label>
                 <input matInput placeholder="Titulo" formControlName="htitulo" />
-                <mat-error *ngIf="form.get('titulo')?.hasError('required')">
-                    El Titulo de la novela es obligatorio!!
+                <mat-error *ngIf="form.get('htitulo')?.hasError('required')">
+                    El Titulo es obligatorio!!
                 </mat-error>
                 </mat-form-field>
                 <br />
@@ -24,7 +24,7 @@
             <mat-form-field class="example-full-width">
                 <mat-label>Resumen</mat-label>
                 <input matInput placeholder="resumen" formControlName="hresumen" />
-                <mat-error *ngIf="form.get('resumen')?.hasError('required')">
+                <mat-error *ngIf="form.get('hresumen')?.hasError('required')">
                     El resumen es obligatorio!!
                 </mat-error>
                 </mat-form-field>
@@ -33,7 +33,7 @@
             <mat-form-field class="example-full-width">
                 <mat-label>Genero</mat-label>
                 <input matInput placeholder="genero" formControlName="hgenero" />
-                <mat-error *ngIf="form.get('genero')?.hasError('required')">
+                <mat-error *ngIf="form.get('hgenero')?.hasError('required')">
                     El genero es obligatorio!!
                 </mat-error>
                 </mat-form-field>
@@ -46,11 +46,15 @@
                 <mat-option [value]="m.idProyecto">({{ m.idProyecto}}) {{m.proyTitulo}} </mat-option>
                 }
             </mat-select>
+            <mat-error *ngIf="form.get('hproyecto')?.hasError('required')">
+                    El proyecto es obligatorio!!
+                </mat-error>
             </mat-form-field>
             <br />
 
-            <button mat-flat-button="submit-button" type="submit">Aceptar</button>
-
+            <button type="submit" [disabled]="form.invalid">
+                {{ edicion ? "Actualizar" : "Registrar" }}
+            </button>
         </form>
     </div>
 </div>

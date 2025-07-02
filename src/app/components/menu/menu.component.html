@@ -95,6 +95,8 @@
         <span *ngIf="isExpanded">Descargas</span>
       </button>
 
+      <!--TODOS LAS DIRECCIONES ANTES DE REPORTES (REPORTES POR ORDEN VA AL ÚLTIMO)-->
+
       <!-- REPORTE -->
       <button
         mat-button
@@ -171,9 +173,9 @@
 <mat-menu #DESCARGAS="matMenu">
   <button mat-menu-item routerLink="/descargas">Listar</button>
   <button mat-menu-item routerLink="/descargas/insertar">Registrar</button>
+
 </mat-menu>
 
 <mat-menu #REPORTES="matMenu">
   <button mat-menu-item routerLink="/reportes">Edad</button>
-  <button mat-menu-item routerLink="/reportes/numero-capitulo">Cantidad de Capitulos</button>
 </mat-menu>
