@@ -2,7 +2,8 @@ import { Injectable } from '@angular/core';
 import { environment } from '../../environments/environment';
 import { Capitulos } from '../models/capitulos';
 import { HttpClient } from '@angular/common/http';
-import { Subject } from 'rxjs';
+import { Observable, Subject } from 'rxjs';
+import { NumeroCapitulosPorNovelaDTO } from '../models/numeroCapitulosPorNovelaDTO';
 
 const base_url = environment.base;
 
@@ -34,7 +35,7 @@ export class CapituloService {
   listId(id: number) {
     return this.http.get<Capitulos>(`${this.url}/${id}`);
   }
-  
+
   update(c: Capitulos) {
     return this.http.put(this.url, c);
   }
@@ -42,4 +43,11 @@ export class CapituloService {
   deleteC(id: number) {
     return this.http.delete(`${this.url}/${id}`);
   }
+
+  getNumeroCapitulos(titulo: string): Observable<NumeroCapitulosPorNovelaDTO[]> {
+  const params = { titulo: `%${titulo}%` }; 
+  return this.http.get<NumeroCapitulosPorNovelaDTO[]>(`${this.url}/cantidad-capitulo`, { params });
+  }
+
+
 }
