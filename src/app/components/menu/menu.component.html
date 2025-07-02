@@ -95,6 +95,14 @@
         <span *ngIf="isExpanded">Descargas</span>
       </button>
 
+      <!-- COMENTARIOS -->
+      <button mat-button [matMenuTriggerFor]="COMENTARIOS">
+        <mat-icon>comment</mat-icon>
+        <span *ngIf="isExpanded">Comentarios</span>
+      </button>
+
+      <!--TODOS LAS DIRECCIONES ANTES DE REPORTES (REPORTES POR ORDEN VA AL ÚLTIMO)-->
+
       <!-- REPORTE -->
       <button
         mat-button
@@ -173,7 +181,14 @@
   <button mat-menu-item routerLink="/descargas/insertar">Registrar</button>
 </mat-menu>
 
+<mat-menu #COMENTARIOS="matMenu">
+  <button mat-menu-item routerLink="/comentario">Listar</button>
+  <button mat-menu-item routerLink="/comentario/insertar">Registrar</button>
+</mat-menu>
+
 <mat-menu #REPORTES="matMenu">
   <button mat-menu-item routerLink="/reportes">Edad</button>
   <button mat-menu-item routerLink="/reportes/numero-capitulo">Cantidad de Capitulos</button>
+  <button mat-menu-item routerLink="/reportes/reportecapitulosdescargados">CapDescargados</button>
+  <button mat-menu-item routerLink="/reportes/reportecomentariosxusuarios">Cantidad Comentarios</button>
 </mat-menu>

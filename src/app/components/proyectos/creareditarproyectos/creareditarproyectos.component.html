@@ -1,47 +1,56 @@
 <div class="container">
-    <h1>Registro de Proyecto</h1>
-    <div>
-        <form [formGroup]="form" (submit)="aceptar()">
-            
-            <mat-form-field class="example-full-width" *ngIf="edicion">
-                <mat-label>ID</mat-label>
-                <input matInput formControlName="hcodigo" />
-                <mat-error *ngIf="form.get('codigo')?.hasError('required')">
-                    El codigo del proyecto es obligatorio!!
-                </mat-error>
-                </mat-form-field>
-                <br />
+  <h1>{{ edicion ? "Actualizar Proyecto" : "Registrar Proyecto" }}</h1>
+  <div>
+    <form [formGroup]="form" (submit)="aceptar()">
+      <mat-form-field class="example-full-width" *ngIf="edicion">
+        <mat-label>ID</mat-label>
+        <input matInput formControlName="hcodigo" />
+        <mat-error *ngIf="form.get('hcodigo')?.hasError('required')">
+          El codigo del proyecto es obligatorio!!
+        </mat-error>
+      </mat-form-field>
+      <br />
 
-            <mat-form-field class="example-full-width">
-                <mat-label>Titulo</mat-label>
-                <input matInput placeholder="Titulo" formControlName="htitulo" />
-                <mat-error *ngIf="form.get('titulo')?.hasError('required')">
-                    El Titulo del proyecto es obligatorio!!
-                </mat-error>
-                </mat-form-field>
-                <br />
+      <mat-form-field class="example-full-width">
+        <mat-label>Titulo</mat-label>
+        <input matInput placeholder="Titulo" formControlName="htitulo" />
+        <mat-error *ngIf="form.get('htitulo')?.hasError('required')">
+          El Titulo es obligatorio!!
+        </mat-error>
+      </mat-form-field>
+      <br />
 
-            <mat-form-field class="example-full-width">
-                <mat-label>Descripcion</mat-label>
-                <input matInput placeholder="descripcion" formControlName="hdescripcion" />
-                <mat-error *ngIf="form.get('descripcion')?.hasError('required')">
-                    La descripcion es obligatorio!!
-                </mat-error>
-                </mat-form-field>
-                <br>
+      <mat-form-field class="example-full-width">
+        <mat-label>Descripcion</mat-label>
+        <input
+          matInput
+          placeholder="descripcion"
+          formControlName="hdescripcion"
+        />
+        <mat-error *ngIf="form.get('hdescripcion')?.hasError('required')">
+          La descripcion es obligatorio!!
+        </mat-error>
+      </mat-form-field>
+      <br />
 
-            <mat-form-field class="form-field">
-            <mat-label>Usuario</mat-label>
-            <mat-select matInput placeholder="Usuario" formControlName="husuarios">
-                @for (m of listaUsuarios; track m) {
-                <mat-option [value]="m.idUsuario">({{ m.idUsuario}}) {{m.usNombre}} </mat-option>
-                }
-            </mat-select>
-            </mat-form-field>
-            <br />
+      <mat-form-field class="form-field">
+        <mat-label>Usuario</mat-label>
+        <mat-select matInput placeholder="Usuario" formControlName="husuarios">
+          @for (m of listaUsuarios; track m) {
+          <mat-option [value]="m.idUsuario"
+            >({{ m.idUsuario }}) {{ m.usNombre }}
+          </mat-option>
+          }
+        </mat-select>
+        <mat-error *ngIf="form.get('husuarios')?.hasError('required')">
+          El usuario es obligatorio!!
+        </mat-error>
+      </mat-form-field>
+      <br />
 
-            <button mat-flat-button="submit-button" type="submit">Aceptar</button>
-
-        </form>
-    </div>
+      <button type="submit" [disabled]="form.invalid">
+        {{ edicion ? "Actualizar" : "Registrar" }}
+      </button>
+    </form>
+  </div>
 </div>

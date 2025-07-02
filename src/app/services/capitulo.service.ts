@@ -4,6 +4,7 @@ import { Capitulos } from '../models/capitulos';
 import { HttpClient } from '@angular/common/http';
 import { Observable, Subject } from 'rxjs';
 import { NumeroCapitulosPorNovelaDTO } from '../models/numeroCapitulosPorNovelaDTO';
+import { CapitulosDescargadosxUsuarioDTO } from '../models/CapitulosDescargadosxUsuarioDTO';
 
 const base_url = environment.base;
 
@@ -48,6 +49,9 @@ export class CapituloService {
   const params = { titulo: `%${titulo}%` }; 
   return this.http.get<NumeroCapitulosPorNovelaDTO[]>(`${this.url}/cantidad-capitulo`, { params });
   }
-
-
+  
+  getQuantityCapDes():Observable<CapitulosDescargadosxUsuarioDTO[]>{
+    return this.http.get<[CapitulosDescargadosxUsuarioDTO]>(`${this.url}/capitulos-descargados`);
+  }
+  
 }
