@@ -12,7 +12,7 @@ import { MatButtonModule } from '@angular/material/button';
   selector: 'app-listar-bibliotecas',
   imports: [    
     MatTableModule,
-    CommonModule,
+    
     MatButtonModule,
     RouterLink,
     MatIconModule,],

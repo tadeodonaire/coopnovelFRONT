@@ -1,11 +1,16 @@
 <mat-sidenav-container class="sidenav-container">
-  <mat-sidenav #drawer mode="side" [opened]="true" [class.collapsed]="!isExpanded" class="sidenav">
+  <mat-sidenav
+    #drawer
+    mode="side"
+    [opened]="true"
+    [class.collapsed]="!isExpanded"
+    class="sidenav"
+  >
     <button mat-icon-button (click)="toggleMenu()" class="toggle-button">
       <mat-icon>menu</mat-icon>
     </button>
 
     <mat-nav-list>
-
       <!-- USUARIOS -->
       <button mat-button [matMenuTriggerFor]="USUARIOS">
         <mat-icon>person</mat-icon>
@@ -40,6 +45,14 @@
       <button mat-button [matMenuTriggerFor]="REUNION">
         <mat-icon>people</mat-icon>
         <span *ngIf="isExpanded">Reunion</span>
+      </button>
+
+      <!--TODOS LAS DIRECCIONES ANTES DE REPORTES (REPORTES POR ORDEN VA AL ÚLTIMO)-->
+
+      <!-- REPORTE -->
+      <button mat-button [matMenuTriggerFor]="REPORTES">
+        <mat-icon>report</mat-icon>
+        <span *ngIf="isExpanded">Reportes</span>
       </button>
 
     </mat-nav-list>
@@ -79,3 +92,8 @@
   <button mat-menu-item routerLink="/reunion">Listar</button>
   <button mat-menu-item routerLink="/reunion/insertar">Registrar</button>
 </mat-menu>
+
+<mat-menu #REPORTES="matMenu">
+  <button mat-menu-item routerLink="/reportes">Edad</button>
+</mat-menu>
+

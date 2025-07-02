@@ -1,0 +1,54 @@
+<div class="form-container">
+  <h1>{{ edicion ? "Actualizar Descarga" : "Registrar Descarga" }}</h1>
+
+  <form [formGroup]="form" (ngSubmit)="aceptar()">
+    <!-- ID solo si edicion -->
+    <div *ngIf="edicion">
+      <label for="idDescarga">ID</label>
+      <input
+        id="idDescarga"
+        type="text"
+        formControlName="idDescarga"
+        class="input-id"
+        readonly
+      />
+    </div>
+
+    <!-- Fecha -->
+    <label for="hisFecha">Fecha</label>
+    <input id="hisFecha" type="date" formControlName="hisFecha" />
+    <div
+      class="error"
+      *ngIf="
+        form.get('hisFecha')?.hasError('required') &&
+        form.get('hisFecha')?.touched
+      "
+    >
+      La fecha es obligatoria!!
+    </div>
+    <div
+      class="error"
+      *ngIf="form.get('hisFecha')?.hasError('PLfechaInvalida')"
+    >
+      La fecha debe ser hoy o una pasada
+    </div>
+
+    <!-- Usuario -->
+    <label for="UserId">Usuario</label>
+    <select id="UserId" formControlName="UserId">
+      <option value="">-- Selecciona un usuario --</option>
+      <option *ngFor="let user of listaUsuarios" [value]="user.idUsuario">
+        {{ user.idUsuario }} - {{ user.usNombre }}
+      </option>
+    </select>
+    <div
+      class="error" *ngIf="form.get('UserId')?.hasError('required') && form.get('UserId')?.touched">
+      El Usuario es obligatorio.
+    </div>
+
+    <!-- Botón -->
+    <button type="submit" [disabled]="form.invalid">
+      {{ edicion ? "Actualizar" : "Registrar" }}
+    </button>
+  </form>
+</div>

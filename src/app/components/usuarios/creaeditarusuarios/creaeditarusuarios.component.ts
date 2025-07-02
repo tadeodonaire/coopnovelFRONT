@@ -57,20 +57,22 @@ export class CreaeditarusuariosComponent {
   ) {}
 
   ngOnInit() {
-    this.form = this.formBuilder.group({
-      codigo: [''],
-      nombre: ['', Validators.required],
-      apellido: ['', Validators.required],
-      fecha: ['', Validators.required],
-      usuario: ['', Validators.required],
-      contrasena: ['', Validators.required],
-      estado: [''],
-      email: ['', [Validators.required, Validators.email]],
-    });
-
     this.route.params.subscribe((data: Params) => {
       this.id = data['id'];
       this.edicion = this.id != null;
+
+      // Luego de saber si es edición, recién aquí construimos el form
+      this.form = this.formBuilder.group({
+        codigo: [''],
+        nombre: ['', Validators.required],
+        apellido: ['', Validators.required],
+        fecha: ['', Validators.required],
+        usuario: ['', Validators.required],
+        contrasena: ['', this.edicion ? [] : Validators.required],
+        estado: ['', Validators.required],
+        email: ['', [Validators.required, Validators.email]],
+      });
+
       this.init();
     });
   }
