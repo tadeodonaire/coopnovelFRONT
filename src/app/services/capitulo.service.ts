@@ -47,4 +47,5 @@ export class CapituloService {
   getQuantityCapDes():Observable<CapitulosDescargadosxUsuarioDTO[]>{
     return this.http.get<[CapitulosDescargadosxUsuarioDTO]>(`${this.url}/capitulos-descargados`);
   }
+  
 }
