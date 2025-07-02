@@ -144,13 +144,6 @@ export const routes: Routes = [
   */
   {
     path: 'reportes',
-    component: ReportesComponent, /*
-  children: [
-    {
-      path: 'otro reporte',
-      component: otro component de reporte,
-    },
-  ],
-  */
+    component: ReportesComponent, 
   },
 ];
