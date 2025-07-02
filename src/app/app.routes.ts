@@ -1,3 +1,4 @@
+import { CantidadcomentariosxusuarioComponent } from './components/reportes/cantidadcomentariosxusuario/cantidadcomentariosxusuario.component';
 import { Routes } from '@angular/router';
 import { UsuariosComponent } from './components/usuarios/usuarios.component';
 import { CreaeditarusuariosComponent } from './components/usuarios/creaeditarusuarios/creaeditarusuarios.component';
@@ -18,7 +19,6 @@ import { ComentariosComponent } from './components/comentarios/comentarios.compo
 import { CreateEditReunionComponent } from './components/reunion/create-edit-reunion/create-edit-reunion.component';
 import { CreateEditComentarioComponent } from './components/comentarios/create-edit-comentario/create-edit-comentario.component';
 import { CapitulosdescargadosxusuarioComponent } from './components/reportes/capitulosdescargadosxusuario/capitulosdescargadosxusuario.component';
-
 
 export const routes: Routes = [
   {
@@ -63,8 +63,8 @@ export const routes: Routes = [
       },
       {
         path: 'actualizar/:id',
-        component: CrearEditarBibliotecaComponent
-      }
+        component: CrearEditarBibliotecaComponent,
+      },
     ],
   },
 
@@ -122,37 +122,39 @@ export const routes: Routes = [
       {
         path: 'ediciones/:id',
         component: CreateEditReunionComponent, // Aquí se puede cambiar a un componente específico si es necesario
-      }
-    ]
+      },
+    ],
   },
   {
     path: 'comentario',
     component: ComentariosComponent,
     children: [
       {
-        path:'insertar',
+        path: 'insertar',
         component: CreateEditComentarioComponent,
       },
       {
         path: 'ediciones/:id',
         component: CreateEditComentarioComponent,
-      }
-    ]
+      },
+    ],
   },
-
 
   /* TODAS LAS RUTAS DE LOS COMPONENTES (ES ANTES DE REPORTES / REPORTES POR ORDEN VA ULTIMO)
 
   */
   {
-    
-  path: 'reportes',
-  component: ReportesComponent, 
-  children: [
-    {
-      path: 'reportecapitulosdescargados',
-      component: CapitulosdescargadosxusuarioComponent,
-    },
-  ],
-},
-]
+    path: 'reportes',
+    component: ReportesComponent,
+    children: [
+      {
+        path: 'reportecapitulosdescargados',
+        component: CapitulosdescargadosxusuarioComponent,
+      },
+      {
+        path: 'reportecomentariosxusuarios',
+        component: CantidadcomentariosxusuarioComponent,
+      },
+    ],
+  },
+];
