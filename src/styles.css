@@ -2,3 +2,30 @@
 
 html, body { height: 100%; }
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+
+body, html {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+}
+
+body::before {
+  content: "";
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-image: url('/assets/fondo.png'); /* <-- nota la barra inicial / */
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+  z-index: -9999;
+  pointer-events: none;
+}
+
+mat-sidenav-container,
+mat-sidenav-content,
+mat-card {
+  background: transparent !important;
+}
