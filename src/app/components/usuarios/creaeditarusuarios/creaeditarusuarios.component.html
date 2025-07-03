@@ -1,42 +1,91 @@
 <div class="form-container">
-  <h1>{{ edicion ? 'Editar Usuario' : 'Registro de Usuario' }}</h1>
+  <h1>{{ edicion ? "Editar Usuario" : "Registro de Usuario" }}</h1>
   <form [formGroup]="form" (ngSubmit)="aceptar()">
-
     <div *ngIf="edicion">
-    <label for="codigo">ID</label>
-    <input id="codigo" type="id" formControlName="codigo" readonly />
+      <label for="codigo">ID</label>
+      <input id="codigo" type="id" formControlName="codigo" readonly />
     </div>
-    
+
     <label for="nombre">Nombre del Usuario</label>
-    <input id="nombre" type="text" formControlName="nombre" placeholder="Ej. Alex" />
-    <div class="error" *ngIf="form.get('nombre')?.hasError('required') && form.get('nombre')?.touched">
+    <input
+      id="nombre"
+      type="text"
+      formControlName="nombre"
+      placeholder="Ej. Alex"
+    />
+    <div
+      class="error"
+      *ngIf="
+        form.get('nombre')?.hasError('required') && form.get('nombre')?.touched
+      "
+    >
       El nombre del usuario es obligatorio
     </div>
 
     <label for="apellido">Apellido</label>
-    <input id="apellido" type="text" formControlName="apellido" placeholder="Ej. Donaire" />
-    <div class="error" *ngIf="form.get('apellido')?.hasError('required') && form.get('apellido')?.touched">
+    <input
+      id="apellido"
+      type="text"
+      formControlName="apellido"
+      placeholder="Ej. Donaire"
+    />
+    <div
+      class="error"
+      *ngIf="
+        form.get('apellido')?.hasError('required') &&
+        form.get('apellido')?.touched
+      "
+    >
       El apellido es obligatorio
     </div>
 
     <label for="fecha">Fecha de Nacimiento</label>
     <input id="fecha" type="date" formControlName="fecha" />
-    <div class="error" *ngIf="form.get('fecha')?.hasError('required') && form.get('fecha')?.touched">
+    <div
+      class="error"
+      *ngIf="
+        form.get('fecha')?.hasError('required') && form.get('fecha')?.touched
+      "
+    >
       La fecha de nacimiento es obligatoria
     </div>
 
     <label for="email">Correo Electrónico</label>
-    <input id="email" type="email" formControlName="email" placeholder="Ej. pat@example.com" />
-    <div class="error" *ngIf="form.get('email')?.hasError('required') && form.get('email')?.touched">
+    <input
+      id="email"
+      type="email"
+      formControlName="email"
+      placeholder="Ej. pat@example.com"
+    />
+    <div
+      class="error"
+      *ngIf="
+        form.get('email')?.hasError('required') && form.get('email')?.touched
+      "
+    >
       El correo es obligatorio
     </div>
-    <div class="error" *ngIf="form.get('email')?.hasError('email') && form.get('email')?.touched">
+    <div
+      class="error"
+      *ngIf="form.get('email')?.hasError('email') && form.get('email')?.touched"
+    >
       Ingrese una dirección de correo válida
     </div>
 
     <label for="usuario">Usuario</label>
-    <input id="usuario" type="text" formControlName="usuario" placeholder="Ej. AlexD" />
-    <div class="error" *ngIf="form.get('usuario')?.hasError('required') && form.get('usuario')?.touched">
+    <input
+      id="usuario"
+      type="text"
+      formControlName="usuario"
+      placeholder="Ej. AlexD"
+    />
+    <div
+      class="error"
+      *ngIf="
+        form.get('usuario')?.hasError('required') &&
+        form.get('usuario')?.touched
+      "
+    >
       El usuario es obligatorio
     </div>
 
@@ -44,50 +93,74 @@
       <label for="contrasena">Contraseña</label>
       <div class="password-wrapper">
         <input
-        id="contrasena"
-        [type]="hidePassword ? 'password' : 'text'"
-        formControlName="contrasena"
-        placeholder="Tu contraseña"
+          id="contrasena"
+          [type]="hidePassword ? 'password' : 'text'"
+          formControlName="contrasena"
+          placeholder="Tu contraseña"
         />
         <button
-        type="button"
-        class="toggle-password"
-        (click)="togglePasswordVisibility()"
-        [attr.aria-label]="hidePassword ? 'Mostrar contraseña' : 'Ocultar contraseña'"
+          type="button"
+          class="toggle-password"
+          (click)="togglePasswordVisibility()"
+          [attr.aria-label]="
+            hidePassword ? 'Mostrar contraseña' : 'Ocultar contraseña'
+          "
         >
-        {{ hidePassword ? '🙈' : '👁️' }}
-      </button>
+          {{ hidePassword ? "🙈" : "👁️" }}
+        </button>
       </div>
-      <div class="error" *ngIf="form.get('contrasena')?.hasError('required') && form.get('contrasena')?.touched">
-         La contraseña es obligatoria
+      <div
+        class="error"
+        *ngIf="
+          form.get('contrasena')?.hasError('required') &&
+          form.get('contrasena')?.touched
+        "
+      >
+        La contraseña es obligatoria
       </div>
     </div>
 
-      <label for="rol">Rol</label>
-      <select id="rol" formControlName="rol">
+    <label for="rol">Rol</label>
+    <select id="rol" formControlName="rol">
       <option value="" disabled selected>Seleccione un rol</option>
-      <option *ngFor="let a of listarRol" [value]="a.id">
-          {{ a.rol }}
+      <option
+        *ngFor="let a of listarRol"
+        [value]="a.id"
+        [disabled]="a.id === 1 && !esAdmin && form.get('rol')?.value !== 1"
+      >
+        {{ a.rol }}
+        <!-- o usa a.nombre si tu campo se llama así -->
       </option>
-      </select>
-      <div class="error" *ngIf="form.get('rol')?.hasError('required') && form.get('rol')?.touched">
-        El rol es obligatorio
-      </div>
-
-
-
-    <label *ngIf="edicion" >Estado</label>
-    <div class="radio-group" *ngIf="edicion">
-      <label><input type="radio" [value]="true" formControlName="estado" /> Activo</label>
-      <label><input type="radio" [value]="false" formControlName="estado" /> Inactivo</label>
+    </select>
+    <div
+      class="error"
+      *ngIf="form.get('rol')?.hasError('required') && form.get('rol')?.touched"
+    >
+      El rol es obligatorio
     </div>
-    <div class="error" *ngIf="form.get('estado')?.hasError('required') && form.get('estado')?.touched">
+
+    <label *ngIf="edicion">Estado</label>
+    <div class="radio-group" *ngIf="edicion">
+      <label
+        ><input type="radio" [value]="true" formControlName="estado" />
+        Activo</label
+      >
+      <label
+        ><input type="radio" [value]="false" formControlName="estado" />
+        Inactivo</label
+      >
+    </div>
+    <div
+      class="error"
+      *ngIf="
+        form.get('estado')?.hasError('required') && form.get('estado')?.touched
+      "
+    >
       El estado es obligatorio
     </div>
 
     <button type="submit" [disabled]="form.invalid">
-      {{ edicion ? 'Modificar Usuario' : 'Registrarme' }}
+      {{ edicion ? "Modificar Usuario" : "Registrarme" }}
     </button>
-
   </form>
 </div>

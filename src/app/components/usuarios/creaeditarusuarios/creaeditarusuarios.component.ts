@@ -21,6 +21,8 @@ import { provideNativeDateAdapter } from '@angular/material/core';
 import { MatIconModule } from '@angular/material/icon';
 import { Roles } from '../../../models/roles';
 import { RolesService } from '../../../services/roles.service';
+import { LoginService } from '../../../services/login.service';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   providers: [provideNativeDateAdapter()],
@@ -51,20 +53,29 @@ export class CreaeditarusuariosComponent {
   id: number = 0;
   edicion: boolean = false;
 
+  esAdmin: boolean = false; // <- NUEVO
+  estaLogueado: boolean = false; // <- NUEVO
+
   constructor(
     private uS: UsuariosService,
+    private loginService: LoginService,
     private rS: RolesService,
     private formBuilder: FormBuilder,
     private router: Router,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private snackBar: MatSnackBar
   ) {}
 
   ngOnInit() {
+    // Determina si el usuario actual está logueado y si es admin
+    const rol = this.loginService.showRole();
+    this.esAdmin = rol === 'ADMIN';
+    this.estaLogueado = this.loginService.verificar();
+
     this.route.params.subscribe((data: Params) => {
       this.id = data['id'];
       this.edicion = this.id != null;
 
-      // Luego de saber si es edición, recién aquí construimos el form
       this.form = this.formBuilder.group({
         codigo: [''],
         nombre: ['', Validators.required],
@@ -79,6 +90,7 @@ export class CreaeditarusuariosComponent {
         email: ['', [Validators.required, Validators.email]],
         rol: ['', [Validators.required]],
       });
+
       this.rS.list().subscribe((data) => {
         this.listarRol = data;
       });
@@ -97,30 +109,44 @@ export class CreaeditarusuariosComponent {
       this.usuario.username = this.form.value.usuario;
       this.usuario.password = this.form.value.contrasena;
       this.usuario.usEnable = this.edicion ? this.form.value.estado : true;
-      this.usuario.role.id = this.form.value.rol
+      this.usuario.role.id = this.form.value.rol;
 
       if (this.edicion) {
         this.uS.update(this.usuario).subscribe(() => {
           this.uS.list().subscribe((data) => {
             this.uS.setList(data);
+            this.router.navigate(['usuarios']);
           });
         });
       } else {
         this.uS.insert(this.usuario).subscribe(() => {
           this.uS.list().subscribe((data) => {
             this.uS.setList(data);
+
+            if (!this.estaLogueado) {
+              this.snackBar.open(
+                '🎉 Usuario registrado exitosamente 😊',
+                'Cerrar',
+                {
+                  duration: 3000,
+                  horizontalPosition: 'center',
+                  verticalPosition: 'top',
+                }
+              );
+              this.router.navigate(['login']);
+            } else {
+              this.router.navigate(['usuarios']);
+            }
           });
         });
       }
     }
-    this.router.navigate(['usuarios']);
   }
 
   init() {
     if (this.edicion) {
       this.uS.listId(this.id).subscribe((data) => {
         this.usuario = data;
-
         this.form.patchValue({
           codigo: data.idUsuario,
           nombre: data.usNombre,
@@ -130,7 +156,7 @@ export class CreaeditarusuariosComponent {
           usuario: data.username,
           contrasena: data.password,
           estado: data.usEnable,
-          rol:data.role.id
+          rol: data.role.id,
         });
       });
     }
