@@ -178,11 +178,11 @@
 </mat-menu>
 
 <mat-menu #menuSalir="matMenu">
-  <button mat-menu-item routerLink="login" (click)="cerrar()">
+  <button mat-menu-item (click)="cerrar()">
     <mat-icon>logout</mat-icon>
     <span>Cerrar sesión</span>
   </button>
-  <button mat-menu-item>
+  <button mat-menu-item disabled>
     Rol:
     <span>{{ role }}</span>
   </button>

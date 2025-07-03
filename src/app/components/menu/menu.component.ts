@@ -6,10 +6,15 @@ import { MatListModule } from '@angular/material/list';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatToolbarModule } from '@angular/material/toolbar';
-import { RouterLink, RouterLinkActive, RouterOutlet } from '@angular/router';
+import {
+  Router,
+  RouterLink,
+  RouterOutlet,
+} from '@angular/router';
 import { interval, Subscription } from 'rxjs';
 import { VerLibrosService } from '../../services/ver-libros.service';
 import { LoginService } from '../../services/login.service';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-menu',
@@ -22,7 +27,7 @@ import { LoginService } from '../../services/login.service';
     MatIconModule,
     MatSidenavModule,
     CommonModule,
-    MatListModule
+    MatListModule,
   ],
   templateUrl: './menu.component.html',
   styleUrl: './menu.component.css',
@@ -49,7 +54,12 @@ export class MenuComponent implements OnInit, OnDestroy {
   ];
   private intervaloSub!: Subscription;
 
-  constructor(private librosService: VerLibrosService, private loginService: LoginService) {}
+  constructor(
+    private librosService: VerLibrosService,
+    private loginService: LoginService,
+    private router: Router,
+    private snackBar: MatSnackBar
+  ) {}
 
   ngOnInit(): void {
     const intervaloTiempo = 86400000; // producción: 24 horas
@@ -60,6 +70,15 @@ export class MenuComponent implements OnInit, OnDestroy {
     this.intervaloSub = interval(intervaloTiempo).subscribe(() => {
       this.cargarLibro();
     });
+
+    if (sessionStorage.getItem('logoutSuccess') === 'true') {
+      sessionStorage.removeItem('logoutSuccess');
+      this.snackBar.open('Sesión cerrada con éxito 😊', 'Cerrar', {
+        duration: 3000,
+        horizontalPosition: 'center',
+        verticalPosition: 'top',
+      });
+    }
   }
 
   ngOnDestroy(): void {
@@ -113,10 +132,12 @@ export class MenuComponent implements OnInit, OnDestroy {
     return Math.abs(Math.floor((x - Math.floor(x)) * 1000000));
   }
 
-  
   cerrar() {
     sessionStorage.clear();
+    sessionStorage.setItem('logoutSuccess', 'true'); 
+    window.location.href = '/login'; 
   }
+
   verificar() {
     this.role = this.loginService.showRole();
     return this.loginService.verificar();
