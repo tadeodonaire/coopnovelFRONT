@@ -156,16 +156,10 @@ export const routes: Routes = [
         path: 'reportecomentariosxusuarios',
         component: CantidadcomentariosxusuarioComponent,
       },
+      {
+        path: 'SusccripcionMes',
+        component: CantSuscripcionComponent,
+      },
     ],
-  }, 
-  path: 'reportes',
-  component: ReportesComponent, 
-  children: [
-    {
-      path: 'SusccripcionMes',
-      component: CantSuscripcionComponent,
-    },
-  ],
-  
-},
+  },
 ];
