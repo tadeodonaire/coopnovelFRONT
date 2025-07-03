@@ -1,0 +1,40 @@
+<div class="container">
+  <h1>Registro de CorreccionesIA</h1>
+  <div>
+    <form [formGroup]="form" (submit)="aceptar()">
+
+      <mat-form-field class="example-full-width" *ngIf="edicion">
+        <mat-label>ID</mat-label>
+        <input matInput formControlName="id" />
+      </mat-form-field>
+
+      <br />
+
+      <mat-form-field class="example-full-width">
+        <mat-label>Contenido de la Correccion</mat-label>
+        <input matInput placeholder="Contenido" formControlName="correccionIA" />
+        <mat-error *ngIf="form.get('correccionIA')?.hasError('required')">
+          El contenido es obligatorio!!
+        </mat-error>
+      </mat-form-field>
+      <br />
+
+      <br />
+
+      <mat-form-field class="form-field">
+        <mat-label>Capitulos</mat-label>
+        <mat-select matInput placeholder="Capitulo" formControlName="capitulos">
+          @for (l of listaCapitulos; track l) {
+          <mat-option [value]="l.idCapitulo"
+            >({{ l.idCapitulo }})
+          </mat-option>
+          }
+        </mat-select>
+      </mat-form-field>
+
+      <br />
+
+      <button mat-flat-button="submit-button" type="submit">Aceptar</button>
+    </form>
+  </div>
+</div>
