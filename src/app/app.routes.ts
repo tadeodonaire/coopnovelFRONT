@@ -20,8 +20,21 @@ import { CreateEditComentarioComponent } from './components/comentarios/create-e
 import { CapitulosdescargadosxusuarioComponent } from './components/reportes/capitulosdescargadosxusuario/capitulosdescargadosxusuario.component';
 import { NumeroCapitulosComponent } from './components/reportes/numero-capitulos/numero-capitulos.component';
 import { CantSuscripcionComponent } from './components/reportes/cant-suscripcion/cant-suscripcion.component';
+import { AccesoDenegadoComponent } from './pages/acceso-denegado/acceso-denegado.component';
+import { HomeComponent } from './components/home/home.component';
+import { seguridadGuard } from './guard/seguridad.guard';
+import { LoginComponent } from './components/login/login.component';
 
 export const routes: Routes = [
+  {
+    path: '',
+    redirectTo: 'login',
+    pathMatch: 'full',
+  },
+  {
+    path: 'login',
+    component: LoginComponent,
+  },
   {
     path: 'usuarios',
     component: UsuariosComponent,
@@ -161,5 +174,14 @@ export const routes: Routes = [
         component: CantSuscripcionComponent,
       },
     ],
+  },
+  {
+    path: 'acceso-denegado',
+    component: AccesoDenegadoComponent,
+  },
+  {
+    path: 'homes',
+    component: HomeComponent,
+    canActivate: [seguridadGuard],
   },
 ];

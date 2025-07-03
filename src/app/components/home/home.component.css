@@ -1,0 +1,62 @@
+@import url('https://fonts.googleapis.com/css2?family=Nunito:wght@400;700&display=swap');
+
+html, body {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  width: 100%;
+  font-family: 'Nunito', 'Segoe UI', sans-serif;
+}
+
+.center-page {
+  height: 100vh;
+  width: 80vw;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.welcome-container {
+  text-align: center;
+}
+
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+  margin-bottom: 1rem;
+}
+
+.titulo {
+  font-size: 3.5rem; /* antes 2.5rem */
+  font-weight: 700;
+  color: #8e24aa;
+  margin: 0;
+}
+
+.logo {
+  width: 60px;  /* antes 50px */
+  height: 60px;
+}
+
+.bienvenido {
+  font-size: 1.5rem; /* antes 1.2rem */
+  color: #444;
+  margin: 0.5rem 0 2rem;
+}
+
+.frase {
+  font-size: 1.1rem; /* antes 0.95rem */
+  color: #666;
+  font-style: italic;
+  max-width: 700px;
+  margin: 0 auto;
+}
+
+.autor {
+  margin-top: 0.75rem; /* un poco más de espacio */
+  font-weight: 500;
+  color: #5e35b1;
+  font-size: 1.05rem;
+}
