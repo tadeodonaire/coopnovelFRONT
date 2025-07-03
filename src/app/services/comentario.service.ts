@@ -50,6 +50,6 @@ export class ComentarioService {
   }
 
   listTopTenComentators(): Observable<TopThreeCommentatorsDTO[]> {
-    return this.http.get<TopThreeCommentatorsDTO[]>(`${this.url}/top-three-commentators`);
+    return this.http.get<TopThreeCommentatorsDTO[]>(`${this.url}/top-three-comentators`);
   }
 }

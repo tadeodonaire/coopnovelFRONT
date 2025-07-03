@@ -22,7 +22,7 @@ export class TopThreeCommentatorsComponent implements OnInit {
 
   ngOnInit(): void {
     this.comS.listTopTenComentators().subscribe((data) => {
-      this.barChartLabels = data.map((item) => `${item.idUsuario} : ${item.usNombre} \n ${item.usApellido}`);
+      this.barChartLabels = data.map((item) => `${item.idUsuario}: ${item.usNombre}\n${item.usApellido}`);
       this.barChartData = [
         {
           data: data.map((item) => item.totalComentarios),
