@@ -1,0 +1,31 @@
+<div class="container">
+  <h1>Lista de Roles</h1>
+
+  <div class="roles-grid">
+    <mat-card class="role-card" *ngFor="let element of dataSource.filteredData">
+      <img mat-card-image src="assets/favicon.ico" alt="Imagen del rol" />
+
+      <mat-card-content>
+        <h2>{{ element.rol }}</h2>
+        <p>ID: {{ element.id }}</p>
+      </mat-card-content>
+
+      <mat-card-actions>
+        <button mat-flat-button color="primary" [routerLink]="['ediciones', element.id]">
+          <mat-icon>edit</mat-icon>
+          Editar
+        </button>
+        <button mat-flat-button color="warn" (click)="eliminar(element.id)">
+          <mat-icon>delete</mat-icon>
+          Eliminar
+        </button>
+      </mat-card-actions>
+    </mat-card>
+  </div>
+
+  <mat-paginator
+    #paginator
+    [pageSizeOptions]="[4, 8, 12]"
+    showFirstLastButtons>
+  </mat-paginator>
+</div>

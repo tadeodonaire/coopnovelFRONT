@@ -18,6 +18,7 @@ import { CreateEditReunionComponent } from './components/reunion/create-edit-reu
 import { ComentariosComponent } from './components/comentarios/comentarios.component';
 import { CreateEditComentarioComponent } from './components/comentarios/create-edit-comentario/create-edit-comentario.component';
 import { CapitulosdescargadosxusuarioComponent } from './components/reportes/capitulosdescargadosxusuario/capitulosdescargadosxusuario.component';
+import { TopThreeCommentatorsComponent } from './components/reportes/top-three-commentators/top-three-commentators.component';
 import { NumeroCapitulosComponent } from './components/reportes/numero-capitulos/numero-capitulos.component';
 import { CantSuscripcionComponent } from './components/reportes/cant-suscripcion/cant-suscripcion.component';
 import { CorreccionIAComponent } from './components/correccion-ia/correccion-ia.component';
@@ -26,8 +27,23 @@ import { NovelasbibliotecasComponent } from './components/novelasbibliotecas/nov
 import { CreareditarnovelasbibliotecasComponent } from './components/novelasbibliotecas/creareditarnovelasbibliotecas/creareditarnovelasbibliotecas.component';
 import { SuscripcionesComponent } from './components/suscripciones/suscripciones.component';
 import { CreareditarsuscripcionesComponent } from './components/suscripciones/creareditarsuscripciones/creareditarsuscripciones.component';
+import { AccesoDenegadoComponent } from './pages/acceso-denegado/acceso-denegado.component';
+import { HomeComponent } from './components/home/home.component';
+import { seguridadGuard } from './guard/seguridad.guard';
+import { LoginComponent } from './components/login/login.component';
+import { RolesComponent } from './components/roles/roles.component';
+import { CreaeditarolesComponent } from './components/roles/creaeditaroles/creaeditaroles.component';
 
 export const routes: Routes = [
+  {
+    path: '',
+    redirectTo: 'login',
+    pathMatch: 'full',
+  },
+  {
+    path: 'login',
+    component: LoginComponent,
+  },
   {
     path: 'usuarios',
     component: UsuariosComponent,
@@ -184,6 +200,20 @@ export const routes: Routes = [
       }
     ]
   },
+  {
+    path: 'roles',
+    component: RolesComponent,
+    children: [
+      {
+        path: 'insertar',
+        component: CreaeditarolesComponent,
+      },
+      {
+        path: 'ediciones/:id',
+        component: CreaeditarolesComponent,
+      },
+    ],
+  },
 
   /* TODAS LAS RUTAS DE LOS COMPONENTES (ES ANTES DE REPORTES / REPORTES POR ORDEN VA ULTIMO)
 
@@ -217,4 +247,23 @@ export const routes: Routes = [
   ],
 
 },
+      {//Victor
+        path: 'reporte-top-three-comentarios',
+        component: TopThreeCommentatorsComponent,
+      },
+      {
+        path: 'SusccripcionMes',
+        component: CantSuscripcionComponent,
+      }
+    ],
+  },
+  {
+    path: 'acceso-denegado',
+    component: AccesoDenegadoComponent,
+  },
+  {
+    path: 'homes',
+    component: HomeComponent,
+    canActivate: [seguridadGuard],
+  },
 ];
