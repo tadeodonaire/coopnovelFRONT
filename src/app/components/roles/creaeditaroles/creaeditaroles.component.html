@@ -1,0 +1,33 @@
+<div class="form-container">
+  <h1>{{ edicion ? 'Editar Rol' : 'Registro de Roles' }}</h1>
+
+  <form [formGroup]="form" (ngSubmit)="aceptar()">
+    
+    <!-- Campo ID solo en edición -->
+    <div *ngIf="edicion">
+      <label for="codigo">ID</label>
+      <input id="codigo" type="text" class="input-id" formControlName="codigo" readonly />
+    </div>
+
+    <!-- Campo Nombre -->
+    <label for="nombre">Nombre del Rol</label>
+    <input
+      id="nombre"
+      type="text"
+      formControlName="nombre"
+      placeholder="Ej. Administrador"
+    />
+    <div
+      class="error"
+      *ngIf="form.get('nombre')?.hasError('required') && form.get('nombre')?.touched"
+    >
+      El nombre del rol es obligatorio
+    </div>
+
+    <!-- Botón de acción -->
+    <button type="submit" [disabled]="form.invalid">
+      {{ edicion ? 'Modificar Rol' : 'Registrar Rol' }}
+    </button>
+
+  </form>
+</div>
