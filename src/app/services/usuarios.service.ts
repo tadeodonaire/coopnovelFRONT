@@ -50,4 +50,5 @@ export class UsuariosService {
     const params = {a:id}
     return this.http.get<[QuerySuscripcionDTO]>(`${this.url}/CantidadSuscripcion`,{params});
   }
+
 }
