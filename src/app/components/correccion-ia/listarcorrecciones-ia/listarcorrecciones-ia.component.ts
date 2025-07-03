@@ -15,7 +15,7 @@ import { CorreccionIAService } from '../../../services/correccion-ia.service';
 })
 export class ListarcorreccionesIAComponent {
   dataSource: MatTableDataSource<CorreccionesIA>=new MatTableDataSource()
-  displayedColumns: string[] = ["capitulo", "id", "correccion", "editar", "eliminar"];
+  displayedColumns: string[] = ["id", "capitulo", "correccion", "editar", "eliminar"];
 
   constructor(private coS:CorreccionIAService) {}
 

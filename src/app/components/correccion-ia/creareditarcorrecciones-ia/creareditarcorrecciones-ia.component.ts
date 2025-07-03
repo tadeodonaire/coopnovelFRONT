@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { MatInputModule, MatFormField } from '@angular/material/input';
@@ -22,7 +22,7 @@ import { CorreccionesIA } from '../../../models/correccionesIA';
   templateUrl: './creareditarcorrecciones-ia.component.html',
   styleUrl: './creareditarcorrecciones-ia.component.css'
 })
-export class CreareditarcorreccionesIAComponent {
+export class CreareditarcorreccionesIAComponent implements OnInit{
 
   form: FormGroup= new FormGroup({});
   listaCapitulos: Capitulos[] = [];
@@ -86,7 +86,7 @@ export class CreareditarcorreccionesIAComponent {
       this.coS.listId(this.id).subscribe((data)=>{
         this.form=new FormGroup({
           id: new FormControl(data.idCorreccionIA),
-          correccion: new FormControl(data.corCorreccionIA),
+          correccionIA: new FormControl(data.corCorreccionIA),
           capitulos: new FormControl(data.capitulos.idCapitulo),
         })
       })

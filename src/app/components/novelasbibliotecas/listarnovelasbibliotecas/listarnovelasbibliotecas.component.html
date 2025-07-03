@@ -1,0 +1,54 @@
+<div>
+  <h1 class="titulo">Relación Novelas - Bibliotecas</h1>
+</div>
+
+<div class="tabla-container">
+  <table mat-table [dataSource]="dataSource" class="mat-elevation-z8 tabla-usuarios">
+
+    <!-- ID de la relación -->
+    <ng-container matColumnDef="idNovelaBiblioteca">
+      <th mat-header-cell *matHeaderCellDef> ID Relación </th>
+      <td mat-cell *matCellDef="let element"> {{element.idNovelaBiblioteca}} </td>
+    </ng-container>
+
+    <!-- Novela: ID + Título -->
+    <ng-container matColumnDef="novela">
+      <th mat-header-cell *matHeaderCellDef> Novela </th>
+      <td mat-cell *matCellDef="let element">
+        ({{ element.novelas?.idNovela }}) - {{ element.novelas?.novTitulo }}
+      </td>
+    </ng-container>
+
+    <!-- Biblioteca: ID + Nombre -->
+    <ng-container matColumnDef="biblioteca">
+      <th mat-header-cell *matHeaderCellDef> Biblioteca </th>
+      <td mat-cell *matCellDef="let element">
+        ({{ element.biblioteca?.idBiblioteca }}) - {{ element.biblioteca?.biblNombre }}
+      </td>
+    </ng-container>
+
+    <!-- Botón Editar -->
+    <ng-container matColumnDef="editar">
+      <th mat-header-cell *matHeaderCellDef> Editar </th>
+      <td mat-cell *matCellDef="let element">
+        <button mat-flat-button color="primary" [routerLink]="['ediciones', element.idNovelaBiblioteca]">
+          <mat-icon>edit</mat-icon> Editar
+        </button>
+      </td>
+    </ng-container>
+
+    <!-- Botón Eliminar -->
+    <ng-container matColumnDef="eliminar">
+      <th mat-header-cell *matHeaderCellDef> Eliminar </th>
+      <td mat-cell *matCellDef="let element">
+        <button mat-flat-button color="warn" (click)="eliminar(element.idNovelaBiblioteca)">
+          <mat-icon>delete</mat-icon> Eliminar
+        </button>
+      </td>
+    </ng-container>
+
+    <!-- Renderizar filas -->
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+  </table>
+</div>

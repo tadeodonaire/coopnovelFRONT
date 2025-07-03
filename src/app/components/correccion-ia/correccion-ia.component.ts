@@ -11,3 +11,4 @@ import { ListarcorreccionesIAComponent } from "./listarcorrecciones-ia/listarcor
 export class CorreccionIAComponent {
   constructor(public route: ActivatedRoute) { }
 }
+  

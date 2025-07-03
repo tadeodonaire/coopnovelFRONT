@@ -22,6 +22,10 @@ import { NumeroCapitulosComponent } from './components/reportes/numero-capitulos
 import { CantSuscripcionComponent } from './components/reportes/cant-suscripcion/cant-suscripcion.component';
 import { CorreccionIAComponent } from './components/correccion-ia/correccion-ia.component';
 import { CreareditarcorreccionesIAComponent } from './components/correccion-ia/creareditarcorrecciones-ia/creareditarcorrecciones-ia.component';
+import { NovelasbibliotecasComponent } from './components/novelasbibliotecas/novelasbibliotecas.component';
+import { CreareditarnovelasbibliotecasComponent } from './components/novelasbibliotecas/creareditarnovelasbibliotecas/creareditarnovelasbibliotecas.component';
+import { SuscripcionesComponent } from './components/suscripciones/suscripciones.component';
+import { CreareditarsuscripcionesComponent } from './components/suscripciones/creareditarsuscripciones/creareditarsuscripciones.component';
 
 export const routes: Routes = [
   {
@@ -149,6 +153,34 @@ export const routes: Routes = [
       {
         path:'ediciones/:id',
         component: CreareditarcorreccionesIAComponent
+      }
+    ]
+  },
+  {
+    path: 'novelasbibliotecas',
+    component: NovelasbibliotecasComponent,
+    children: [
+      {
+        path: 'insertar',
+        component: CreareditarnovelasbibliotecasComponent,
+      },
+      {
+        path: 'ediciones/:id',
+        component: CreareditarnovelasbibliotecasComponent
+      }
+    ]
+  },
+  {
+    path: 'suscripciones',
+    component: SuscripcionesComponent,
+    children: [
+      {
+        path: 'insertar',
+        component: CreareditarsuscripcionesComponent
+      },
+      {
+        path: 'ediciones/:id',
+        component: CreareditarsuscripcionesComponent
       }
     ]
   },
