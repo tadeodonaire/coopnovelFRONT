@@ -63,6 +63,18 @@
       </div>
     </div>
 
+      <label for="rol">Rol</label>
+      <select id="rol" formControlName="rol">
+      <option value="" disabled selected>Seleccione un rol</option>
+      <option *ngFor="let a of listarRol" [value]="a.id">
+          {{ a.rol }}
+      </option>
+      </select>
+      <div class="error" *ngIf="form.get('rol')?.hasError('required') && form.get('rol')?.touched">
+        El rol es obligatorio
+      </div>
+
+
 
     <label *ngIf="edicion" >Estado</label>
     <div class="radio-group" *ngIf="edicion">

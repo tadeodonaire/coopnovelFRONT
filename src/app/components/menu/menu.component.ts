@@ -22,8 +22,7 @@ import { LoginService } from '../../services/login.service';
     MatIconModule,
     MatSidenavModule,
     CommonModule,
-    MatListModule,
-    RouterLinkActive,
+    MatListModule
   ],
   templateUrl: './menu.component.html',
   styleUrl: './menu.component.css',
