@@ -51,8 +51,8 @@ export class MenuComponent implements OnInit,OnDestroy{
   constructor(private librosService: VerLibrosService) {}
 
   ngOnInit(): void {
-    //const intervaloTiempo = 86400000; // producción: 24 horas
-    const intervaloTiempo = 3000; // pruebas: 3 segundos
+    const intervaloTiempo = 86400000; // producción: 24 horas
+    //const intervaloTiempo = 3000; // pruebas: 3 segundos
 
     this.cargarLibro();
 
@@ -67,8 +67,8 @@ export class MenuComponent implements OnInit,OnDestroy{
 
   private cargarLibro(): void {
     const ahora = Date.now();
-    //const unidad = 86400000; // producción
-    const unidad = 3000; // pruebas
+    const unidad = 86400000; // producción
+    //const unidad = 3000; // pruebas
     const baseTiempo = Math.floor(ahora / unidad);
 
     const generoIndex = this.seededRandom(baseTiempo * 13 + 7) % this.temas.length;

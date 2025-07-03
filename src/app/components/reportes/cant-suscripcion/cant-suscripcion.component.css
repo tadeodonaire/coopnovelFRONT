@@ -1,0 +1,30 @@
+.chart-container {
+  max-width: 700px; /* Puedes ajustar el ancho aquí */
+  margin: 0 auto;    /* Centra horizontalmente */
+  padding: 1rem;
+}
+
+canvas {
+  width: 100% !important; /* Asegura que el canvas se adapte al contenedor */
+  height: auto !important;
+}
+
+.title-container {
+  text-align: center;
+  margin-top: 1rem;
+  margin-bottom: 1rem;
+}
+
+.title {
+  font-size: 24px;
+  color: #333;
+}
+
+select {
+  padding: 0.5rem;
+  font-size: 16px;
+  margin-top: 0.5rem;
+}
+
+
+

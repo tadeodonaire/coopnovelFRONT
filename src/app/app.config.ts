@@ -13,5 +13,6 @@ export const appConfig: ApplicationConfig = {
     provideClientHydration(withEventReplay()),
     provideHttpClient(withFetch()), 
     provideCharts(withDefaultRegisterables()),
+    provideHttpClient(withFetch()), provideCharts(withDefaultRegisterables()),
   ],
 };
