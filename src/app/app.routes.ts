@@ -179,7 +179,7 @@ export const routes: Routes = [
         component: CreareditarsuscripcionesComponent
       },
       {
-        path: 'ediciones/:id',
+        path: 'editar/:id',
         component: CreareditarsuscripcionesComponent
       }
     ]

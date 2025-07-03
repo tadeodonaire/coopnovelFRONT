@@ -20,13 +20,13 @@
     <!-- Suscriptor -->
     <ng-container matColumnDef="suscriptor">
       <th mat-header-cell *matHeaderCellDef> Suscriptor </th>
-      <td mat-cell *matCellDef="let element"> {{ element.suscriptor.usNombre }} </td>
+      <td mat-cell *matCellDef="let element"> {{ element.suscriptor?.usNombre }} </td>
     </ng-container>
 
     <!-- Suscrito -->
     <ng-container matColumnDef="suscrito">
       <th mat-header-cell *matHeaderCellDef> Suscrito </th>
-      <td mat-cell *matCellDef="let element"> {{ element.suscrito.usNombre }} </td>
+      <td mat-cell *matCellDef="let element"> {{ element.suscrito?.usNombre }} </td>
     </ng-container>
 
     <!-- Acciones -->

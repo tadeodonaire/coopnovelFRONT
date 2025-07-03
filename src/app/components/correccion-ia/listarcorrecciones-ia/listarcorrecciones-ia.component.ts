@@ -21,10 +21,10 @@ export class ListarcorreccionesIAComponent {
 
   ngOnInit(): void {
     this.coS.list().subscribe(data => {
-      this.dataSource = new MatTableDataSource(data);
+      this.coS.setList(data);
     });
     this.coS.getList().subscribe(data => {
-      this.dataSource = new MatTableDataSource(data);
+      this.dataSource.data = data;
     });
   }
 

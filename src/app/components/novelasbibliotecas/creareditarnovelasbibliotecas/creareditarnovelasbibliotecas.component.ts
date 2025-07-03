@@ -95,9 +95,9 @@ init(){
   if(this.edicion){
     this.nbS.listId(this.id).subscribe(data => {
     this.form = new FormGroup({
-      idNovelaBiblioteca: new FormControl(data.idNovelaBiblioteca),
-      idBiblioteca: new FormControl(data.biblioteca.idBiblioteca),
-      idNovela: new FormControl(data.novelas.idNovela),
+      codigo: new FormControl(data.idNovelaBiblioteca),
+      biblioteca: new FormControl(data.biblioteca.idBiblioteca),
+      novela: new FormControl(data.novelas.idNovela),
     })
     });
   }
