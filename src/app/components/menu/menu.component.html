@@ -103,6 +103,14 @@
         <span *ngIf="isExpanded">Comentarios</span>
       </button>
 
+      <!-- Correcciones -->
+      <button mat-button [matMenuTriggerFor]="CORRECCIONES">
+        <mat-icon>comment</mat-icon>
+        <span *ngIf="isExpanded">Correcciones</span>
+      </button>
+
+      
+
       <!--TODOS LAS DIRECCIONES ANTES DE REPORTES (REPORTES POR ORDEN VA AL ÚLTIMO)-->
 
       <!-- REPORTE -->
@@ -187,6 +195,11 @@
 <mat-menu #COMENTARIOS="matMenu">
   <button mat-menu-item routerLink="/comentario">Listar</button>
   <button mat-menu-item routerLink="/comentario/insertar">Registrar</button>
+</mat-menu>
+
+<mat-menu #CORRECCIONES="matMenu">
+  <button mat-menu-item routerLink="/correccionIA">Listar</button>
+  <button mat-menu-item routerLink="/correccionIA/insertar">Registrar</button>
 </mat-menu>
 
 <mat-menu #REPORTES="matMenu">

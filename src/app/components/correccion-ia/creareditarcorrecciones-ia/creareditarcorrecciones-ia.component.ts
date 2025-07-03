@@ -60,7 +60,7 @@ export class CreareditarcorreccionesIAComponent {
     if(this.form.valid) {
       this.correccionIA.idCorreccionIA = this.form.value.id;
       this.correccionIA.corCorreccionIA = this.form.value.correccionIA;
-      this.correccionIA.capitulos = this.form.value.capitulos;
+      this.correccionIA.capitulos.idCapitulo = this.form.value.capitulos;
 
       console.log(this.form.value);
 

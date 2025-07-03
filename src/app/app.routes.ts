@@ -20,6 +20,8 @@ import { CreateEditComentarioComponent } from './components/comentarios/create-e
 import { CapitulosdescargadosxusuarioComponent } from './components/reportes/capitulosdescargadosxusuario/capitulosdescargadosxusuario.component';
 import { NumeroCapitulosComponent } from './components/reportes/numero-capitulos/numero-capitulos.component';
 import { CantSuscripcionComponent } from './components/reportes/cant-suscripcion/cant-suscripcion.component';
+import { CorreccionIAComponent } from './components/correccion-ia/correccion-ia.component';
+import { CreareditarcorreccionesIAComponent } from './components/correccion-ia/creareditarcorrecciones-ia/creareditarcorrecciones-ia.component';
 
 export const routes: Routes = [
   {
@@ -136,6 +138,20 @@ export const routes: Routes = [
       },
     ],
   },
+  {
+    path: 'correccionIA',
+    component: CorreccionIAComponent,
+    children:[
+      {
+        path: 'insertar',
+        component: CreareditarcorreccionesIAComponent
+      },
+      {
+        path:'ediciones/:id',
+        component: CreareditarcorreccionesIAComponent
+      }
+    ]
+  },
 
   /* TODAS LAS RUTAS DE LOS COMPONENTES (ES ANTES DE REPORTES / REPORTES POR ORDEN VA ULTIMO)
 
@@ -158,6 +174,7 @@ export const routes: Routes = [
       },
     ],
   }, 
+  {
   path: 'reportes',
   component: ReportesComponent, 
   children: [
@@ -166,6 +183,6 @@ export const routes: Routes = [
       component: CantSuscripcionComponent,
     },
   ],
-  
+
 },
 ];
