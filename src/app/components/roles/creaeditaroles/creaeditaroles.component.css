@@ -110,21 +110,9 @@ button[type="submit"]:disabled {
   padding: 0;
 }
 
-form input,
-form select {
-  width: 100%;
-  padding: 8px;
-  margin-top: 4px;
-  margin-bottom: 12px;
-  border: 1px solid #ccc;
-  border-radius: 6px;
-  font-size: 16px;
-  box-sizing: border-box;
-}
-
 .error {
-  color: red;
-  font-size: 13px;
-  margin-top: -10px;
+  color: #e53935;
+  font-size: 14px;
+  margin-top: -12px;
   margin-bottom: 10px;
 }

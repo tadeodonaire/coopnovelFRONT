@@ -24,6 +24,8 @@ import { AccesoDenegadoComponent } from './pages/acceso-denegado/acceso-denegado
 import { HomeComponent } from './components/home/home.component';
 import { seguridadGuard } from './guard/seguridad.guard';
 import { LoginComponent } from './components/login/login.component';
+import { RolesComponent } from './components/roles/roles.component';
+import { CreaeditarolesComponent } from './components/roles/creaeditaroles/creaeditaroles.component';
 
 export const routes: Routes = [
   {
@@ -146,6 +148,20 @@ export const routes: Routes = [
       {
         path: 'ediciones/:id',
         component: CreateEditComentarioComponent,
+      },
+    ],
+  },
+  {
+    path: 'roles',
+    component: RolesComponent,
+    children: [
+      {
+        path: 'insertar',
+        component: CreaeditarolesComponent,
+      },
+      {
+        path: 'ediciones/:id',
+        component: CreaeditarolesComponent,
       },
     ],
   },

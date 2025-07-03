@@ -1,3 +1,5 @@
+import { Roles } from "./roles";
+
 export class Usuario {
     idUsuario: number=0;
     usNombre: string="";
@@ -7,4 +9,5 @@ export class Usuario {
     username: string="";
     password: string="";
     usEnable: boolean=true;
+    role:Roles = new Roles();
 }

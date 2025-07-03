@@ -19,6 +19,8 @@ import { UsuariosService } from '../../../services/usuarios.service';
 import { ActivatedRoute, Params, Router } from '@angular/router';
 import { provideNativeDateAdapter } from '@angular/material/core';
 import { MatIconModule } from '@angular/material/icon';
+import { Roles } from '../../../models/roles';
+import { RolesService } from '../../../services/roles.service';
 
 @Component({
   providers: [provideNativeDateAdapter()],
@@ -34,7 +36,6 @@ import { MatIconModule } from '@angular/material/icon';
     MatRadioModule,
     MatSelectModule,
     MatDatepickerModule,
-    MatSelectModule,
     MatButtonModule,
   ],
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -44,6 +45,7 @@ import { MatIconModule } from '@angular/material/icon';
 export class CreaeditarusuariosComponent {
   form: FormGroup = new FormGroup({});
   usuario: Usuario = new Usuario();
+  listarRol: Roles[] = [];
   hidePassword: boolean = true;
   estado: Boolean = false;
   id: number = 0;
@@ -51,6 +53,7 @@ export class CreaeditarusuariosComponent {
 
   constructor(
     private uS: UsuariosService,
+    private rS: RolesService,
     private formBuilder: FormBuilder,
     private router: Router,
     private route: ActivatedRoute
@@ -69,8 +72,15 @@ export class CreaeditarusuariosComponent {
         fecha: ['', Validators.required],
         usuario: ['', Validators.required],
         contrasena: ['', this.edicion ? [] : Validators.required],
-        estado: ['', Validators.required],
+        estado: [
+          this.edicion ? '' : true,
+          this.edicion ? Validators.required : [],
+        ],
         email: ['', [Validators.required, Validators.email]],
+        rol: ['', [Validators.required]],
+      });
+      this.rS.list().subscribe((data) => {
+        this.listarRol = data;
       });
 
       this.init();
@@ -87,6 +97,7 @@ export class CreaeditarusuariosComponent {
       this.usuario.username = this.form.value.usuario;
       this.usuario.password = this.form.value.contrasena;
       this.usuario.usEnable = this.edicion ? this.form.value.estado : true;
+      this.usuario.role.id = this.form.value.rol
 
       if (this.edicion) {
         this.uS.update(this.usuario).subscribe(() => {
@@ -119,6 +130,7 @@ export class CreaeditarusuariosComponent {
           usuario: data.username,
           contrasena: data.password,
           estado: data.usEnable,
+          rol:data.role.id
         });
       });
     }

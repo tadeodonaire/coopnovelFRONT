@@ -17,16 +17,12 @@ export const seguridadGuard: CanActivateFn = (
   const tokenValido = loginService.verificar();
   if (!tokenValido) {
     alert('Token inválido. Redirigiendo a login.');
-    router.navigate(['/login']);
+    router.navigate(['login']);
     return false;
   }
 
   const rolesPermitidos: string[] = route.data['rolesPermitidos'] || [];
   const rolUsuario = loginService.showRole();
-
-  console.log('🎯 RUTA PROTEGIDA:', state.url);
-  console.log('✅ Rol del usuario:', rolUsuario);
-  console.log('🔒 Roles permitidos:', rolesPermitidos);
 
   if (rolesPermitidos.length > 0 && !rolesPermitidos.includes(rolUsuario)) {
     alert('Acceso denegado. Redirigiendo a /acceso-denegado');
