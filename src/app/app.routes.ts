@@ -14,14 +14,28 @@ import { ReunionComponent } from './components/reunion/reunion.component';
 import { ReportesComponent } from './components/reportes/reportes.component';
 import { DescargasComponent } from './components/descargas/descargas.component';
 import { CreareditardescargasComponent } from './components/descargas/creareditardescargas/creareditardescargas.component';
-import { VerLibrosComponent } from './components/ver-libros/ver-libros.component';
-import { ComentariosComponent } from './components/comentarios/comentarios.component';
 import { CreateEditReunionComponent } from './components/reunion/create-edit-reunion/create-edit-reunion.component';
+import { ComentariosComponent } from './components/comentarios/comentarios.component';
 import { CreateEditComentarioComponent } from './components/comentarios/create-edit-comentario/create-edit-comentario.component';
 import { CapitulosdescargadosxusuarioComponent } from './components/reportes/capitulosdescargadosxusuario/capitulosdescargadosxusuario.component';
 import { TopThreeCommentatorsComponent } from './components/reportes/top-three-commentators/top-three-commentators.component';
+import { NumeroCapitulosComponent } from './components/reportes/numero-capitulos/numero-capitulos.component';
+import { CantSuscripcionComponent } from './components/reportes/cant-suscripcion/cant-suscripcion.component';
+import { AccesoDenegadoComponent } from './pages/acceso-denegado/acceso-denegado.component';
+import { HomeComponent } from './components/home/home.component';
+import { seguridadGuard } from './guard/seguridad.guard';
+import { LoginComponent } from './components/login/login.component';
 
 export const routes: Routes = [
+  {
+    path: '',
+    redirectTo: 'login',
+    pathMatch: 'full',
+  },
+  {
+    path: 'login',
+    component: LoginComponent,
+  },
   {
     path: 'usuarios',
     component: UsuariosComponent,
@@ -35,10 +49,6 @@ export const routes: Routes = [
         component: CreaeditarusuariosComponent,
       },
     ],
-  },
-  {
-    path: 'API',
-    component: VerLibrosComponent,
   },
   {
     path: 'descargas',
@@ -149,6 +159,10 @@ export const routes: Routes = [
     component: ReportesComponent,
     children: [
       {
+        path: 'numero-capitulo',
+        component: NumeroCapitulosComponent,
+      },
+      {
         path: 'reportecapitulosdescargados',
         component: CapitulosdescargadosxusuarioComponent,
       },
@@ -161,5 +175,19 @@ export const routes: Routes = [
         component: TopThreeCommentatorsComponent,
       }
     ],
+      {
+        path: 'SusccripcionMes',
+        component: CantSuscripcionComponent,
+      },
+    ],
+  },
+  {
+    path: 'acceso-denegado',
+    component: AccesoDenegadoComponent,
+  },
+  {
+    path: 'homes',
+    component: HomeComponent,
+    canActivate: [seguridadGuard],
   },
 ];

@@ -1,0 +1,25 @@
+<div class="title-container" style="text-align: center">
+  <h1 class="title">Suscripciones por mes</h1>
+</div>
+
+<!-- Selector dinámico de usuario -->
+<div style="text-align: center; margin-bottom: 1rem;">
+  <label for="usuario">Selecciona un usuario:</label>
+  <select id="usuario" [value]="usuarioSeleccionadoId" (change)="cambiarUsuario($event)">
+    <option *ngFor="let u of usuarios" [value]="u.idUsuario">
+      {{ u.usNombre }} {{ u.usApellido }} ({{ u.username }})
+    </option>
+  </select>
+</div>
+
+<!-- Gráfico de barras -->
+<div class="chart-container" style="text-align: center">
+  <canvas
+    baseChart
+    [datasets]="barChartData"
+    [labels]="barChartLabels"
+    [options]="barChartOptions"
+    [legend]="barChartLegend"
+    [type]="barChartType"
+  ></canvas>
+</div>

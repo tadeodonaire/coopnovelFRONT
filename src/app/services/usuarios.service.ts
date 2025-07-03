@@ -4,6 +4,7 @@ import { Usuario } from '../models/usuarios';
 import { HttpClient } from '@angular/common/http';
 import { Observable, Subject } from 'rxjs';
 import { EdadDTO } from '../models/edadDTO';
+import { QuerySuscripcionDTO } from '../models/QuerySuscripcionDTO';
 
 const base_url = environment.base;
 
@@ -44,6 +45,10 @@ export class UsuariosService {
   
   getEdad():Observable<EdadDTO[]>{
     return this.http.get<EdadDTO[]>(`${this.url}/edad`);
+  }
+  getSuscipcionesMes(id:number):Observable<QuerySuscripcionDTO[]>{
+    const params = {a:id}
+    return this.http.get<[QuerySuscripcionDTO]>(`${this.url}/CantidadSuscripcion`,{params});
   }
 
 }
