@@ -171,14 +171,13 @@ export const routes: Routes = [
         component: CantidadcomentariosxusuarioComponent,
       },
       {//Victor
-        path:'reporte-top-three-comentarios',
+        path: 'reporte-top-three-comentarios',
         component: TopThreeCommentatorsComponent,
-      }
-    ],
+      },
       {
         path: 'SusccripcionMes',
         component: CantSuscripcionComponent,
-      },
+      }
     ],
   },
   {
