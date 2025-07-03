@@ -161,16 +161,16 @@ export const routes: Routes = [
   {
     path: 'correccionIA',
     component: CorreccionIAComponent,
-    children:[
+    children: [
       {
         path: 'insertar',
-        component: CreareditarcorreccionesIAComponent
+        component: CreareditarcorreccionesIAComponent,
       },
       {
-        path:'ediciones/:id',
-        component: CreareditarcorreccionesIAComponent
-      }
-    ]
+        path: 'ediciones/:id',
+        component: CreareditarcorreccionesIAComponent,
+      },
+    ],
   },
   {
     path: 'novelasbibliotecas',
@@ -182,9 +182,9 @@ export const routes: Routes = [
       },
       {
         path: 'ediciones/:id',
-        component: CreareditarnovelasbibliotecasComponent
-      }
-    ]
+        component: CreareditarnovelasbibliotecasComponent,
+      },
+    ],
   },
   {
     path: 'suscripciones',
@@ -192,13 +192,13 @@ export const routes: Routes = [
     children: [
       {
         path: 'insertar',
-        component: CreareditarsuscripcionesComponent
+        component: CreareditarsuscripcionesComponent,
       },
       {
         path: 'editar/:id',
-        component: CreareditarsuscripcionesComponent
-      }
-    ]
+        component: CreareditarsuscripcionesComponent,
+      },
+    ],
   },
   {
     path: 'roles',
@@ -234,27 +234,14 @@ export const routes: Routes = [
         path: 'reportecomentariosxusuarios',
         component: CantidadcomentariosxusuarioComponent,
       },
-    ],
-  }, 
-  {
-  path: 'reportes',
-  component: ReportesComponent, 
-  children: [
-    {
-      path: 'SusccripcionMes',
-      component: CantSuscripcionComponent,
-    },
-  ],
-
-},
-      {//Victor
-        path: 'reporte-top-three-comentarios',
-        component: TopThreeCommentatorsComponent,
+      {
+        path: 'suscripcion-mes', // corregido
+        component: CantSuscripcionComponent,
       },
       {
-        path: 'SusccripcionMes',
-        component: CantSuscripcionComponent,
-      }
+        path: 'top-three-comentarios', // mejor nombre para URL
+        component: TopThreeCommentatorsComponent,
+      },
     ],
   },
   {
