@@ -38,18 +38,21 @@ export const routes: Routes = [
     component: LoginComponent,
   },
   {
+    path: 'usuarios/insertar',
+    component: CreaeditarusuariosComponent,
+    canActivate: [seguridadGuard], // importante: sigue usando el guard
+  },
+  {
     path: 'usuarios',
     component: UsuariosComponent,
-    children: [
-      {
-        path: 'insertar',
-        component: CreaeditarusuariosComponent,
-      },
-      {
-        path: 'editar/:id',
-        component: CreaeditarusuariosComponent,
-      },
-    ],
+    canActivate: [seguridadGuard],
+    data: { rolesPermitidos: ['ADMINISTRADOR'] }, // solo admin
+  },
+  {
+    path: 'usuarios/editar/:id',
+    component: CreaeditarusuariosComponent,
+    canActivate: [seguridadGuard],
+    data: { rolesPermitidos: ['ADMINISTRADOR'] },
   },
   {
     path: 'descargas',
@@ -64,6 +67,7 @@ export const routes: Routes = [
         component: CreareditardescargasComponent,
       },
     ],
+    canActivate: [seguridadGuard],
   },
   {
     path: 'biblioteca',
@@ -78,6 +82,7 @@ export const routes: Routes = [
         component: CrearEditarBibliotecaComponent,
       },
     ],
+    canActivate: [seguridadGuard],
   },
 
   {
@@ -93,6 +98,7 @@ export const routes: Routes = [
         component: CreareditarproyectosComponent,
       },
     ],
+    canActivate: [seguridadGuard],
   },
 
   {
@@ -108,21 +114,24 @@ export const routes: Routes = [
         component: CreareditarnovelaComponent,
       },
     ],
+    canActivate: [seguridadGuard],
   },
   {
     path: 'capitulo',
     component: CapituloComponent,
+    canActivate: [seguridadGuard],
+    // Sin `data.rolesPermitidos` para dejarlo libre a todos los roles autenticados
     children: [
-      {
-        path: 'insertar',
-        component: CreaeditacapitulosComponent,
-      },
+      { path: 'insertar', component: CreaeditacapitulosComponent },
       {
         path: 'ediciones/:id',
         component: CreaeditacapitulosComponent,
+        canActivate: [seguridadGuard],
+        data: { rolesPermitidos: ['ADMINISTRADOR', 'AUTOR'] }, // Aquí sí restringes
       },
     ],
   },
+
   {
     path: 'reunion',
     component: ReunionComponent,
@@ -136,6 +145,7 @@ export const routes: Routes = [
         component: CreateEditReunionComponent, // Aquí se puede cambiar a un componente específico si es necesario
       },
     ],
+    canActivate: [seguridadGuard],
   },
   {
     path: 'comentario',
@@ -150,6 +160,7 @@ export const routes: Routes = [
         component: CreateEditComentarioComponent,
       },
     ],
+    canActivate: [seguridadGuard],
   },
   {
     path: 'roles',
@@ -164,6 +175,7 @@ export const routes: Routes = [
         component: CreaeditarolesComponent,
       },
     ],
+    canActivate: [seguridadGuard],
   },
 
   /* TODAS LAS RUTAS DE LOS COMPONENTES (ES ANTES DE REPORTES / REPORTES POR ORDEN VA ULTIMO)
