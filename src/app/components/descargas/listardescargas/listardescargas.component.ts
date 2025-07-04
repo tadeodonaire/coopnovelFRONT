@@ -12,6 +12,7 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { RouterLink } from '@angular/router';
 import { LoginService } from '../../../services/login.service';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-listardescargas',
@@ -24,13 +25,14 @@ import { LoginService } from '../../../services/login.service';
     MatFormFieldModule,
     MatInputModule,
     RouterLink,
+    CommonModule
   ],
   templateUrl: './listardescargas.component.html',
   styleUrl: './listardescargas.component.css',
 })
 export class ListardescargasComponent implements OnInit {
   dataSource: MatTableDataSource<Descargas> = new MatTableDataSource();
-  displayedColumns = ['c1', 'c2', 'c3', 'c4'];
+  displayedColumns: string[] = [];
 
   form: FormGroup;
   @ViewChild(MatPaginator) paginator!: MatPaginator;
@@ -51,7 +53,7 @@ export class ListardescargasComponent implements OnInit {
     this.displayedColumns = ['c1', 'c2', 'c3'];
 
     if (this.isAdministrador()) {
-      this.displayedColumns.push('c4'); // Solo si es admin
+      this.displayedColumns.push('c4', 'c5');
     }
 
     this.dS.getList().subscribe((data) => {
