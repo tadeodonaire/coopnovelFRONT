@@ -1,96 +1,76 @@
-<div>
-    <div>
-        <h1>{{ edicion ? 'Actualizar Comentario' : 'Registro de Comentario' }}</h1>
-    </div>
-    <div>
-        <form [formGroup]="form" (submit)="aceptar()">
+<div class="form-container">
+    <h1>{{ edicion ? 'Actualizar Comentario' : 'Registro de Comentario' }}</h1>
+    <form [formGroup]="form" (submit)="aceptar()">
 
-            <!-- ID -->
-            <mat-form-field class="example-full-width" *ngIf="edicion">
-                <mat-label>Codigo del Comentario</mat-label>
-                <input matInput placeholder="Eg: 123" formControlName="codigo" readonly>
+        <!-- ID -->
+        <div class="form-group" *ngIf="edicion">
+            <label for="codigo">Código del Comentario</label>
+            <input id="codigo" type="text" formControlName="codigo" readonly class="input-id">
+            <mat-error *ngIf="form.get('codigo')?.hasError('required') && form.get('codigo')?.touched">
+                Este campo es obligatorio
+            </mat-error>
+        </div>
 
-                <mat-error *ngIf="form.get('codigo')?.hasError('required') && form.get('codigo')?.touched">
-                    Este campo es obligatorio
-                </mat-error>
-            </mat-form-field>
+        <!-- Contenido -->
+        <div class="form-group">
+            <label for="contenido">Contenido</label>
+            <textarea id="contenido" formControlName="contenido" placeholder="Eg: La Novela es buena" rows="3"></textarea>
+            <mat-error *ngIf="form.get('contenido')?.hasError('required') && form.get('contenido')?.touched">
+                Este campo es obligatorio
+            </mat-error>
+            <mat-error *ngIf="form.get('contenido')?.hasError('minlength') && form.get('contenido')?.touched">
+                El tema debe tener al menos 3 caracteres
+            </mat-error>
+            <mat-error *ngIf="form.get('contenido')?.hasError('pattern') && form.get('contenido')?.touched">
+                El tema debe tener solo letras y espacios
+            </mat-error>
+        </div>
 
-            <br><!--Space-->
+        <!-- Fecha -->
+        <div class="form-group">
+            <label for="fecha">Fecha</label>
+            <input id="fecha" type="date" formControlName="fecha">
+            <mat-error *ngIf="form.get('fecha')?.hasError('required') && form.get('fecha')?.touched">
+                Este campo es obligatorio
+            </mat-error>
+            <mat-error *ngIf="form.get('fecha')?.hasError('fechaFutura') && form.get('fecha')?.touched">
+                No se permiten fechas futuras. Selecciona hoy o una fecha superior.
+            </mat-error>
+        </div>
 
-            <!-- Contenido -->
-            <mat-form-field class="example-full-width">
-                <mat-label>Contenido</mat-label>
-                <input matInput placeholder="Eg: La Novela es buena" formControlName="contenido">
+        <!--Usuario-->
+        <div class="form-group" *ngIf="!edicion">
+            <label for="usuario">Usuario</label>
+            <select id="usuario" formControlName="usuario">
+                <option value="" disabled selected>Seleccione un usuario</option>
+                <option *ngFor="let usuario of listaUsuarios" [value]="usuario.idUsuario">
+                    {{usuario.usNombre}}
+                </option>
+            </select>
+            <mat-error *ngIf="form.get('usuario')?.hasError('required') && form.get('usuario')?.touched">
+                Este campo es obligatorio
+            </mat-error>
+        </div>
 
-                <mat-error *ngIf="form.get('contenido')?.hasError('required') && form.get('contenido')?.touched">
-                    Este campo es obligatorio
-                </mat-error>
-                <mat-error *ngIf="form.get('contenido')?.hasError('minlength') && form.get('contenido')?.touched">
-                    El tema debe tener al menos 3 caracteres
-                </mat-error>
-                <mat-error *ngIf="form.get('contenido')?.hasError('pattern') && form.get('contenido')?.touched">
-                    El tema debe tener solo letras y espacios
-                </mat-error>
-            </mat-form-field>
+        <!--Capitulo-->
+        <div class="form-group">
+            <label for="capitulo">Capítulo</label>
+            <select id="capitulo" formControlName="capitulo">
+                <option value="" disabled selected>Seleccione un capítulo</option>
+                <option *ngFor="let capitulo of listaCapitulos" [value]="capitulo.idCapitulo">
+                    {{capitulo.capTitulo}}
+                </option>
+            </select>
+            <mat-error *ngIf="form.get('capitulo')?.hasError('required') && form.get('capitulo')?.touched">
+                Este campo es obligatorio
+            </mat-error>
+        </div>
 
-            <br><!--Space-->
+        <!--Botones-->
+        <button type="submit" class="submit-button" [disabled]="form.invalid">
+            {{ edicion ? 'Actualizar' : 'Registrar' }}
+        </button>
+        <button type="button" class="cancel-button" (click)="cancelar()">Cancelar</button>
 
-            <!-- Fecha -->
-            <mat-form-field>
-                <mat-label>Escoja la fecha</mat-label>
-                <input matInput [matDatepicker]="picker" formControlName="fecha">
-                <mat-hint>MM/DD/YYYY</mat-hint>
-                <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
-                <mat-datepicker #picker></mat-datepicker>
-
-                <mat-error *ngIf="form.get('fecha')?.hasError('required') && form.get('fecha')?.touched">
-                    Este campo es obligatorio
-                </mat-error>
-                <mat-error *ngIf="form.get('fecha')?.hasError('fechaFutura') && form.get('fecha')?.touched">
-                    No se permiten fechas futuras. Selecciona hoy o una fecha superior.
-                </mat-error>
-            </mat-form-field>
-
-            <br><!--Space-->
-
-            <!--Usuario-->
-            <mat-form-field class="example-full-width" *ngIf="!edicion">
-                <mat-label>Usuario</mat-label>
-                <mat-select formControlName="usuario">
-                    @for (food of listaUsuarios; track food) {
-                    <mat-option [value]="food.idUsuario">{{food.usNombre}}</mat-option>
-                    }
-                </mat-select>
-
-                <mat-error *ngIf="form.get('usuario')?.hasError('required') && form.get('usuario')?.touched">
-                    Este campo es obligatorio
-                </mat-error>
-            </mat-form-field>
-
-            <br><!--Space-->
-
-            <!--Capitulo-->
-            <mat-form-field class="example-full-width">
-                <mat-label>Capitulo</mat-label>
-                <mat-select formControlName="capitulo">
-                    @for (food of listaCapitulos; track food) {
-                    <mat-option [value]="food.idCapitulo">{{food.capTitulo}}</mat-option>
-                    }
-                </mat-select>
-
-                <mat-error *ngIf="form.get('capitulo')?.hasError('required') && form.get('capitulo')?.touched">
-                    Este campo es obligatorio
-                </mat-error>
-            </mat-form-field>
-
-            <br><!--Space-->
-
-            <!--Botones-->
-            <button matButton="outlined" [disabled]="form.invalid" (click)="openSnackBar(message, action)">{{ edicion ?
-                'Actualizar' : 'Registrar' }}</button>
-            <button (click)="cancelar()">Cancelar</button>
-
-        </form>
-    </div>
-
+    </form>
 </div>

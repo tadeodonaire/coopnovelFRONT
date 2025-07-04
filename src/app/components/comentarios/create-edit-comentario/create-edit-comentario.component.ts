@@ -10,7 +10,6 @@ import { ActivatedRoute, Params, Router } from '@angular/router';
 import { Capitulos } from '../../../models/capitulos';
 import { MatTableModule } from '@angular/material/table';
 import { CommonModule } from '@angular/common';
-import { MatFormField } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
 import { MatDatepickerModule } from '@angular/material/datepicker';
@@ -21,7 +20,6 @@ import { provideNativeDateAdapter } from '@angular/material/core';
   imports: [MatTableModule,
     FormsModule,
     CommonModule,
-    MatFormField,
     MatInputModule,
     MatSelectModule,
     MatDatepickerModule,
