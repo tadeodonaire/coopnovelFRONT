@@ -1,0 +1,28 @@
+<div class="titulo-container">
+  <h1 class="titulo">📚 Mis Bibliotecas</h1>
+</div>
+
+<div class="tarjetas-container">
+  <mat-card *ngFor="let b of bibliotecasUnicas" class="tarjeta-biblioteca">
+    <mat-card-header>
+      <div mat-card-avatar class="avatar-icon">
+        <mat-icon>library_books</mat-icon>
+      </div>
+      <mat-card-title>{{ b.nombre }}</mat-card-title>
+      <mat-card-subtitle>Biblioteca ID: {{ b.id }}</mat-card-subtitle>
+    </mat-card-header>
+
+    <mat-card-content>
+      <p>📖 Esta biblioteca contiene tus novelas y capítulos.</p>
+    </mat-card-content>
+
+    <mat-card-actions align="end">
+      <button mat-raised-button color="primary" (click)="irABiblioteca(b.id)">
+        Entrar a la Biblioteca
+      </button>
+    </mat-card-actions>
+  </mat-card>
+</div>
+
+<!-- Aquí se mostrarán los componentes hijos, como BibliotecaListaUsuarioComponent -->
+<router-outlet></router-outlet>
