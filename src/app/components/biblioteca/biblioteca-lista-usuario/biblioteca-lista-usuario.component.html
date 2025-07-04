@@ -1,0 +1,33 @@
+<div *ngFor="let novela of novelas" class="novela-card">
+  <h2>{{ novela.name }}</h2>
+
+  <!-- Género con fondo azul -->
+  <div class="genero-badge">
+    {{ novela.genero }}
+  </div>
+
+  <!-- Resumen con subtítulo y salto de línea -->
+  <p><strong>Resumen:</strong></p>
+  <p class="resumen-texto">{{ novela.resumen }}</p>
+
+  <!-- Lista de capítulos -->
+  <!-- Lista de capítulos -->
+  <div *ngFor="let cap of novela.children" class="capitulo-card">
+    <div class="capitulo-header">
+      <!-- Botón de expandir con estilo mini-fab -->
+      <button mat-mini-fab color="primary" (click)="toggleCapitulo(cap.name)">
+        <mat-icon>
+          {{ isCapituloExpanded(cap.name) ? "expand_more" : "chevron_right" }}
+        </mat-icon>
+      </button>
+
+      <!-- Nombre del capítulo -->
+      <strong class="capitulo-nombre">{{ cap.name }}</strong>
+    </div>
+
+    <!-- Contenido del capítulo -->
+    <div class="capitulo-contenido" *ngIf="isCapituloExpanded(cap.name)">
+      <p>{{ cap.contenido }}</p>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,214 @@
+@import url('https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&display=swap');
+
+body {
+  font-family: 'Nunito', sans-serif;
+  background-color: #f6f8fc;
+}
+
+.form-container {
+  background-color: #fff;
+  border-radius: 24px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
+  padding: 30px;
+  width: 100%;
+  max-width: 540px;
+  margin: 40px auto;
+}
+
+h1 {
+  color: #1cb0f6;
+  font-size: 32px;
+  margin-bottom: 32px;
+  text-align: center;
+  font-weight: 700;
+}
+
+.form-group {
+  margin-bottom: 22px;
+}
+
+label {
+  display: block;
+  margin-bottom: 8px;
+  font-weight: 600;
+  color: #222;
+}
+
+input[type="text"],
+input[type="date"],
+select {
+  width: 100%;
+  padding: 14px 18px;
+  border: 2px solid #e0e0e0;
+  border-radius: 12px;
+  font-size: 16px;
+  background: #fff;
+  color: #222;
+  box-sizing: border-box;
+  transition: border 0.3s;
+  outline: none;
+  font-family: 'Nunito', sans-serif;
+}
+
+input[type="text"]:focus,
+input[type="date"]:focus,
+select:focus {
+  border-color: #1cb0f6;
+}
+
+input[readonly] {
+  background: #f5f5f5;
+  color: #999;
+  cursor: not-allowed;
+  font-style: italic;
+}
+
+input.ng-invalid.ng-touched,
+select.ng-invalid.ng-touched {
+  border-color: #e57373;
+  background: #fff0f0;
+}
+
+.error, mat-error {
+  color: #e57373;
+  font-size: 13px;
+  margin-top: 4px;
+  margin-bottom: 0;
+  display: block;
+}
+
+.submit-button {
+  background-color: #a6e1fa;
+  color: #fff;
+  font-size: 20px;
+  font-weight: 700;
+  padding: 14px 0;
+  border: none;
+  border-radius: 16px;
+  cursor: pointer;
+  width: 100%;
+  transition: background 0.3s;
+  margin-bottom: 18px;
+  box-shadow: none;
+}
+
+.submit-button:hover {
+  background-color: #1cb0f6;
+}
+
+.submit-button:disabled {
+  background-color: #cbeffc;
+  cursor: not-allowed;
+}
+
+.cancel-button {
+  background-color: #6c757d;
+  color: white;
+  font-size: 20px;
+  font-weight: 700;
+  padding: 14px 0;
+  border: none;
+  border-radius: 16px;
+  cursor: pointer;
+  width: 100%;
+  transition: background 0.3s;
+  box-shadow: none;
+}
+
+.cancel-button:hover {
+  background-color: #5a6268;
+}
+
+textarea {
+  width: 100%;
+  padding: 14px 18px;
+  border: 2px solid #e0e0e0;
+  border-radius: 12px;
+  font-size: 16px;
+  background: #fff;
+  color: #222;
+  box-sizing: border-box;
+  transition: border 0.3s;
+  outline: none;
+  font-family: 'Nunito', sans-serif;
+  resize: vertical;
+  min-height: 80px;
+  max-height: 300px;
+}
+
+textarea:focus {
+  border-color: #1cb0f6;
+}
+
+textarea.ng-invalid.ng-touched {
+  border-color: #e57373;
+  background: #fff0f0;
+}
+
+@media (max-width: 600px) {
+  .form-container {
+    width: 100%;
+    max-width: 420px;
+    margin-left: auto;
+    margin-right: auto;
+    padding: 16px 12px;
+    border-radius: 14px;
+    box-sizing: border-box;
+  }
+  h1 {
+    font-size: 22px;
+    margin-bottom: 18px;
+  }
+  .submit-button, .cancel-button {
+    font-size: 16px;
+    padding: 10px 0;
+    border-radius: 12px;
+  }
+  label {
+    font-size: 15px;
+  }
+  input[type="text"],
+  input[type="date"],
+  select {
+    font-size: 15px;
+    padding: 10px 12px;
+    border-radius: 10px;
+  }
+  textarea {
+    font-size: 15px;
+    padding: 10px 12px;
+    border-radius: 10px;
+    min-height: 60px;
+  }
+}
+
+@media (max-width: 400px) {
+  .form-container {
+    padding: 6px 4px;
+    border-radius: 8px;
+  }
+  h1 {
+    font-size: 16px;
+  }
+  .submit-button, .cancel-button {
+    font-size: 13px;
+    padding: 7px 0;
+    border-radius: 8px;
+  }
+  label {
+    font-size: 13px;
+  }
+  input[type="text"],
+  input[type="date"],
+  select {
+    font-size: 13px;
+    padding: 7px 8px;
+    border-radius: 7px;
+  }
+  textarea {
+    font-size: 13px;
+    padding: 7px 8px;
+    border-radius: 7px;
+    min-height: 40px;
+  }
+}

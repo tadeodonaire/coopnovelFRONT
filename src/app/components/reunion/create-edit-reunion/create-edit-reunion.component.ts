@@ -6,7 +6,6 @@ import { ReunionService } from '../../../services/reunion.service';
 import { ActivatedRoute, Params, Router } from '@angular/router';
 import { MatTableModule } from '@angular/material/table';
 import { CommonModule } from '@angular/common';
-import { MatFormField } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { UsuariosService } from '../../../services/usuarios.service';
@@ -20,7 +19,6 @@ import { provideNativeDateAdapter } from '@angular/material/core';
     MatTableModule,
     FormsModule,
     CommonModule,
-    MatFormField,
     MatInputModule,
     MatSelectModule,
     MatDatepickerModule,

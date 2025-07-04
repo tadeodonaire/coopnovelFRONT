@@ -7,24 +7,40 @@ import { RouterLink } from '@angular/router';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { MatPaginator, MatPaginatorModule } from '@angular/material/paginator';
+import { LoginService } from '../../../services/login.service';
 
 @Component({
   selector: 'app-listar-reunion',
-  imports: [CommonModule, MatTableModule, RouterLink, MatButtonModule, MatIconModule, MatPaginatorModule],
+  imports: [
+    CommonModule,
+    MatTableModule,
+    RouterLink,
+    MatButtonModule,
+    MatIconModule,
+    MatPaginatorModule,
+  ],
   templateUrl: './listar-reunion.component.html',
-  styleUrl: './listar-reunion.component.css'
+  styleUrl: './listar-reunion.component.css',
 })
 export class ListarReunionComponent {
   dataSource: MatTableDataSource<Reunion> = new MatTableDataSource();
-  displayedColumns: string[] = ['c1', 'c2', 'c3', 'c4', 'c5', 'c6', 'c7', 'c8'];
+  displayedColumns: string[] = [];
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;
 
-  constructor(private reunionService: ReunionService) { }
+  constructor(
+    private reunionService: ReunionService,
+    private loginService: LoginService
+  ) {}
 
   ngOnInit(): void {
-    //Called after the constructor, initializing input properties, and the first call to ngOnChanges.
-    //Add 'implements OnInit' to the class.
+    const rol = this.loginService.showRole();
+    this.displayedColumns = ['c1', 'c2', 'c3', 'c4', 'c5', 'c6', 'c7'];
+
+    if (rol === 'ADMINISTRADOR' || rol === 'AUTOR') {
+      this.displayedColumns.push('c8');
+    }
+
     this.reunionService.list().subscribe((data) => {
       this.dataSource = new MatTableDataSource(data);
     });
@@ -44,5 +60,13 @@ export class ListarReunionComponent {
         this.reunionService.setList(data);
       });
     });
+  }
+
+  isAdministrador(): boolean {
+    return this.loginService.showRole() === 'ADMINISTRADOR';
+  }
+
+  isAutor(): boolean {
+    return this.loginService.showRole() === 'AUTOR';
   }
 }

@@ -5,6 +5,7 @@ import { HttpClient } from '@angular/common/http';
 import { Observable, Subject } from 'rxjs';
 import { EdadDTO } from '../models/edadDTO';
 import { QuerySuscripcionDTO } from '../models/QuerySuscripcionDTO';
+import { BibliotecaDTO } from '../models/BibliotecaFULLDTO';
 
 const base_url = environment.base;
 
@@ -50,5 +51,9 @@ export class UsuariosService {
     const params = {a:id}
     return this.http.get<[QuerySuscripcionDTO]>(`${this.url}/CantidadSuscripcion`,{params});
   }
+  getBibliotecaFull(id: number): Observable<BibliotecaDTO[]> {
+  const params = { a: id }; // Igual que en los otros métodos
+  return this.http.get<BibliotecaDTO[]>(`${this.url}/BibliotecaFull`, { params });
+}
 
 }

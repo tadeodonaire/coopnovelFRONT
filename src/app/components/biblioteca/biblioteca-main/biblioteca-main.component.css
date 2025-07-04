@@ -1,0 +1,58 @@
+.titulo-container {
+  text-align: center;
+  margin: 30px 0;
+}
+
+.titulo {
+  font-size: 2rem;
+  font-weight: 600;
+  color: #3f51b5; /* color primario de Angular Material */
+}
+
+.tarjetas-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+  gap: 20px;
+  padding: 0 40px 40px;
+  justify-items: center;
+}
+
+.tarjeta-biblioteca {
+  width: 100%;
+  max-width: 400px;
+  border-radius: 16px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  transition: transform 0.2s ease;
+}
+
+.tarjeta-biblioteca:hover {
+  transform: translateY(-5px);
+}
+
+.avatar-icon {
+  background-color: #3f51b5;
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+}
+
+mat-card-title {
+  font-weight: bold;
+  font-size: 1.2rem;
+}
+
+mat-card-subtitle {
+  color: gray;
+  font-size: 0.9rem;
+}
+
+mat-card-content p {
+  margin: 10px 0 0;
+  font-size: 0.95rem;
+}
+
+mat-card-actions {
+  padding: 16px;
+}
