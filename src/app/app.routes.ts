@@ -33,6 +33,8 @@ import { seguridadGuard } from './guard/seguridad.guard';
 import { LoginComponent } from './components/login/login.component';
 import { RolesComponent } from './components/roles/roles.component';
 import { CreaeditarolesComponent } from './components/roles/creaeditaroles/creaeditaroles.component';
+import { BibliotecaMainComponent } from './components/biblioteca/biblioteca-main/biblioteca-main.component';
+import { BibliotecaListaUsuarioComponent } from './components/biblioteca/biblioteca-lista-usuario/biblioteca-lista-usuario.component';
 
 export const routes: Routes = [
   {
@@ -263,5 +265,15 @@ export const routes: Routes = [
     path: 'homes',
     component: HomeComponent,
     canActivate: [seguridadGuard],
+  },
+    {
+    path: 'biblioteca-full',
+    component: BibliotecaMainComponent,
+    children: [
+      {
+        path: 'usuario',
+        component: BibliotecaListaUsuarioComponent,
+      },
+    ],
   },
 ];
