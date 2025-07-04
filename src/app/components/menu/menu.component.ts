@@ -6,11 +6,7 @@ import { MatListModule } from '@angular/material/list';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatToolbarModule } from '@angular/material/toolbar';
-import {
-  Router,
-  RouterLink,
-  RouterOutlet,
-} from '@angular/router';
+import { Router, RouterLink, RouterOutlet } from '@angular/router';
 import { interval, Subscription } from 'rxjs';
 import { VerLibrosService } from '../../services/ver-libros.service';
 import { LoginService } from '../../services/login.service';
@@ -134,18 +130,24 @@ export class MenuComponent implements OnInit, OnDestroy {
 
   cerrar() {
     sessionStorage.clear();
-    sessionStorage.setItem('logoutSuccess', 'true'); 
-    window.location.href = '/login'; 
+    sessionStorage.setItem('logoutSuccess', 'true');
+    window.location.href = '/login';
   }
 
   verificar() {
     this.role = this.loginService.showRole();
     return this.loginService.verificar();
   }
-  isDeveloper() {
-    return this.role === 'DEVELOPER';
+  isAdministrador() {
+    return this.role === 'ADMINISTRADOR';
   }
-  isTester() {
-    return this.role === 'TESTER';
+  isColaborador() {
+    return this.role === 'COLABORADOR';
+  }
+  isLector() {
+    return this.role === 'LECTOR';
+  }
+  isAutor() {
+    return this.role === 'AUTOR';
   }
 }
