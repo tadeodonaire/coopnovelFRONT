@@ -21,6 +21,12 @@ import { CapitulosdescargadosxusuarioComponent } from './components/reportes/cap
 import { TopThreeCommentatorsComponent } from './components/reportes/top-three-commentators/top-three-commentators.component';
 import { NumeroCapitulosComponent } from './components/reportes/numero-capitulos/numero-capitulos.component';
 import { CantSuscripcionComponent } from './components/reportes/cant-suscripcion/cant-suscripcion.component';
+import { CorreccionIAComponent } from './components/correccion-ia/correccion-ia.component';
+import { CreareditarcorreccionesIAComponent } from './components/correccion-ia/creareditarcorrecciones-ia/creareditarcorrecciones-ia.component';
+import { NovelasbibliotecasComponent } from './components/novelasbibliotecas/novelasbibliotecas.component';
+import { CreareditarnovelasbibliotecasComponent } from './components/novelasbibliotecas/creareditarnovelasbibliotecas/creareditarnovelasbibliotecas.component';
+import { SuscripcionesComponent } from './components/suscripciones/suscripciones.component';
+import { CreareditarsuscripcionesComponent } from './components/suscripciones/creareditarsuscripciones/creareditarsuscripciones.component';
 import { AccesoDenegadoComponent } from './pages/acceso-denegado/acceso-denegado.component';
 import { HomeComponent } from './components/home/home.component';
 import { seguridadGuard } from './guard/seguridad.guard';
@@ -39,18 +45,21 @@ export const routes: Routes = [
     component: LoginComponent,
   },
   {
+    path: 'usuarios/insertar',
+    component: CreaeditarusuariosComponent,
+    canActivate: [seguridadGuard], // importante: sigue usando el guard
+  },
+  {
     path: 'usuarios',
     component: UsuariosComponent,
-    children: [
-      {
-        path: 'insertar',
-        component: CreaeditarusuariosComponent,
-      },
-      {
-        path: 'editar/:id',
-        component: CreaeditarusuariosComponent,
-      },
-    ],
+    canActivate: [seguridadGuard],
+    data: { rolesPermitidos: ['ADMINISTRADOR'] }, // solo admin
+  },
+  {
+    path: 'usuarios/editar/:id',
+    component: CreaeditarusuariosComponent,
+    canActivate: [seguridadGuard],
+    data: { rolesPermitidos: ['ADMINISTRADOR'] },
   },
   {
     path: 'descargas',
@@ -65,6 +74,7 @@ export const routes: Routes = [
         component: CreareditardescargasComponent,
       },
     ],
+    canActivate: [seguridadGuard],
   },
   {
     path: 'biblioteca',
@@ -79,6 +89,7 @@ export const routes: Routes = [
         component: CrearEditarBibliotecaComponent,
       },
     ],
+    canActivate: [seguridadGuard],
   },
 
   {
@@ -94,6 +105,7 @@ export const routes: Routes = [
         component: CreareditarproyectosComponent,
       },
     ],
+    canActivate: [seguridadGuard],
   },
 
   {
@@ -109,21 +121,24 @@ export const routes: Routes = [
         component: CreareditarnovelaComponent,
       },
     ],
+    canActivate: [seguridadGuard],
   },
   {
     path: 'capitulo',
     component: CapituloComponent,
+    canActivate: [seguridadGuard],
+    // Sin `data.rolesPermitidos` para dejarlo libre a todos los roles autenticados
     children: [
-      {
-        path: 'insertar',
-        component: CreaeditacapitulosComponent,
-      },
+      { path: 'insertar', component: CreaeditacapitulosComponent },
       {
         path: 'ediciones/:id',
         component: CreaeditacapitulosComponent,
+        canActivate: [seguridadGuard],
+        data: { rolesPermitidos: ['ADMINISTRADOR', 'AUTOR'] }, // Aquí sí restringes
       },
     ],
   },
+
   {
     path: 'reunion',
     component: ReunionComponent,
@@ -137,6 +152,7 @@ export const routes: Routes = [
         component: CreateEditReunionComponent, // Aquí se puede cambiar a un componente específico si es necesario
       },
     ],
+    canActivate: [seguridadGuard],
   },
   {
     path: 'comentario',
@@ -149,6 +165,49 @@ export const routes: Routes = [
       {
         path: 'ediciones/:id',
         component: CreateEditComentarioComponent,
+      },
+    ],
+    canActivate: [seguridadGuard],
+  },
+  {
+    path: 'correccionIA',
+    component: CorreccionIAComponent,
+    children: [
+      {
+        path: 'insertar',
+        component: CreareditarcorreccionesIAComponent,
+      },
+      {
+        path: 'ediciones/:id',
+        component: CreareditarcorreccionesIAComponent,
+      },
+    ],
+  },
+  {
+    path: 'novelasbibliotecas',
+    component: NovelasbibliotecasComponent,
+    children: [
+      {
+        path: 'insertar',
+        component: CreareditarnovelasbibliotecasComponent,
+      },
+      {
+        path: 'ediciones/:id',
+        component: CreareditarnovelasbibliotecasComponent,
+      },
+    ],
+  },
+  {
+    path: 'suscripciones',
+    component: SuscripcionesComponent,
+    children: [
+      {
+        path: 'insertar',
+        component: CreareditarsuscripcionesComponent,
+      },
+      {
+        path: 'editar/:id',
+        component: CreareditarsuscripcionesComponent,
       },
     ],
   },
@@ -165,6 +224,7 @@ export const routes: Routes = [
         component: CreaeditarolesComponent,
       },
     ],
+    canActivate: [seguridadGuard],
   },
 
   /* TODAS LAS RUTAS DE LOS COMPONENTES (ES ANTES DE REPORTES / REPORTES POR ORDEN VA ULTIMO)
@@ -186,14 +246,14 @@ export const routes: Routes = [
         path: 'reportecomentariosxusuarios',
         component: CantidadcomentariosxusuarioComponent,
       },
-      {//Victor
-        path: 'reporte-top-three-comentarios',
-        component: TopThreeCommentatorsComponent,
+      {
+        path: 'suscripcion-mes', // corregido
+        component: CantSuscripcionComponent,
       },
       {
-        path: 'SusccripcionMes',
-        component: CantSuscripcionComponent,
-      }
+        path: 'top-three-comentarios', // mejor nombre para URL
+        component: TopThreeCommentatorsComponent,
+      },
     ],
   },
   {

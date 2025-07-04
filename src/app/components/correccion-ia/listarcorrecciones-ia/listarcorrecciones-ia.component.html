@@ -1,0 +1,48 @@
+<div>
+  <h1 class="titulo">Listar Correcciones de IA</h1>
+</div>
+
+<div class="tabla-container">
+  <table mat-table [dataSource]="dataSource" class="mat-elevation-z8 tabla-usuarios">
+
+    <ng-container matColumnDef="id">
+      <th mat-header-cell *matHeaderCellDef> ID de la Correccion </th>
+      <td mat-cell *matCellDef="let element"> {{element.idCorreccionIA}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="capitulo">
+      <th mat-header-cell *matHeaderCellDef> Título del Capítulo </th>
+      <td mat-cell *matCellDef="let element">
+        {{element.capitulos.idCapitulo}} - {{element.capitulos.capTitulo}}
+      </td>
+    </ng-container>
+
+    <ng-container matColumnDef="correccion">
+      <th mat-header-cell *matHeaderCellDef> Contenido </th>
+      <td mat-cell *matCellDef="let element"> {{element.corCorreccionIA}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="editar">
+  <th mat-header-cell *matHeaderCellDef> Editar </th>
+  <td mat-cell *matCellDef="let element">
+    <button mat-flat-button [routerLink]="['/correccionIA/ediciones', element.idCorreccionIA]">
+      <mat-icon>edit</mat-icon> Editar
+    </button>
+  </td>
+</ng-container>
+
+    <!-- Symbol Column -->
+    <ng-container matColumnDef="eliminar">
+      <th mat-header-cell *matHeaderCellDef>  Eliminar </th>
+      <td mat-cell *matCellDef="let element">
+        <button mat-flat-button (click)="eliminar(element.idCorreccionIA)">
+          <mat-icon>delete</mat-icon> Eliminar
+        </button>
+      </td>
+    </ng-container>
+  
+
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+  </table>
+</div>

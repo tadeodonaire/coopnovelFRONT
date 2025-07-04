@@ -30,7 +30,7 @@
       <td mat-cell *matCellDef="let element"> {{element.idCapitulo}} </td>
     </ng-container>
 
-    <ng-container matColumnDef="editar">
+    <ng-container matColumnDef="editar" >
       <th mat-header-cell *matHeaderCellDef>  Editar </th>
       <td mat-cell *matCellDef="let element">
         <button mat-flat-button [routerLink]="['ediciones',element.idCapitulo]">
@@ -43,7 +43,7 @@
     <ng-container matColumnDef="eliminar">
       <th mat-header-cell *matHeaderCellDef>  Eliminar </th>
       <td mat-cell *matCellDef="let element">
-        <button mat-flat-button (click)="eliminar(element.idCapitulo)">
+        <button mat-flat-button (click)="eliminar(element.idCapitulo)" *ngIf="isAdministrador() || isAutor()">
           <mat-icon>delete</mat-icon> Eliminar
         </button>
       </td>

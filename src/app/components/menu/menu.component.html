@@ -18,55 +18,74 @@
       </button>
 
       <!-- USUARIOS -->
-      <button mat-button [matMenuTriggerFor]="USUARIOS">
+      <button mat-button [matMenuTriggerFor]="USUARIOS" *ngIf="isAdministrador()">
         <mat-icon>person</mat-icon>
         <span *ngIf="isExpanded">Usuarios</span>
       </button>
 
       <!-- BIBLIOTECA -->
-      <button mat-button [matMenuTriggerFor]="BIBLIOTECA">
+      <button mat-button [matMenuTriggerFor]="BIBLIOTECA" *ngIf="isAdministrador() || isAutor() || isColaborador() || isLector()">
         <mat-icon>menu_book</mat-icon>
         <span *ngIf="isExpanded">Biblioteca</span>
       </button>
 
       <!-- PROYECTO -->
-      <button mat-button [matMenuTriggerFor]="PROYECTO">
+      <button mat-button [matMenuTriggerFor]="PROYECTO" *ngIf="isAdministrador() || isAutor() || isColaborador() || isLector()">
         <mat-icon>work</mat-icon>
         <span *ngIf="isExpanded">Proyecto</span>
       </button>
 
       <!-- NOVELA -->
-      <button mat-button [matMenuTriggerFor]="NOVELA">
+      <button mat-button [matMenuTriggerFor]="NOVELA" *ngIf="isAdministrador() || isAutor() || isColaborador() || isLector()">
         <mat-icon>auto_stories</mat-icon>
         <span *ngIf="isExpanded">Novela</span>
       </button>
 
       <!-- CAPÍTULO -->
-      <button mat-button [matMenuTriggerFor]="CAPITULO">
+      <button mat-button [matMenuTriggerFor]="CAPITULO" *ngIf="isAdministrador() || isAutor() || isColaborador() || isLector()">
         <mat-icon>receipt</mat-icon>
         <span *ngIf="isExpanded">Capítulo</span>
       </button>
 
       <!-- REUNION -->
-      <button mat-button [matMenuTriggerFor]="REUNION">
+      <button mat-button [matMenuTriggerFor]="REUNION" *ngIf="isAdministrador() || isAutor() || isColaborador() || isLector()">
         <mat-icon>people</mat-icon>
         <span *ngIf="isExpanded">Reunión</span>
       </button>
 
       <!-- DESCARGAS -->
-      <button mat-button [matMenuTriggerFor]="DESCARGAS">
+      <button mat-button [matMenuTriggerFor]="DESCARGAS" *ngIf="isAdministrador() || isAutor() || isColaborador() || isLector()">
         <mat-icon>cloud_download</mat-icon>
         <span *ngIf="isExpanded">Descargas</span>
       </button>
 
       <!-- COMENTARIOS -->
-      <button mat-button [matMenuTriggerFor]="COMENTARIOS">
+      <button mat-button [matMenuTriggerFor]="COMENTARIOS" *ngIf="isAdministrador() || isAutor() || isColaborador() || isLector()">
         <mat-icon>comment</mat-icon>
         <span *ngIf="isExpanded">Comentarios</span>
       </button>
 
+      <!-- Correcciones -->
+      <button mat-button [matMenuTriggerFor]="CORRECCIONES">
+        <mat-icon>comment</mat-icon>
+        <span *ngIf="isExpanded">Correcciones</span>
+      </button>
+      
+      <!-- NOVELASBIBLIOTECAS -->
+      <button mat-button [matMenuTriggerFor]="NOVELASBIBLIOTECAS">
+        <mat-icon>comment</mat-icon>
+        <span *ngIf="isExpanded">NovelasBibliotecas</span>
+      </button>
+
+      <!-- SUSCRIPCIONES -->
+      <button mat-button [matMenuTriggerFor]="SUSCRIPCIONES">
+        <mat-icon>comment</mat-icon>
+        <span *ngIf="isExpanded">Suscripciones</span>
+      </button>
+      
+
       <!-- ROLES -->
-      <button mat-button [matMenuTriggerFor]="ROLES">
+      <button mat-button [matMenuTriggerFor]="ROLES" *ngIf="isAdministrador()">
         <mat-icon>supervisor_account</mat-icon>
         <span *ngIf="isExpanded">Roles</span>
       </button>
@@ -122,7 +141,7 @@
 </mat-menu>
 
 <mat-menu #BIBLIOTECA="matMenu">
-  <button mat-menu-item routerLink="/biblioteca">Listar</button>
+  <button mat-menu-item routerLink="/biblioteca" >Listar</button>
   <button mat-menu-item routerLink="/biblioteca/insertar">Registrar</button>
 </mat-menu>
 
@@ -138,7 +157,7 @@
 
 <mat-menu #CAPITULO="matMenu">
   <button mat-menu-item routerLink="/capitulo">Listar</button>
-  <button mat-menu-item routerLink="/capitulo/insertar">Registrar</button>
+  <button mat-menu-item routerLink="/capitulo/insertar" *ngIf="isAdministrador() || isAutor() || isColaborador()">Registrar</button>
 </mat-menu>
 
 <mat-menu #REUNION="matMenu">
@@ -156,6 +175,19 @@
   <button mat-menu-item routerLink="/comentario/insertar">Registrar</button>
 </mat-menu>
 
+<mat-menu #CORRECCIONES="matMenu">
+  <button mat-menu-item routerLink="/correccionIA">Listar</button>
+  <button mat-menu-item routerLink="/correccionIA/insertar">Registrar</button>
+</mat-menu>
+
+<mat-menu #NOVELASBIBLIOTECAS="matMenu">
+  <button mat-menu-item routerLink="/novelasbibliotecas">Listar</button>
+  <button mat-menu-item routerLink="/novelasbibliotecas/insertar">Registrar</button>
+</mat-menu>
+
+<mat-menu #SUSCRIPCIONES="matMenu">
+  <button mat-menu-item routerLink="/suscripciones">Listar</button>
+  <button mat-menu-item routerLink="/suscripciones/insertar">Registrar</button>
 <mat-menu #ROLES="matMenu">
   <button mat-menu-item routerLink="/roles">Listar</button>
   <button mat-menu-item routerLink="/roles/insertar">Registrar</button>
