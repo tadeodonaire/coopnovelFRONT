@@ -66,19 +66,19 @@
       </button>
 
       <!-- Correcciones -->
-      <button mat-button [matMenuTriggerFor]="CORRECCIONES">
+      <button mat-button [matMenuTriggerFor]="CORRECCIONES" *ngIf="isAdministrador() || isAutor() || isColaborador() || isLector()">
         <mat-icon>comment</mat-icon>
         <span *ngIf="isExpanded">Correcciones</span>
       </button>
       
       <!-- NOVELASBIBLIOTECAS -->
-      <button mat-button [matMenuTriggerFor]="NOVELASBIBLIOTECAS">
+      <button mat-button [matMenuTriggerFor]="NOVELASBIBLIOTECAS" *ngIf="isAdministrador() || isAutor() || isColaborador() || isLector()">
         <mat-icon>comment</mat-icon>
         <span *ngIf="isExpanded">NovelasBibliotecas</span>
       </button>
 
       <!-- SUSCRIPCIONES -->
-      <button mat-button [matMenuTriggerFor]="SUSCRIPCIONES">
+      <button mat-button [matMenuTriggerFor]="SUSCRIPCIONES" *ngIf="isAdministrador() || isAutor() || isColaborador() || isLector()">
         <mat-icon>comment</mat-icon>
         <span *ngIf="isExpanded">Suscripciones</span>
       </button>
@@ -147,17 +147,17 @@
 
 <mat-menu #PROYECTO="matMenu">
   <button mat-menu-item routerLink="/proyecto">Listar</button>
-  <button mat-menu-item routerLink="/proyecto/insertar">Registrar</button>
+  <button mat-menu-item routerLink="/proyecto/insertar" *ngIf="isAdministrador() || isAutor()">Registrar</button>
 </mat-menu>
 
 <mat-menu #NOVELA="matMenu">
   <button mat-menu-item routerLink="/novela">Listar</button>
-  <button mat-menu-item routerLink="/novela/insertar">Registrar</button>
+  <button mat-menu-item routerLink="/novela/insertar" *ngIf="isAdministrador() || isAutor()">Registrar</button>
 </mat-menu>
 
 <mat-menu #CAPITULO="matMenu">
   <button mat-menu-item routerLink="/capitulo">Listar</button>
-  <button mat-menu-item routerLink="/capitulo/insertar" *ngIf="isAdministrador() || isAutor() || isColaborador()">Registrar</button>
+  <button mat-menu-item routerLink="/capitulo/insertar" *ngIf="isAdministrador() || isAutor()">Registrar</button>
 </mat-menu>
 
 <mat-menu #REUNION="matMenu">
@@ -176,8 +176,8 @@
 </mat-menu>
 
 <mat-menu #CORRECCIONES="matMenu">
-  <button mat-menu-item routerLink="/correccionIA">Listar</button>
-  <button mat-menu-item routerLink="/correccionIA/insertar">Registrar</button>
+  <button mat-menu-item routerLink="/correccionIA" >Listar</button>
+  <button mat-menu-item routerLink="/correccionIA/insertar" *ngIf="isAdministrador() || isAutor() || isColaborador()" >Registrar</button>
 </mat-menu>
 
 <mat-menu #NOVELASBIBLIOTECAS="matMenu">
@@ -188,6 +188,7 @@
 <mat-menu #SUSCRIPCIONES="matMenu">
   <button mat-menu-item routerLink="/suscripciones">Listar</button>
   <button mat-menu-item routerLink="/suscripciones/insertar">Registrar</button>
+
 <mat-menu #ROLES="matMenu">
   <button mat-menu-item routerLink="/roles">Listar</button>
   <button mat-menu-item routerLink="/roles/insertar">Registrar</button>

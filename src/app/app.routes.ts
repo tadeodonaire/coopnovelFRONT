@@ -127,14 +127,13 @@ export const routes: Routes = [
     path: 'capitulo',
     component: CapituloComponent,
     canActivate: [seguridadGuard],
-    // Sin `data.rolesPermitidos` para dejarlo libre a todos los roles autenticados
     children: [
       { path: 'insertar', component: CreaeditacapitulosComponent },
       {
         path: 'ediciones/:id',
         component: CreaeditacapitulosComponent,
         canActivate: [seguridadGuard],
-        data: { rolesPermitidos: ['ADMINISTRADOR', 'AUTOR'] }, // Aquí sí restringes
+        data: { rolesPermitidos: ['ADMINISTRADOR', 'AUTOR'] }, 
       },
     ],
   },
@@ -145,11 +144,11 @@ export const routes: Routes = [
     children: [
       {
         path: 'insertar',
-        component: CreateEditReunionComponent, // Aquí se puede cambiar a un componente específico si es necesario
+        component: CreateEditReunionComponent, 
       },
       {
         path: 'ediciones/:id',
-        component: CreateEditReunionComponent, // Aquí se puede cambiar a un componente específico si es necesario
+        component: CreateEditReunionComponent, 
       },
     ],
     canActivate: [seguridadGuard],
