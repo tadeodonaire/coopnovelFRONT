@@ -3,7 +3,7 @@ import { Component } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { MatTableDataSource, MatTableModule } from '@angular/material/table';
-import { RouterLink, RouterModule } from '@angular/router';
+import { RouterModule } from '@angular/router';    
 import { Capitulos } from '../../../models/capitulos';
 import { CapituloService } from '../../../services/capitulo.service';
 import { LoginService } from '../../../services/login.service';

@@ -68,36 +68,33 @@ export class CreateEditComentarioComponent {
       //actualizar trae data
       this.init();
     });
-    //
+    
     this.form = this.formBuilder.group({
       codigo: [''],
       contenido: ['', [Validators.required, Validators.pattern(/^[a-zA-ZáéíóúÁÉÍÓÚñÑ\s]+$/), Validators.minLength(3), Validators.maxLength(500)]],
-      fecha: ['', [Validators.required, this.fechaMinimaValidator()]],
-      usuario: ['', Validators.required],
-      capitulo: ['', Validators.required],
+      fecha:['', [Validators.required, this.fechaMinimaValidator()]],
+      usuario: [, Validators.required],
+      capitulo: [, Validators.required],
     });
     this.uS.list().subscribe(data => {
       this.listaUsuarios = data;
-    })
+    });
     this.capS.list().subscribe(data => {
       this.listaCapitulos = data;
-    })
+    });
   }
 
-  fechaMinimaValidator(): ValidatorFn {
-    return (control: AbstractControl): ValidationErrors | null => {
-      const valor = control.value;
-      if (!valor) return null;
-
-      const hoy = new Date();
-      hoy.setHours(23, 59, 59, 999); // Establecer al final del día
-
-      const fechaIngresada = new Date(valor);
-
-      // Solo permite fechas de hoy hacia adelante (SÍ fechas futuras)
-      return fechaIngresada >= hoy ? null : { fechaFutura: true };
-    };
-  }
+fechaMinimaValidator(): ValidatorFn {
+  return (control: AbstractControl): ValidationErrors | null => {
+    const valor = control.value;
+    if (!valor) return null;
+    const hoy = new Date();
+    hoy.setHours(23, 59, 59, 999); // Establecer al final del día
+    const fechaIngresada = new Date(valor);
+    // Solo permite fechas de hoy hacia adelante (SÍ fechas futuras)
+    return fechaIngresada >= hoy ? null : { fechaFutura: true };
+  };
+}
 
   aceptar() {
     if (this.form.valid) {
