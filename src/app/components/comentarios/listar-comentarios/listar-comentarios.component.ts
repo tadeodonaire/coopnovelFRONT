@@ -7,24 +7,41 @@ import { RouterLink } from '@angular/router';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { MatPaginator, MatPaginatorModule } from '@angular/material/paginator';
+import { LoginService } from '../../../services/login.service';
 
 @Component({
   selector: 'app-listar-comentarios',
-  imports: [CommonModule, MatTableModule, RouterLink, MatButtonModule, MatIconModule, MatPaginatorModule],
+  imports: [
+    CommonModule,
+    MatTableModule,
+    RouterLink,
+    MatButtonModule,
+    MatIconModule,
+    MatPaginatorModule,
+  ],
   templateUrl: './listar-comentarios.component.html',
-  styleUrl: './listar-comentarios.component.css'
+  styleUrl: './listar-comentarios.component.css',
 })
 export class ListarComentariosComponent {
   dataSource: MatTableDataSource<Comentario> = new MatTableDataSource();
-  displayedColumns: string[] = ['c1', 'c2', 'c3', 'c4', 'c5', 'c6', 'c7'];
+  displayedColumns: string[] = [];
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;
 
-  constructor(private comS: ComentarioService) { }
+  constructor(
+    private comS: ComentarioService,
+    private loginService: LoginService
+  ) {}
 
   ngOnInit(): void {
-    //Called after the constructor, initializing input properties, and the first call to ngOnChanges.
-    //Add 'implements OnInit' to the class.
+    const rol = this.loginService.showRole();
+
+    this.displayedColumns = ['c1', 'c2', 'c3', 'c4', 'c5','c6'];
+
+    if (this.isAdministrador()) {
+      this.displayedColumns.push('c7'); 
+    }
+
     this.comS.list().subscribe((data) => {
       this.dataSource = new MatTableDataSource(data);
     });
@@ -44,5 +61,15 @@ export class ListarComentariosComponent {
         this.comS.setList(data);
       });
     });
+  }
+
+  isAdministrador(): boolean {
+    return this.loginService.showRole() === 'ADMINISTRADOR';
+  }
+  isAutor(): boolean {
+    return this.loginService.showRole() === 'AUTOR';
+  }
+  isColaborador(): boolean {
+    return this.loginService.showRole() === 'COLABORADOR';
   }
 }

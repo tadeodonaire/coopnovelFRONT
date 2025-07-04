@@ -25,7 +25,7 @@
     <ng-container matColumnDef="editar">
   <th mat-header-cell *matHeaderCellDef> Editar </th>
   <td mat-cell *matCellDef="let element">
-    <button mat-flat-button [routerLink]="['/correccionIA/ediciones', element.idCorreccionIA]">
+    <button mat-flat-button [routerLink]="['/correccionIA/ediciones', element.idCorreccionIA]" *ngIf="isAdministrador() || isAutor() || isColaborador()">
       <mat-icon>edit</mat-icon> Editar
     </button>
   </td>
