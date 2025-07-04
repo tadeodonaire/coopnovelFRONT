@@ -33,6 +33,7 @@ import { seguridadGuard } from './guard/seguridad.guard';
 import { LoginComponent } from './components/login/login.component';
 import { RolesComponent } from './components/roles/roles.component';
 import { CreaeditarolesComponent } from './components/roles/creaeditaroles/creaeditaroles.component';
+import { SuscritoMoreOnceComponent } from './components/reportes/suscrito-more-once/suscrito-more-once.component';
 
 export const routes: Routes = [
   {
@@ -254,6 +255,10 @@ export const routes: Routes = [
         path: 'top-three-comentarios', // mejor nombre para URL
         component: TopThreeCommentatorsComponent,
       },
+      {
+        path: 'usuarios-suscritos',
+        component: SuscritoMoreOnceComponent,
+      }
     ],
   },
   {

@@ -67,19 +67,19 @@
 
       <!-- Correcciones -->
       <button mat-button [matMenuTriggerFor]="CORRECCIONES">
-        <mat-icon>comment</mat-icon>
+        <mat-icon>adb</mat-icon>
         <span *ngIf="isExpanded">Correcciones</span>
       </button>
       
       <!-- NOVELASBIBLIOTECAS -->
       <button mat-button [matMenuTriggerFor]="NOVELASBIBLIOTECAS">
-        <mat-icon>comment</mat-icon>
+        <mat-icon>create_new_folder</mat-icon>
         <span *ngIf="isExpanded">NovelasBibliotecas</span>
       </button>
 
       <!-- SUSCRIPCIONES -->
       <button mat-button [matMenuTriggerFor]="SUSCRIPCIONES">
-        <mat-icon>comment</mat-icon>
+        <mat-icon>subscriptions</mat-icon>
         <span *ngIf="isExpanded">Suscripciones</span>
       </button>
       
@@ -197,7 +197,8 @@
   <button mat-menu-item routerLink="/reportes">Edad</button>
   <button mat-menu-item routerLink="/reportes/reportecapitulosdescargados">CapDescargados</button>
   <button mat-menu-item routerLink="/reportes/reportecomentariosxusuarios">Cantidad Comentarios</button>
-  <button mat-menu-item routerLink="/reportes/reporte-top-three-comentarios">Top 3 usuarios que más comentan</button>
+  <button mat-menu-item routerLink="/reportes/top-three-comentarios">Top 3 usuarios que más comentan</button>
+  <button mat-menu-item routerLink="/reportes/usuarios-suscritos">Usuarios suscritos más de una vez</button>
   <button mat-menu-item routerLink="/reportes/reportecapitulosdescargados">
     CapDescargados
   </button>

@@ -3,6 +3,7 @@ import { environment } from '../../environments/environment';
 import { Subject } from 'rxjs';
 import { Suscripciones } from '../models/suscripciones';
 import { HttpClient } from '@angular/common/http';
+import { RepeatUsersDTO } from '../models/repeatUsersDTO';
 
 const base_url = environment.base;
 @Injectable({
@@ -33,5 +34,9 @@ export class SuscripcionesService {
   }
   deleteSus(id: number) {
     return this.http.delete(`${this.url}/${id}`);
+  }
+
+  getUsersSubscribedMore() {
+    return this.http.get<RepeatUsersDTO[]>(`${this.url}/usuarios-suscritos`);
   }
 }
