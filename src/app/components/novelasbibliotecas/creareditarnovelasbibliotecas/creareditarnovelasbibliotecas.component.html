@@ -1,0 +1,35 @@
+<div class="form-container">
+  <h1>Registro de Novelas - Bibliotecas</h1>
+
+  <form [formGroup]="form" (submit)="aceptar()">
+
+    <!-- Campo ID solo en modo edición -->
+    <mat-form-field class="example-full-width" *ngIf="edicion">
+      <mat-label>ID</mat-label>
+      <input matInput formControlName="codigo" readonly />
+    </mat-form-field>
+
+    <!-- Selector de Biblioteca -->
+    <mat-form-field class="example-full-width">
+      <mat-label>Biblioteca</mat-label>
+      <mat-select placeholder="Selecciona una biblioteca" formControlName="biblioteca">
+        <mat-option *ngFor="let b of listaBibliotecas" [value]="b.idBiblioteca">
+     ({{ b.idBiblioteca }}) - {{ b.bibNombre }}
+    </mat-option>
+      </mat-select>
+    </mat-form-field>
+
+    <!-- Selector de Novela -->
+    <mat-form-field class="example-full-width">
+      <mat-label>Novela</mat-label>
+      <mat-select placeholder="Selecciona una novela" formControlName="novela">
+        <mat-option *ngFor="let n of listaNovelas" [value]="n.idNovela">
+          ({{ n.idNovela }}) - {{ n.novTitulo }}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+
+    <!-- Botón Aceptar -->
+    <button mat-flat-button type="submit">Aceptar</button>
+  </form>
+</div>

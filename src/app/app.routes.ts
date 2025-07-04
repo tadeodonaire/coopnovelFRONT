@@ -18,8 +18,15 @@ import { CreateEditReunionComponent } from './components/reunion/create-edit-reu
 import { ComentariosComponent } from './components/comentarios/comentarios.component';
 import { CreateEditComentarioComponent } from './components/comentarios/create-edit-comentario/create-edit-comentario.component';
 import { CapitulosdescargadosxusuarioComponent } from './components/reportes/capitulosdescargadosxusuario/capitulosdescargadosxusuario.component';
+import { TopThreeCommentatorsComponent } from './components/reportes/top-three-commentators/top-three-commentators.component';
 import { NumeroCapitulosComponent } from './components/reportes/numero-capitulos/numero-capitulos.component';
 import { CantSuscripcionComponent } from './components/reportes/cant-suscripcion/cant-suscripcion.component';
+import { CorreccionIAComponent } from './components/correccion-ia/correccion-ia.component';
+import { CreareditarcorreccionesIAComponent } from './components/correccion-ia/creareditarcorrecciones-ia/creareditarcorrecciones-ia.component';
+import { NovelasbibliotecasComponent } from './components/novelasbibliotecas/novelasbibliotecas.component';
+import { CreareditarnovelasbibliotecasComponent } from './components/novelasbibliotecas/creareditarnovelasbibliotecas/creareditarnovelasbibliotecas.component';
+import { SuscripcionesComponent } from './components/suscripciones/suscripciones.component';
+import { CreareditarsuscripcionesComponent } from './components/suscripciones/creareditarsuscripciones/creareditarsuscripciones.component';
 import { AccesoDenegadoComponent } from './pages/acceso-denegado/acceso-denegado.component';
 import { HomeComponent } from './components/home/home.component';
 import { seguridadGuard } from './guard/seguridad.guard';
@@ -163,6 +170,48 @@ export const routes: Routes = [
     canActivate: [seguridadGuard],
   },
   {
+    path: 'correccionIA',
+    component: CorreccionIAComponent,
+    children: [
+      {
+        path: 'insertar',
+        component: CreareditarcorreccionesIAComponent,
+      },
+      {
+        path: 'ediciones/:id',
+        component: CreareditarcorreccionesIAComponent,
+      },
+    ],
+  },
+  {
+    path: 'novelasbibliotecas',
+    component: NovelasbibliotecasComponent,
+    children: [
+      {
+        path: 'insertar',
+        component: CreareditarnovelasbibliotecasComponent,
+      },
+      {
+        path: 'ediciones/:id',
+        component: CreareditarnovelasbibliotecasComponent,
+      },
+    ],
+  },
+  {
+    path: 'suscripciones',
+    component: SuscripcionesComponent,
+    children: [
+      {
+        path: 'insertar',
+        component: CreareditarsuscripcionesComponent,
+      },
+      {
+        path: 'editar/:id',
+        component: CreareditarsuscripcionesComponent,
+      },
+    ],
+  },
+  {
     path: 'roles',
     component: RolesComponent,
     children: [
@@ -198,8 +247,12 @@ export const routes: Routes = [
         component: CantidadcomentariosxusuarioComponent,
       },
       {
-        path: 'SusccripcionMes',
+        path: 'suscripcion-mes', // corregido
         component: CantSuscripcionComponent,
+      },
+      {
+        path: 'top-three-comentarios', // mejor nombre para URL
+        component: TopThreeCommentatorsComponent,
       },
     ],
   },

@@ -4,6 +4,7 @@ import { Observable, Subject } from 'rxjs';
 import { Comentario } from '../models/comentario';
 import { HttpClient } from '@angular/common/http';
 import { CantidadComentariosxCapituloDTO } from '../models/CantidadComentariosxCapituloDTO';
+import { TopThreeCommentatorsDTO } from '../models/topThreeCommentatorsDTO';
 
 const base_url = environment.base;
 
@@ -44,7 +45,11 @@ export class ComentarioService {
     return this.http.delete(`${this.url}/${id}`);
   }
 
-  getQuantityComUs():Observable<CantidadComentariosxCapituloDTO[]>{
+  getQuantityComUs(): Observable<CantidadComentariosxCapituloDTO[]> {
     return this.http.get<[CantidadComentariosxCapituloDTO]>(`${this.url}/cantidad-comentarios`);
+  }
+
+  listTopTenComentators(): Observable<TopThreeCommentatorsDTO[]> {
+    return this.http.get<TopThreeCommentatorsDTO[]>(`${this.url}/top-three-comentators`);
   }
 }

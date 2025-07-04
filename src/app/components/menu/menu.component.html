@@ -65,6 +65,25 @@
         <span *ngIf="isExpanded">Comentarios</span>
       </button>
 
+      <!-- Correcciones -->
+      <button mat-button [matMenuTriggerFor]="CORRECCIONES">
+        <mat-icon>comment</mat-icon>
+        <span *ngIf="isExpanded">Correcciones</span>
+      </button>
+      
+      <!-- NOVELASBIBLIOTECAS -->
+      <button mat-button [matMenuTriggerFor]="NOVELASBIBLIOTECAS">
+        <mat-icon>comment</mat-icon>
+        <span *ngIf="isExpanded">NovelasBibliotecas</span>
+      </button>
+
+      <!-- SUSCRIPCIONES -->
+      <button mat-button [matMenuTriggerFor]="SUSCRIPCIONES">
+        <mat-icon>comment</mat-icon>
+        <span *ngIf="isExpanded">Suscripciones</span>
+      </button>
+      
+
       <!-- ROLES -->
       <button mat-button [matMenuTriggerFor]="ROLES" *ngIf="isAdministrador()">
         <mat-icon>supervisor_account</mat-icon>
@@ -156,6 +175,19 @@
   <button mat-menu-item routerLink="/comentario/insertar">Registrar</button>
 </mat-menu>
 
+<mat-menu #CORRECCIONES="matMenu">
+  <button mat-menu-item routerLink="/correccionIA">Listar</button>
+  <button mat-menu-item routerLink="/correccionIA/insertar">Registrar</button>
+</mat-menu>
+
+<mat-menu #NOVELASBIBLIOTECAS="matMenu">
+  <button mat-menu-item routerLink="/novelasbibliotecas">Listar</button>
+  <button mat-menu-item routerLink="/novelasbibliotecas/insertar">Registrar</button>
+</mat-menu>
+
+<mat-menu #SUSCRIPCIONES="matMenu">
+  <button mat-menu-item routerLink="/suscripciones">Listar</button>
+  <button mat-menu-item routerLink="/suscripciones/insertar">Registrar</button>
 <mat-menu #ROLES="matMenu">
   <button mat-menu-item routerLink="/roles">Listar</button>
   <button mat-menu-item routerLink="/roles/insertar">Registrar</button>
@@ -163,6 +195,9 @@
 
 <mat-menu #REPORTES="matMenu">
   <button mat-menu-item routerLink="/reportes">Edad</button>
+  <button mat-menu-item routerLink="/reportes/reportecapitulosdescargados">CapDescargados</button>
+  <button mat-menu-item routerLink="/reportes/reportecomentariosxusuarios">Cantidad Comentarios</button>
+  <button mat-menu-item routerLink="/reportes/reporte-top-three-comentarios">Top 3 usuarios que más comentan</button>
   <button mat-menu-item routerLink="/reportes/reportecapitulosdescargados">
     CapDescargados
   </button>
