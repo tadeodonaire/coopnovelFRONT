@@ -40,7 +40,14 @@
     </div>
 
     <label for="fecha">Fecha de Nacimiento</label>
-    <input id="fecha" type="date" formControlName="fecha" />
+    <input
+      id="fecha"
+      type="date"
+      formControlName="fecha"
+      [attr.max]="maxFecha"
+      [attr.min]="minFecha"
+    />
+
     <div
       class="error"
       *ngIf="
@@ -118,6 +125,15 @@
       >
         La contraseña es obligatoria
       </div>
+      <div
+        class="error"
+        *ngIf="
+          form.get('contrasena')?.hasError('minlength') &&
+          form.get('contrasena')?.touched
+        "
+      >
+        La contraseña debe tener al menos 5 caracteres
+      </div>
     </div>
 
     <label for="rol">Rol</label>
@@ -126,10 +142,9 @@
       <option
         *ngFor="let a of listarRol"
         [value]="a.id"
-        [disabled]="a.id === 1 && !esAdmin && form.get('rol')?.value !== 1"
+        [disabled]="a.id === 1 && !esAdmin"
       >
         {{ a.rol }}
-        <!-- o usa a.nombre si tu campo se llama así -->
       </option>
     </select>
     <div

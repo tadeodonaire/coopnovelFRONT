@@ -55,14 +55,10 @@ export const routes: Routes = [
   {
     path: 'usuarios',
     component: UsuariosComponent,
-    canActivate: [seguridadGuard],
-    data: { rolesPermitidos: ['ADMINISTRADOR'] }, // solo admin
   },
   {
     path: 'usuarios/editar/:id',
     component: CreaeditarusuariosComponent,
-    canActivate: [seguridadGuard],
-    data: { rolesPermitidos: ['ADMINISTRADOR'] },
   },
   {
     path: 'descargas',

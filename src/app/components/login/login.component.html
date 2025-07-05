@@ -9,7 +9,17 @@
 
     <mat-form-field appearance="fill" class="input-field">
       <mat-label>Usuario</mat-label>
-      <input matInput placeholder="Username" [(ngModel)]="username" />
+      <input
+        matInput
+        placeholder="Username"
+        [(ngModel)]="username"
+        name="username"
+        #usernameCtrl="ngModel"
+        required
+      />
+      <mat-error *ngIf="usernameCtrl.invalid && usernameCtrl.touched">
+        El usuario es obligatorio
+      </mat-error>
     </mat-form-field>
 
     <mat-form-field appearance="fill" class="input-field">
@@ -18,6 +28,9 @@
         matInput
         [type]="hidePassword ? 'password' : 'text'"
         [(ngModel)]="password"
+        name="password"
+        #passwordCtrl="ngModel"
+        required
       />
       <button
         mat-icon-button
@@ -27,14 +40,41 @@
         [attr.aria-pressed]="!hidePassword"
       >
         <mat-icon class="custom-icon">
-          {{ hidePassword ? "visibility" : "visibility_off" }}
+          {{ hidePassword ? "📕" : "📖" }}
         </mat-icon>
       </button>
+      <mat-error *ngIf="passwordCtrl.invalid && passwordCtrl.touched">
+        La contraseña es obligatoria
+      </mat-error>
     </mat-form-field>
 
-    <button mat-raised-button class="login-button" (click)="login()">
-      Iniciar Sesión
-    </button>
+    <div *ngIf="loading" class="spinner-container">
+      <mat-progress-spinner
+        mode="indeterminate"
+        color="primary"
+        diameter="40"
+      ></mat-progress-spinner>
+      <p class="loading-text">Iniciando sesión...</p>
+    </div>
+
+    <div *ngIf="!loading" class="button-group">
+      <button
+        mat-stroked-button
+        color="primary"
+        class="back-menu-button"
+        (click)="login()"
+      >
+        Iniciar Sesión
+      </button>
+
+      <button
+        mat-stroked-button
+        class="cancel-button"
+        [routerLink]="['/inicio']"
+      >
+        Volver al Menú
+      </button>
+    </div>
   </div>
 
   <div class="welcome-panel">
