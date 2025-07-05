@@ -3,41 +3,83 @@
 }
 
 .sidenav {
-  width: 220px;
-  transition: width 0.3s;
-  background: #f4f4f4;
+  width: 260px;
+  background-color: #642caa;
+  color: white;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  
 }
 
-.sidenav.collapsed {
-  width: 60px;
+.logo-empresa-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 20px 0;
 }
 
-.toggle-button {
-  margin: 10px;
+.logo-img {
+  width: 64px;
+  height: 64px;
+  margin-bottom: 10px;
+}
+
+.empresa-nombre {
+  font-weight: bold;
+  font-size: 16px;
+}
+
+mat-nav-list {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+mat-button {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  padding: 12px 16px;
+  color: white;
+  font-weight: 500;
+  justify-content: flex-start;
+  white-space: nowrap;
+  border-radius: 4px;
+  transition: background-color 0.2s ease;
+}
+
+mat-button:hover {
+  background-color: rgba(255, 255, 255, 0.1);
 }
 
 mat-icon {
-  margin-right: 10px;
-}
-
-.libro-recomendado {
-  margin: 1rem;
-  padding: 1rem;
-  border-radius: 8px;
-  background-color: #f5f5f5;
-  text-align: center;
-}
-
-.libro-icono {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 100px;
+  margin-right: 12px;
+  color: white;
+  font-size: 24px;
 }
 
 .active-link {
-  background-color: #e1bee7 !important;
-  border-radius: 6px;
+  border-left: 4px solid #c78cd1;
+  background-color: rgba(255, 255, 255, 0.15);
+  color: white !important;
 }
 
+span {
+  color: white;
+  font-weight: 500;
+  font-size: 15px;
+}
 
+.contenido-principal {
+  padding: 24px; /* Puedes ajustar este valor según lo que necesites */
+  min-height: 100vh;
+  box-sizing: border-box;
+}
+
+@media (max-width: 768px) {
+  .contenido-principal {
+    padding: 16px;
+  }
+}
