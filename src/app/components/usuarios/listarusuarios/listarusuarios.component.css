@@ -73,3 +73,47 @@ mat-card-actions {
   font-weight: bold;
   font-family: "Quicksand", sans-serif;
 }
+
+/*CARD DE NO ADMIN*/
+
+.perfil-usuario-card {
+  max-width: 800px; /* Más ancho */
+  margin: 3rem auto; /* Más espacio superior e inferior */
+  padding: 2rem;
+  border: 3px solid #6a1b9a;
+  box-shadow: 0 0 25px rgba(106, 27, 154, 0.4);
+  border-radius: 12px;
+  background-color: #ffffff;
+}
+
+.perfil-usuario-card mat-card-header {
+  align-items: center;
+}
+
+.perfil-usuario-card mat-card-title {
+  font-size: 2rem;
+  font-weight: bold;
+}
+
+.perfil-usuario-card mat-card-subtitle {
+  font-size: 1.2rem;
+  margin-top: 0.5rem;
+}
+
+.perfil-usuario-card mat-card-content p {
+  margin-bottom: 1rem;
+  font-size: 1.1rem;
+}
+
+.perfil-usuario-card mat-card-actions {
+  justify-content: center;
+  margin-top: 1.5rem;
+  gap: 2rem; 
+}
+
+.perfil-usuario-card button {
+  padding: 0.75rem 2rem;
+  font-size: 1rem;
+  border-radius: 8px;
+  min-width: 150px;
+}

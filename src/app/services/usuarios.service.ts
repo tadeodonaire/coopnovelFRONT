@@ -43,17 +43,21 @@ export class UsuariosService {
   deleteU(id: number) {
     return this.http.delete(`${this.url}/${id}`);
   }
-  
-  getEdad():Observable<EdadDTO[]>{
+
+  getEdad(): Observable<EdadDTO[]> {
     return this.http.get<EdadDTO[]>(`${this.url}/edad`);
   }
-  getSuscipcionesMes(id:number):Observable<QuerySuscripcionDTO[]>{
-    const params = {a:id}
-    return this.http.get<[QuerySuscripcionDTO]>(`${this.url}/CantidadSuscripcion`,{params});
+  getSuscipcionesMes(id: number): Observable<QuerySuscripcionDTO[]> {
+    const params = { a: id };
+    return this.http.get<[QuerySuscripcionDTO]>(
+      `${this.url}/CantidadSuscripcion`,
+      { params }
+    );
   }
   getBibliotecaFull(id: number): Observable<BibliotecaDTO[]> {
-  const params = { a: id }; // Igual que en los otros métodos
-  return this.http.get<BibliotecaDTO[]>(`${this.url}/BibliotecaFull`, { params });
-}
-
+    const params = { a: id }; // Igual que en los otros métodos
+    return this.http.get<BibliotecaDTO[]>(`${this.url}/BibliotecaFull`, {
+      params,
+    });
+  }
 }

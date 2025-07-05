@@ -45,7 +45,7 @@ export class MenuComponent {
   cerrar() {
     sessionStorage.clear();
     sessionStorage.setItem('logoutSuccess', 'true');
-    window.location.href = '/login';
+    window.location.href = '/inicio';
   }
 
   verificar() {

@@ -1,6 +1,5 @@
 <mat-sidenav-container class="sidenav-container" *ngIf="verificar()">
   <mat-sidenav #drawer mode="side" [opened]="true" class="sidenav">
-    <!-- Logo + Nombre juntos -->
     <div class="logo-empresa-container">
       <img src="assets/favicon.ico" alt="Logo" class="logo-img" />
       <span class="empresa-nombre">CoopNovel</span>
@@ -16,15 +15,26 @@
         <mat-icon>home</mat-icon>
         <span>Home</span>
       </button>
-      <!-- USUARIOS -->
+      <!-- USUARIOS ADMIN -->
       <button
         mat-button
         [matMenuTriggerFor]="USUARIOS"
         *ngIf="isAdministrador()"
-        routerLinkActive="active-link"
       >
         <mat-icon>person</mat-icon>
         <span>Usuarios</span>
+      </button>
+
+      <!-- USUARIOS NO ADMIN -->
+      <button
+        mat-button
+        routerLink="/usuarios"
+        routerLinkActive="active-link"
+        [routerLinkActiveOptions]="{ exact: true }"
+        *ngIf="!isAdministrador()"
+      >
+        <mat-icon>person</mat-icon>
+        <span>Ver Perfil</span>
       </button>
 
       <!-- BIBLIOTECA -->
@@ -41,7 +51,7 @@
       <button
         mat-button
         [matMenuTriggerFor]="PROYECTO"
-        *ngIf="isAdministrador() || isAutor() || isColaborador() || isLector()"
+        *ngIf="isAdministrador() || isAutor() || isColaborador()"
       >
         <mat-icon>work</mat-icon>
         <span>Proyecto</span>
@@ -159,9 +169,15 @@
   </mat-sidenav-content>
 
   <!-- Submenús (Siempre a la derecha con xPosition="after") -->
-  <mat-menu #USUARIOS="matMenu" xPosition="after" yPosition="below">
+  <mat-menu #USUARIOS="matMenu">
     <button mat-menu-item routerLink="/usuarios">Listar</button>
-    <button mat-menu-item routerLink="/usuarios/insertar">Registrar</button>
+    <button
+      mat-menu-item
+      routerLink="/usuarios/insertar"
+      *ngIf="isAdministrador()"
+    >
+      Registrar
+    </button>
   </mat-menu>
 
   <!-- Menús desplegables (no necesitan routerLinkActive) -->

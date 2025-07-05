@@ -1,13 +1,14 @@
-@import url('https://fonts.googleapis.com/css2?family=Nunito:wght@400;700&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Nunito:wght@400;700&display=swap");
 
 * {
   box-sizing: border-box;
 }
 
-body, html {
+body,
+html {
   height: 100%;
   margin: 0;
-  font-family: 'Nunito', sans-serif;
+  font-family: "Nunito", sans-serif;
   background-color: #f3f3f3;
 }
 
@@ -24,7 +25,7 @@ body, html {
   align-items: center;
   justify-content: center;
   padding: 2rem;
-  box-shadow: 4px 0 20px rgba(0,0,0,0.05);
+  box-shadow: 4px 0 20px rgba(0, 0, 0, 0.05);
 }
 
 .logo-container {
@@ -68,20 +69,40 @@ body, html {
   cursor: pointer;
 }
 
-.login-button {
-  background-color: #6a1b9a;
-  color: white;
+.back-menu-button {
+  margin-top: 1rem;
+  border: 2px solid #6a1b9a;
+  color: #6a1b9a;
   width: 80%;
-  padding: 0.85rem;
-  font-size: 1rem;
+  padding: 0.75rem;
+  font-weight: bold;
   border-radius: 6px;
-  transition: background-color 0.3s ease;
+  transition: all 0.3s ease;
 }
 
-.login-button:hover {
-  background-color: #4a148c;
+.back-menu-button:hover {
+  background-color: #bc73dd;
+  color: white;
+  box-shadow: 0 0 15px #6a1b9a;
 }
 
+.cancel-button {
+  margin-top: 1rem;
+  width: 80%;
+  padding: 0.75rem;
+  font-weight: bold;
+  border-radius: 6px;
+  border: 2px solid rgba(0, 188, 212, 0.4);
+  background-color: rgba(0, 188, 212, 0.1);
+  color: #0288d1;
+  transition: all 0.3s ease;
+}
+
+.cancel-button:hover {
+  background-color: rgba(0, 188, 212, 0.2);
+  color: #01579b;
+  box-shadow: 0 0 10px rgba(0, 188, 212, 0.3);
+}
 
 .welcome-panel {
   width: 50%;
@@ -107,22 +128,32 @@ body, html {
   max-width: 80%;
 }
 
-.signup-button {
-  border: 2px solid white;
-  color: white;
-  font-weight: bold;
-  padding: 0.5rem 2rem;
-  border-radius: 5px;
-  transition: all 0.3s ease;
-}
-
 .signup-button:hover {
-  background-color: white;
-  color: #6a1b9a;
+  background-color: #0288d1;
+  color: white;
+  box-shadow: 0 0 15px #0288d1;
 }
 
 .custom-icon {
-  font-size: 24px;
-  color: #6a1b9a;
+  font-size: 20px;
+  color: #0288d1;
+}
+.spinner-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 1rem;
 }
 
+.loading-text {
+  margin-top: 0.5rem;
+  color: #6a1b9a;
+  font-weight: bold;
+}
+
+.button-group {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+}
