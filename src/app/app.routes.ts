@@ -35,6 +35,9 @@ import { RolesComponent } from './components/roles/roles.component';
 import { CreaeditarolesComponent } from './components/roles/creaeditaroles/creaeditaroles.component';
 import { BibliotecaMainComponent } from './components/biblioteca/biblioteca-main/biblioteca-main.component';
 import { BibliotecaListaUsuarioComponent } from './components/biblioteca/biblioteca-lista-usuario/biblioteca-lista-usuario.component';
+import { InicioComponent } from './pages/inicio/inicio.component';
+import { CapitulosSinCorreccionIAComponent } from './components/reportes/capitulos-sin-correccion-ia/capitulos-sin-correccion-ia.component';
+import { BuscarCorreccionPorIdCapComponent } from './components/reportes/buscar-correccion-por-id-cap/buscar-correccion-por-id-cap.component';
 
 export const routes: Routes = [
   {
@@ -255,6 +258,14 @@ export const routes: Routes = [
         path: 'top-three-comentarios', // mejor nombre para URL
         component: TopThreeCommentatorsComponent,
       },
+      {
+        path: 'reporteCapitulosSinCorreccionIA',
+        component: CapitulosSinCorreccionIAComponent
+      },
+      {
+        path: 'buscar-correccion-por-id-cap',
+        component: BuscarCorreccionPorIdCapComponent
+      }
     ],
   },
   {
