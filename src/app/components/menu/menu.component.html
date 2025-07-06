@@ -22,6 +22,7 @@
         <mat-icon>home</mat-icon>
         <span>Home</span>
       </button>
+
       <!-- USUARIOS ADMIN -->
       <button
         mat-button
@@ -284,6 +285,7 @@
     <button mat-menu-item routerLink="/roles/insertar">Registrar</button>
   </mat-menu>
 
+
   <mat-menu #REPORTES="matMenu">
     <button mat-menu-item routerLink="/reportes">Edad</button>
     <button mat-menu-item routerLink="/reportes/reportecapitulosdescargados">
@@ -309,3 +311,65 @@
     </button>
   </mat-menu>
 </mat-sidenav-container>
+
+    <mat-menu #ROLES="matMenu">
+      <button mat-menu-item routerLink="/roles">Listar</button>
+      <button mat-menu-item routerLink="/roles/insertar">Registrar</button>
+    </mat-menu>
+
+    <mat-menu #REPORTES="matMenu">
+      <button mat-menu-item routerLink="/reportes">Edad</button>
+      <button mat-menu-item routerLink="/reportes/reportecapitulosdescargados">
+        CapDescargados
+      </button>
+      <button mat-menu-item routerLink="/reportes/reportecomentariosxusuarios">
+        Cantidad Comentarios
+      </button>
+      <button
+        mat-menu-item
+        routerLink="/reportes/reporte-top-three-comentarios"
+      >
+        Top 3 usuarios que más comentan
+      </button>
+      <button mat-menu-item routerLink="/reportes/reportecapitulosdescargados">
+        CapDescargados
+      </button>
+      <button mat-menu-item routerLink="/reportes/reportecomentariosxusuarios">
+        Cantidad Comentarios
+      </button>
+      <button mat-menu-item routerLink="/reportes/numero-capitulo">
+        Cantidad de Capitulos
+      </button>
+      <button mat-menu-item routerLink="/reportes/SusccripcionMes">
+        Suscripciones Por mes
+      </button>
+    </mat-menu>
+<mat-menu #REPORTES="matMenu">
+  <button mat-menu-item routerLink="/reportes">Edad</button>
+  <button mat-menu-item routerLink="/reportes/reportecapitulosdescargados">CapDescargados</button>
+  <button mat-menu-item routerLink="/reportes/reportecomentariosxusuarios">Cantidad Comentarios</button>
+  <button mat-menu-item routerLink="/reportes/top-three-comentarios">Top 3 usuarios que más comentan</button>
+  <button mat-menu-item routerLink="/reportes/usuarios-suscritos">Usuarios suscritos más de una vez</button>
+  <button mat-menu-item routerLink="/reportes/reportecapitulosdescargados">
+    CapDescargados
+  </button>
+  <button mat-menu-item routerLink="/reportes/reportecomentariosxusuarios">
+    Cantidad Comentarios
+  </button>
+  <button mat-menu-item routerLink="/reportes/numero-capitulo">
+    Cantidad de Capitulos
+  </button>
+  <button mat-menu-item routerLink="/reportes/SusccripcionMes">
+    Suscripciones Por mes
+  </button>
+</mat-menu>
+
+    <mat-menu #menuSalir="matMenu">
+      <button mat-menu-item disabled>
+        Rol:
+        <span>{{ role }}</span>
+      </button>
+    </mat-menu>
+  </mat-menu></mat-sidenav-container
+>
+
