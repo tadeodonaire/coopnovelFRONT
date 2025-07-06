@@ -4,6 +4,7 @@ import { Observable, Subject } from 'rxjs';
 import { Suscripciones } from '../models/suscripciones';
 import { HttpClient } from '@angular/common/http';
 import { CantidadSuscripcionesDTO } from '../models/cantidadSuscripcionesDTO';
+import { RepeatUsersDTO } from '../models/repeatUsersDTO';
 
 const base_url = environment.base;
 @Injectable({
@@ -49,5 +50,9 @@ export class SuscripcionesService {
     return this.http.get<number[]>(
       `${this.url}/mis-suscripciones/${idSuscriptor}`
     );
+  }
+
+  getUsersSubscribedMore() {
+    return this.http.get<RepeatUsersDTO[]>(`${this.url}/usuarios-suscritos`);
   }
 }
