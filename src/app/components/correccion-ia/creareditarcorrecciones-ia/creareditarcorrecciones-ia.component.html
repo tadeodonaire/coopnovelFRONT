@@ -1,32 +1,17 @@
 <div class="form-container">
   <h1>Registro de CorreccionesIA</h1>
   <form [formGroup]="form" (submit)="aceptar()">
-    <!-- Campo ID (solo en edición) -->
-    <mat-form-field *ngIf="edicion">
-      <mat-label>ID</mat-label>
-      <input matInput formControlName="id" class="input-id" readonly />
-    </mat-form-field>
-
-    <!-- Selector de capítulos -->
+    <!-- Seleccionamos el capítulo (campo deshabilitado) -->
     <mat-form-field>
       <mat-label>Capítulos</mat-label>
-      <mat-select
-        formControlName="capitulos"
-        (selectionChange)="generarCorreccionIA($event.value)"
-      >
+      <mat-select formControlName="capitulos">
         <mat-option *ngFor="let l of listaCapitulos" [value]="l.idCapitulo">
           ({{ l.idCapitulo }}) {{ l.capTitulo }}
         </mat-option>
       </mat-select>
     </mat-form-field>
 
-    <!-- Spinner mientras se genera la corrección -->
-    <div style="text-align: center; margin-bottom: 10px" *ngIf="cargandoIA">
-      <mat-spinner diameter="40"></mat-spinner>
-      <p style="margin-top: 10px">Generando corrección con IA...</p>
-    </div>
-
-    <!-- Textarea de corrección -->
+    <!-- Corrección IA generada -->
     <mat-form-field>
       <mat-label>Contenido de la Corrección</mat-label>
       <textarea
@@ -39,7 +24,6 @@
       </mat-error>
     </mat-form-field>
 
-    <!-- Botón de envío -->
     <button
       mat-flat-button
       type="submit"

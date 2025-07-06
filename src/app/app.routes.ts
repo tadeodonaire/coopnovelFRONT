@@ -134,7 +134,7 @@ export const routes: Routes = [
     component: CapituloComponent,
     canActivate: [seguridadGuard],
     children: [
-      { path: 'insertar', component: CreaeditacapitulosComponent },
+      { path: 'insertar/:novelaId', component: CreaeditacapitulosComponent },
       {
         path: 'ediciones/:id',
         component: CreaeditacapitulosComponent,
@@ -183,7 +183,7 @@ export const routes: Routes = [
     component: CorreccionIAComponent,
     children: [
       {
-        path: 'insertar',
+        path: 'insertar/:id',
         component: CreareditarcorreccionesIAComponent,
       },
       {

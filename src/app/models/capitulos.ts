@@ -6,5 +6,4 @@ export class Capitulos {
     capTitulo: string="";
     capContenido: string="";
     novelas: Novela = new Novela();
-    descargas: Descargas = new Descargas();
 }
