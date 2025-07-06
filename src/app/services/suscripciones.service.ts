@@ -4,7 +4,7 @@ import { Observable, Subject } from 'rxjs';
 import { Suscripciones } from '../models/suscripciones';
 import { HttpClient } from '@angular/common/http';
 import { CantidadSuscripcionesDTO } from '../models/cantidadSuscripcionesDTO';
-import { RepeatUsersDTO } from '../models/repeatUsersDTO';
+>>>>>>>>> Temporary merge branch 2
 
 const base_url = environment.base;
 @Injectable({
@@ -36,6 +36,11 @@ export class SuscripcionesService {
   deleteSus(id: number) {
     return this.http.delete(`${this.url}/${id}`);
   }
+<<<<<<<<< Temporary merge branch 1
+
+  getUsersSubscribedMore() {
+    return this.http.get<RepeatUsersDTO[]>(`${this.url}/usuarios-suscritos`);
+=========
   getEscritores(): Observable<CantidadSuscripcionesDTO[]> {
     return this.http.get<CantidadSuscripcionesDTO[]>(
       `${this.url}/cantidad-suscripciones`
@@ -50,9 +55,6 @@ export class SuscripcionesService {
     return this.http.get<number[]>(
       `${this.url}/mis-suscripciones/${idSuscriptor}`
     );
-  }
-
-  getUsersSubscribedMore() {
-    return this.http.get<RepeatUsersDTO[]>(`${this.url}/usuarios-suscritos`);
+>>>>>>>>> Temporary merge branch 2
   }
 }
