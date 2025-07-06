@@ -14,7 +14,8 @@
         <!-- Contenido -->
         <div class="form-group">
             <label for="contenido">Contenido</label>
-            <textarea id="contenido" formControlName="contenido" placeholder="Eg: La Novela es buena" rows="3"></textarea>
+            <textarea id="contenido" formControlName="contenido" placeholder="Eg: La Novela es buena"
+                rows="3"></textarea>
             <mat-error *ngIf="form.get('contenido')?.hasError('required') && form.get('contenido')?.touched">
                 Este campo es obligatorio
             </mat-error>
@@ -29,41 +30,22 @@
         <!-- Fecha -->
         <div class="form-group">
             <label for="fecha">Fecha</label>
-            <input id="fecha" type="date" formControlName="fecha">
-            <mat-error *ngIf="form.get('fecha')?.hasError('required') && form.get('fecha')?.touched">
-                Este campo es obligatorio
-            </mat-error>
-            <mat-error *ngIf="form.get('fecha')?.hasError('fechaFutura') && form.get('fecha')?.touched">
-                No se permiten fechas futuras. Selecciona hoy o una fecha superior.
-            </mat-error>
+            <input id="fecha" type="date" formControlName="fecha" [value]="actualDate | date: 'dd-MM-yyyy'" readonly>
         </div>
 
         <!--Usuario-->
         <div class="form-group" *ngIf="!edicion">
             <label for="usuario">Usuario</label>
-            <select id="usuario" formControlName="usuario">
-                <option value="" disabled selected>Seleccione un usuario</option>
-                <option *ngFor="let usuario of listaUsuarios" [value]="usuario.idUsuario">
-                    {{usuario.usNombre}}
-                </option>
-            </select>
-            <mat-error *ngIf="form.get('usuario')?.hasError('required') && form.get('usuario')?.touched">
-                Este campo es obligatorio
-            </mat-error>
+            <input id="usuario" type="text" formControlName="usuario" [value]="user.username" readonly class="input-id">
         </div>
 
         <!--Capitulo-->
         <div class="form-group">
             <label for="capitulo">Capítulo</label>
-            <select id="capitulo" formControlName="capitulo">
-                <option value="" disabled selected>Seleccione un capítulo</option>
-                <option *ngFor="let capitulo of listaCapitulos" [value]="capitulo.idCapitulo">
-                    {{capitulo.capTitulo}}
-                </option>
-            </select>
-            <mat-error *ngIf="form.get('capitulo')?.hasError('required') && form.get('capitulo')?.touched">
-                Este campo es obligatorio
-            </mat-error>
+
+            <!-- ✅ Input que muestra automáticamente el capítulo preseleccionado -->
+            <input id="capitulo" type="text" formControlName="capitulo"
+                [value]="capituloPreseleccionado?.capTitulo || 'Seleccione un capítulo'" readonly class="input-id">
         </div>
 
         <!--Botones-->

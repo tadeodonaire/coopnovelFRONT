@@ -1,4 +1,4 @@
-import { Component, ViewChild } from '@angular/core';
+import { Component, ViewChild, AfterViewInit, OnInit } from '@angular/core';
 import { Comentario } from '../../../models/comentario';
 import { ComentarioService } from '../../../services/comentario.service';
 import { CommonModule } from '@angular/common';
@@ -22,7 +22,7 @@ import { LoginService } from '../../../services/login.service';
   templateUrl: './listar-comentarios.component.html',
   styleUrl: './listar-comentarios.component.css',
 })
-export class ListarComentariosComponent {
+export class ListarComentariosComponent implements OnInit, AfterViewInit {
   dataSource: MatTableDataSource<Comentario> = new MatTableDataSource();
   displayedColumns: string[] = [];
 
@@ -43,11 +43,13 @@ export class ListarComentariosComponent {
     }
 
     this.comS.list().subscribe((data) => {
-      this.dataSource = new MatTableDataSource(data);
+      this.dataSource.data = data;
+      this.dataSource.paginator = this.paginator;
     });
 
     this.comS.getList().subscribe((data) => {
-      this.dataSource = new MatTableDataSource(data);
+      this.dataSource.data = data;
+      this.dataSource.paginator = this.paginator;
     });
   }
 

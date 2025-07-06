@@ -165,6 +165,10 @@ export const routes: Routes = [
         path: 'ediciones/:id',
         component: CreateEditComentarioComponent,
       },
+      {
+        path: 'nuevo/:capituloId',
+        component: CreateEditComentarioComponent,
+      }
     ],
     canActivate: [seguridadGuard],
   },
