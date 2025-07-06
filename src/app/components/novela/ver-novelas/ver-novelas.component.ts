@@ -14,6 +14,7 @@ import { FormsModule } from '@angular/forms';
 import { Novelasbibliotecas } from '../../../models/novelasbibliotecas';
 import { NovelasbibliotecasService } from '../../../services/novelasbibliotecas.service';
 import { Novela } from '../../../models/novela';
+import { RouterLink } from '@angular/router';
 
 interface NodoCapitulo {
   name: string;
@@ -38,13 +39,15 @@ interface NodoNovela {
     MatButtonModule,
     MatFormFieldModule,
     MatSelectModule,
-    FormsModule,
+    FormsModule
   ],
   templateUrl: './ver-novelas.component.html',
   styleUrl: './ver-novelas.component.css',
 })
 export class VerNovelasComponent implements OnInit {
   novelas: NodoNovela[] = [];
+  novelasFiltradas: NodoNovela[] = [];
+  nombreNovelaFiltro: string = ''; 
   capituloExpandido: { [nombre: string]: boolean } = {};
   selectedBibliotecas: { [novelaName: string]: number } = {};
   misBibliotecas: Biblioteca[] = [];
@@ -64,11 +67,34 @@ export class VerNovelasComponent implements OnInit {
 
     this.novelaService.getNovelasFull().subscribe((data) => {
       this.novelas = this.agrupar(data);
+      this.novelasFiltradas = this.novelas; 
     });
-    // Cargar bibliotecas del usuario (adaptar si usas JWT u otro método)
+
     this.bibliotecaService.listarPorUsuario(idUsuario).subscribe((data) => {
       this.misBibliotecas = data;
     });
+  }
+
+  filtrarNovelas(): void {
+    if (this.nombreNovelaFiltro.trim()) {
+      this.novelasFiltradas = this.novelas.filter(
+        (novela) =>
+          novela.name
+            .toLowerCase()
+            .includes(this.nombreNovelaFiltro.toLowerCase()) ||
+          novela.autor
+            .toLowerCase()
+            .includes(this.nombreNovelaFiltro.toLowerCase())
+      );
+    } else {
+      this.novelasFiltradas = this.novelas; 
+    }
+  }
+
+
+  restablecerFiltro(): void {
+    this.nombreNovelaFiltro = ''; 
+    this.novelasFiltradas = this.novelas; 
   }
 
   agrupar(data: NovelaFullDTO[]): NodoNovela[] {
@@ -108,6 +134,7 @@ export class VerNovelasComponent implements OnInit {
   isCapituloExpanded(nombre: string): boolean {
     return this.capituloExpandido[nombre] ?? false;
   }
+
   agregarNovelaABiblioteca(nombreNovela: string): void {
     const idBiblioteca = this.selectedBibliotecas[nombreNovela];
     if (!idBiblioteca) {

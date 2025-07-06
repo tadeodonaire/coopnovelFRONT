@@ -9,6 +9,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { MatPaginator, MatPaginatorModule } from '@angular/material/paginator';
 import { LoginService } from '../../../services/login.service';
+import { MatCardModule } from '@angular/material/card';
 
 @Component({
   selector: 'app-listarproyectos',
@@ -19,6 +20,7 @@ import { LoginService } from '../../../services/login.service';
     RouterLink,
     MatIconModule,
     MatPaginatorModule,
+    MatCardModule
   ],
   templateUrl: './listarproyectos.component.html',
   styleUrl: './listarproyectos.component.css',
