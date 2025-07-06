@@ -36,7 +36,9 @@ import { CreaeditarolesComponent } from './components/roles/creaeditaroles/creae
 import { BibliotecaMainComponent } from './components/biblioteca/biblioteca-main/biblioteca-main.component';
 import { BibliotecaListaUsuarioComponent } from './components/biblioteca/biblioteca-lista-usuario/biblioteca-lista-usuario.component';
 import { InicioComponent } from './pages/inicio/inicio.component';
+import { BuscarUsuarioComponent } from './components/suscripciones/buscar-usuario/buscar-usuario.component';
 import { SuscritoMoreOnceComponent } from './components/reportes/suscrito-more-once/suscrito-more-once.component';
+
 
 export const routes: Routes = [
   {
@@ -207,6 +209,10 @@ export const routes: Routes = [
       {
         path: 'editar/:id',
         component: CreareditarsuscripcionesComponent,
+      },
+      {
+        path: 'cantidad-suscripciones',
+        component: BuscarUsuarioComponent,
       },
     ],
   },

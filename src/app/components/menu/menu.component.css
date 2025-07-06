@@ -83,3 +83,20 @@ span {
     padding: 16px;
   }
 }
+
+.usuario-info {
+  text-align: center;
+  margin-top: 10px;
+}
+
+.usuario-nombre {
+  font-weight: 600;
+  font-size: 15px;
+}
+
+.usuario-rol {
+  font-style: italic;
+  font-size: 13px;
+  opacity: 0.9;
+}
+

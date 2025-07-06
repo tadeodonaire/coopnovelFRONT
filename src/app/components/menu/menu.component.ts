@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { MatListModule } from '@angular/material/list';
@@ -14,6 +14,7 @@ import {
 } from '@angular/router';
 import { LoginService } from '../../services/login.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { UsuariosService } from '../../services/usuarios.service';
 @Component({
   selector: 'app-menu',
   imports: [
@@ -26,21 +27,37 @@ import { MatSnackBar } from '@angular/material/snack-bar';
     MatSidenavModule,
     CommonModule,
     MatListModule,
-    RouterLinkActive
+    RouterLinkActive,
   ],
   templateUrl: './menu.component.html',
   styleUrl: './menu.component.css',
 })
-export class MenuComponent {
+export class MenuComponent implements OnInit {
+  usNombre: string = '';
+  usApellido: string = '';
   role: string = '';
 
   @ViewChild('drawer') drawer!: MatSidenav;
 
   constructor(
     private loginService: LoginService,
+    private usuarioService: UsuariosService,
     private router: Router,
     private snackBar: MatSnackBar
   ) {}
+
+  ngOnInit(): void {
+    const username = this.loginService.getUsername();
+    if (username) {
+      this.usuarioService.list().subscribe((usuarios) => {
+        const usuario = usuarios.find((u) => u.username === username);
+        if (usuario) {
+          this.usNombre = usuario.usNombre;
+          this.usApellido = usuario.usApellido;
+        }
+      });
+    }
+  }
 
   cerrar() {
     sessionStorage.clear();

@@ -36,7 +36,19 @@ export class LoginService {
     if (!token) return null;
     const helper = new JwtHelperService();
     const decoded = helper.decodeToken(token);
-    console.log('TOKEN DECODIFICADO:', decoded); 
+    console.log('TOKEN DECODIFICADO:', decoded);
     return decoded?.idUsuario ?? null;
+  }
+  
+  getLoggedUsername(): string | null {
+    const token = sessionStorage.getItem('token');
+    if (!token) return null;
+
+    const helper = new JwtHelperService();
+    const decoded = helper.decodeToken(token);
+    console.log('TOKEN DECODIFICADO:', decoded);
+
+    // Ahora devuelve el username (del campo sub)
+    return decoded?.sub ?? null;
   }
 }
