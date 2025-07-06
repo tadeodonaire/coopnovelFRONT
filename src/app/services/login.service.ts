@@ -31,12 +31,12 @@ export class LoginService {
     const decoded = helper.decodeToken(token);
     return decoded?.sub ?? null;
   }
-  getUserId(): number | null {
+  getUserId(): string | null {
     const token = sessionStorage.getItem('token');
     if (!token) return null;
     const helper = new JwtHelperService();
     const decoded = helper.decodeToken(token);
     console.log('TOKEN DECODIFICADO:', decoded); 
-    return decoded?.idUsuario ?? null;
+    return decoded?.sub ?? null;
   }
 }

@@ -1,6 +1,10 @@
 <div class="container">
   <h1>{{ edicion ? "Actualizar Proyecto" : "Registrar Proyecto" }}</h1>
   <div>
+    <!-- Mostrar el usuario autenticado -->
+    <div style="margin-bottom: 16px; color: #555; font-size: 15px;">
+      <strong>Usuario autenticado:</strong> {{ loginService.getUserId() }}
+    </div>
     <form [formGroup]="form" (submit)="aceptar()">
       <mat-form-field class="example-full-width" *ngIf="edicion">
         <mat-label>ID</mat-label>
@@ -33,20 +37,6 @@
       </mat-form-field>
       <br />
 
-      <mat-form-field class="form-field">
-        <mat-label>Usuario</mat-label>
-        <mat-select matInput placeholder="Usuario" formControlName="husuarios">
-          @for (m of listaUsuarios; track m) {
-          <mat-option [value]="m.idUsuario"
-            >({{ m.idUsuario }}) {{ m.usNombre }}
-          </mat-option>
-          }
-        </mat-select>
-        <mat-error *ngIf="form.get('husuarios')?.hasError('required')">
-          El usuario es obligatorio!!
-        </mat-error>
-      </mat-form-field>
-      <br />
 
       <button type="submit" [disabled]="form.invalid">
         {{ edicion ? "Actualizar" : "Registrar" }}
