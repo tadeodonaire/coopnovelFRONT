@@ -52,22 +52,14 @@
                 Este campo es obligatorio
             </mat-error>
             <mat-error *ngIf="form.get('fecha')?.hasError('fechaFutura') && form.get('fecha')?.touched">
-                No se permiten fechas futuras. Selecciona hoy o una fecha superior.
+                No se permiten fechas pasadas. Selecciona hoy o una fecha superior.
             </mat-error>
         </div>
 
         <!--Organizador-->
         <div class="form-group" *ngIf="!edicion">
             <label for="organizador">Organizador</label>
-            <select id="organizador" formControlName="organizador">
-                <option value="" disabled selected>Seleccione un organizador</option>
-                <option *ngFor="let usuario of listaUsuarios" [value]="usuario.idUsuario">
-                    {{usuario.usNombre}}
-                </option>
-            </select>
-            <mat-error *ngIf="form.get('organizador')?.hasError('required') && form.get('organizador')?.touched">
-                Este campo es obligatorio
-            </mat-error>
+            <input id="organizador" type="text" formControlName="organizador" [value]="host.username" readonly class="input-id">
         </div>
 
         <!--Participante-->
@@ -79,9 +71,6 @@
                     {{usuario.usNombre}}
                 </option>
             </select>
-            <mat-error *ngIf="form.get('participante')?.hasError('required') && form.get('participante')?.touched">
-                Este campo es obligatorio
-            </mat-error>
         </div>
 
         <!--Botones-->

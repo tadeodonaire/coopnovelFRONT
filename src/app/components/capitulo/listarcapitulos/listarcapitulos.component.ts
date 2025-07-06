@@ -3,7 +3,7 @@ import { Component } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { MatTableDataSource, MatTableModule } from '@angular/material/table';
-import { RouterModule } from '@angular/router';    
+import { Router, RouterLink, RouterModule } from '@angular/router';
 import { Capitulos } from '../../../models/capitulos';
 import { CapituloService } from '../../../services/capitulo.service';
 import { LoginService } from '../../../services/login.service';
@@ -14,6 +14,7 @@ import { LoginService } from '../../../services/login.service';
     CommonModule,
     MatTableModule,
     RouterModule,
+    RouterLink,
     MatIconModule,
     MatButtonModule,
   ],
@@ -26,8 +27,9 @@ export class ListarcapitulosComponent {
 
   constructor(
     private cS: CapituloService,
+    private router: Router,
     private loginService: LoginService
-  ) {}
+  ) { }
 
   ngOnInit(): void {
     const rol = this.loginService.showRole();
@@ -37,9 +39,9 @@ export class ListarcapitulosComponent {
 
     // Agregamos columnas condicionalmente
     if (rol === 'ADMINISTRADOR') {
-      this.displayedColumns.push('editar', 'eliminar');
+      this.displayedColumns.push('editar', 'eliminar', 'addComment');
     } else if (rol === 'AUTOR') {
-      this.displayedColumns.push('editar');
+      this.displayedColumns.push('editar', 'addComment');
     }
 
     // Llenamos los datos
@@ -70,5 +72,10 @@ export class ListarcapitulosComponent {
 
   isColaborador(): boolean {
     return this.loginService.showRole() === 'COLABORADOR';
+  }
+
+  addComment() {
+    // Navegar a la ruta de insertar comentario
+    this.router.navigate(['/comentario/insertar']);
   }
 }
