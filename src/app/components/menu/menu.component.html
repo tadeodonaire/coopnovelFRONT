@@ -15,6 +15,7 @@
         <mat-icon>home</mat-icon>
         <span>Home</span>
       </button>
+
       <!-- USUARIOS ADMIN -->
       <button
         mat-button
@@ -115,10 +116,6 @@
       >
         <mat-icon>edit</mat-icon>
         <span>Correcciones</span>
-      <!-- Correcciones -->
-      <button mat-button [matMenuTriggerFor]="CORRECCIONES">
-        <mat-icon>adb</mat-icon>
-        <span *ngIf="isExpanded">Correcciones</span>
       </button>
 
       <!-- NOVELASBIBLIOTECAS -->
@@ -129,9 +126,6 @@
       >
         <mat-icon>library_books</mat-icon>
         <span>NovelasBibliotecas</span>
-      <button mat-button [matMenuTriggerFor]="NOVELASBIBLIOTECAS">
-        <mat-icon>create_new_folder</mat-icon>
-        <span *ngIf="isExpanded">NovelasBibliotecas</span>
       </button>
 
       <!-- SUSCRIPCIONES -->
@@ -142,9 +136,6 @@
       >
         <mat-icon>subscriptions</mat-icon>
         <span>Suscripciones</span>
-      <button mat-button [matMenuTriggerFor]="SUSCRIPCIONES">
-        <mat-icon>subscriptions</mat-icon>
-        <span *ngIf="isExpanded">Suscripciones</span>
       </button>
 
       <!-- ROLES -->
