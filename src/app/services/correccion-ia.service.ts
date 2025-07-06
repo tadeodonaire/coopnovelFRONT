@@ -1,8 +1,9 @@
 import { Injectable } from '@angular/core';
 import { environment } from '../../environments/environment';
-import { Subject } from 'rxjs';
+import { Observable, Subject } from 'rxjs';
 import { CorreccionesIA } from '../models/correccionesIA';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
+
 const base_url = environment.base;
 
 @Injectable({
@@ -11,8 +12,15 @@ const base_url = environment.base;
 export class CorreccionIAService {
   private url = `${base_url}/Correcciones`;
   private listaCambio = new Subject<CorreccionesIA[]>();
+
+  // Tu API key y URL para Gemini
+  private readonly API_KEY = 'AIzaSyCdslaznxwGxsNoJUO5N2fmN-OXbxK2nLE';
+  private readonly API_URL =
+    'https://generativelanguage.googleapis.com/v1/models/gemini-1.5-flash:generateContent';
+
   constructor(private http: HttpClient) {}
 
+  // CRUD
   list() {
     return this.http.get<CorreccionesIA[]>(this.url);
   }
@@ -39,5 +47,22 @@ export class CorreccionIAService {
 
   deleteCorreccionIA(id: number) {
     return this.http.delete(`${this.url}/${id}`);
+  }
+
+  generarCorreccionIA(texto: string): Observable<any> {
+    const headers = new HttpHeaders({
+      'Content-Type': 'application/json',
+    });
+
+    const body = {
+      contents: [
+        {
+          parts: [{ text: `Eres un genio literario de novelas. Mejora este texto sin exceder 9999999 caracteres. No expliques nada, solo responde con el texto corregido.\n\n${texto}` }],
+        },
+      ],
+    };
+
+    const url = `${this.API_URL}?key=${this.API_KEY}`;
+    return this.http.post(url, body, { headers });
   }
 }

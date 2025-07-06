@@ -18,7 +18,7 @@ export class LoginService {
   showRole() {
     let token = sessionStorage.getItem('token');
     if (!token) {
-      return null; 
+      return null;
     }
     const helper = new JwtHelperService();
     const decodedToken = helper.decodeToken(token);
@@ -29,6 +29,14 @@ export class LoginService {
     if (!token) return null;
     const helper = new JwtHelperService();
     const decoded = helper.decodeToken(token);
-    return decoded?.sub ?? null; 
+    return decoded?.sub ?? null;
+  }
+  getUserId(): number | null {
+    const token = sessionStorage.getItem('token');
+    if (!token) return null;
+    const helper = new JwtHelperService();
+    const decoded = helper.decodeToken(token);
+    console.log('TOKEN DECODIFICADO:', decoded); 
+    return decoded?.idUsuario ?? null;
   }
 }

@@ -33,12 +33,15 @@ import { seguridadGuard } from './guard/seguridad.guard';
 import { LoginComponent } from './components/login/login.component';
 import { RolesComponent } from './components/roles/roles.component';
 import { CreaeditarolesComponent } from './components/roles/creaeditaroles/creaeditaroles.component';
+import { BibliotecaMainComponent } from './components/biblioteca/biblioteca-main/biblioteca-main.component';
+import { BibliotecaListaUsuarioComponent } from './components/biblioteca/biblioteca-lista-usuario/biblioteca-lista-usuario.component';
+import { InicioComponent } from './pages/inicio/inicio.component';
 import { SuscritoMoreOnceComponent } from './components/reportes/suscrito-more-once/suscrito-more-once.component';
 
 export const routes: Routes = [
   {
     path: '',
-    redirectTo: 'login',
+    redirectTo: 'inicio',
     pathMatch: 'full',
   },
   {
@@ -53,14 +56,10 @@ export const routes: Routes = [
   {
     path: 'usuarios',
     component: UsuariosComponent,
-    canActivate: [seguridadGuard],
-    data: { rolesPermitidos: ['ADMINISTRADOR'] }, // solo admin
   },
   {
     path: 'usuarios/editar/:id',
     component: CreaeditarusuariosComponent,
-    canActivate: [seguridadGuard],
-    data: { rolesPermitidos: ['ADMINISTRADOR'] },
   },
   {
     path: 'descargas',
@@ -128,14 +127,13 @@ export const routes: Routes = [
     path: 'capitulo',
     component: CapituloComponent,
     canActivate: [seguridadGuard],
-    // Sin `data.rolesPermitidos` para dejarlo libre a todos los roles autenticados
     children: [
       { path: 'insertar', component: CreaeditacapitulosComponent },
       {
         path: 'ediciones/:id',
         component: CreaeditacapitulosComponent,
         canActivate: [seguridadGuard],
-        data: { rolesPermitidos: ['ADMINISTRADOR', 'AUTOR'] }, // Aquí sí restringes
+        data: { rolesPermitidos: ['ADMINISTRADOR', 'AUTOR'] },
       },
     ],
   },
@@ -146,11 +144,11 @@ export const routes: Routes = [
     children: [
       {
         path: 'insertar',
-        component: CreateEditReunionComponent, // Aquí se puede cambiar a un componente específico si es necesario
+        component: CreateEditReunionComponent,
       },
       {
         path: 'ediciones/:id',
-        component: CreateEditReunionComponent, // Aquí se puede cambiar a un componente específico si es necesario
+        component: CreateEditReunionComponent,
       },
     ],
     canActivate: [seguridadGuard],
@@ -269,5 +267,19 @@ export const routes: Routes = [
     path: 'homes',
     component: HomeComponent,
     canActivate: [seguridadGuard],
+  },
+  {
+    path: 'biblioteca-full',
+    component: BibliotecaMainComponent,
+    children: [
+      {
+        path: 'usuario',
+        component: BibliotecaListaUsuarioComponent,
+      },
+    ],
+  },
+  {
+    path: 'inicio',
+    component: InicioComponent,
   },
 ];

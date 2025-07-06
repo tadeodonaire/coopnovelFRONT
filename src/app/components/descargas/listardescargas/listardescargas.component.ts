@@ -1,5 +1,5 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import {MatTableDataSource, MatTableModule} from '@angular/material/table';
+import { MatTableDataSource, MatTableModule } from '@angular/material/table';
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
 import { MatPaginator, MatPaginatorModule } from '@angular/material/paginator';
@@ -11,57 +11,65 @@ import { Descargas } from '../../../models/descargas';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { RouterLink } from '@angular/router';
-
+import { LoginService } from '../../../services/login.service';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-listardescargas',
-  imports: [    
+  imports: [
     MatTableModule,
     MatButtonModule,
     MatIconModule,
     MatPaginatorModule,
     ReactiveFormsModule,
     MatFormFieldModule,
-    MatInputModule,RouterLink
+    MatInputModule,
+    RouterLink,
+    CommonModule
   ],
   templateUrl: './listardescargas.component.html',
-  styleUrl: './listardescargas.component.css'
+  styleUrl: './listardescargas.component.css',
 })
-export class ListardescargasComponent implements OnInit{
-
-  dataSource:MatTableDataSource<Descargas>=new MatTableDataSource()
-  displayedColumns:string[]=["c1","c2","c3","c4"]
+export class ListardescargasComponent implements OnInit {
+  dataSource: MatTableDataSource<Descargas> = new MatTableDataSource();
+  displayedColumns: string[] = [];
 
   form: FormGroup;
   @ViewChild(MatPaginator) paginator!: MatPaginator;
 
-
   constructor(
-    private dS:DescargaService,
+    private dS: DescargaService,
     private snacbar: MatSnackBar,
-    private fb: FormBuilder
+    private fb: FormBuilder,
+    private loginService: LoginService
   ) {
-       this.form = this.fb.group({
-      parametro: ['']
+    this.form = this.fb.group({
+      parametro: [''],
     });
   }
 
-
   ngOnInit(): void {
-      this.dS.getList().subscribe((data) => {
-    this.dataSource.data = data;
-    this.dataSource.paginator = this.paginator;
-  });
-      this.dS.list().subscribe(data => {
-    this.dS.setList(data); // ← importante: actualiza el observable
-  });
+    const rol = this.loginService.showRole();
+    this.displayedColumns = ['c1', 'c2', 'c3'];
+
+    if (this.isAdministrador()) {
+      this.displayedColumns.push('c4', 'c5');
+    }
+
+    this.dS.getList().subscribe((data) => {
+      this.dataSource.data = data;
+      this.dataSource.paginator = this.paginator;
+    });
+    this.dS.list().subscribe((data) => {
+      this.dS.setList(data); // ← importante: actualiza el observable
+    });
 
     this.dataSource.filterPredicate = (data, filter) => {
       const t = filter.trim().toLowerCase();
-      return data.hisFecha.toString().toLowerCase().includes(t)
+      return data.hisFecha.toString().toLowerCase().includes(t);
     };
 
-    this.form.get('parametro')?.valueChanges.subscribe(value => {
+    this.form.get('parametro')?.valueChanges.subscribe((value) => {
       this.applyFilter(value);
     });
   }
@@ -84,10 +92,20 @@ export class ListardescargasComponent implements OnInit{
         this.dS.setList(data);
       });
     });
-        //snacbar aqui
+    //snacbar aqui
     this.snacbar.open('Se eliminó correctamente', 'Cerrar', {
-    duration: 3000,
-    verticalPosition: 'top',
+      duration: 3000,
+      verticalPosition: 'top',
     });
+  }
+
+  isAdministrador(): boolean {
+    return this.loginService.showRole() === 'ADMINISTRADOR';
+  }
+  isAutor(): boolean {
+    return this.loginService.showRole() === 'AUTOR';
+  }
+  isColaborador(): boolean {
+    return this.loginService.showRole() === 'COLABORADOR';
   }
 }

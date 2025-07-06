@@ -1,24 +1,38 @@
-@import url('https://fonts.googleapis.com/css2?family=Nunito:wght@400;700&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Nunito:wght@400;700&display=swap");
 
 html, body {
   margin: 0;
   padding: 0;
   height: 100%;
-  width: 100%;
-  font-family: 'Nunito', 'Segoe UI', sans-serif;
+  overflow: hidden;
 }
 
-.center-page {
-  height: 100vh;
-  width: 80vw;
+.home-wrapper {
   display: flex;
-  justify-content: center;
-  align-items: center;
+  height: 100vh;
+  width: 100%;
+  overflow: hidden;
 }
 
-.welcome-container {
+.home-column {
+  flex: 1;
+  padding: 2rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
   text-align: center;
+  overflow: hidden;
 }
+
+.home-divider {
+  width: 3px; 
+  height: 60%; 
+  background-color: rgba(106, 27, 154, 0.4);
+  border-radius: 5px;
+  align-self: center; 
+}
+
 
 .header {
   display: flex;
@@ -29,25 +43,25 @@ html, body {
 }
 
 .titulo {
-  font-size: 3.5rem; /* antes 2.5rem */
+  font-size: 3.5rem;
   font-weight: 700;
   color: #8e24aa;
   margin: 0;
 }
 
 .logo {
-  width: 60px;  /* antes 50px */
+  width: 60px;
   height: 60px;
 }
 
 .bienvenido {
-  font-size: 1.5rem; /* antes 1.2rem */
+  font-size: 1.5rem;
   color: #444;
   margin: 0.5rem 0 2rem;
 }
 
 .frase {
-  font-size: 1.1rem; /* antes 0.95rem */
+  font-size: 1.1rem;
   color: #666;
   font-style: italic;
   max-width: 700px;
@@ -55,8 +69,37 @@ html, body {
 }
 
 .autor {
-  margin-top: 0.75rem; /* un poco más de espacio */
+  margin-top: 0.75rem;
   font-weight: 500;
   color: #5e35b1;
   font-size: 1.05rem;
+}
+
+/* Recomendación del día */
+.recomendacion-titulo {
+  font-size: 1.8rem;
+  color: #6a1b9a;
+  margin-bottom: 1rem;
+}
+
+.recomendacion-imagen {
+  width: 80%;
+  max-width: 300px;
+  border-radius: 8px;
+  margin-bottom: 1rem;
+}
+
+.recomendacion-info {
+  text-align: center;
+}
+
+.recomendacion-libro {
+  font-weight: bold;
+  font-size: 1.2rem;
+  margin-bottom: 0.5rem;
+}
+
+.recomendacion-autor {
+  font-size: 1rem;
+  color: gray;
 }

@@ -67,4 +67,8 @@ export class ListarcapitulosComponent {
   isAutor(): boolean {
     return this.loginService.showRole() === 'AUTOR';
   }
+
+  isColaborador(): boolean {
+    return this.loginService.showRole() === 'COLABORADOR';
+  }
 }

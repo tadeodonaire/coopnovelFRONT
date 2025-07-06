@@ -10,6 +10,7 @@ import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatButtonModule } from '@angular/material/button';
 import { CommonModule } from '@angular/common';
 import { MatIconModule } from '@angular/material/icon';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 
 @Component({
   selector: 'app-login',
@@ -22,13 +23,15 @@ import { MatIconModule } from '@angular/material/icon';
     MatButtonModule,
     CommonModule,
     MatIconModule,
-    RouterLink
+    RouterLink,
+    MatProgressSpinnerModule
   ],
   templateUrl: './login.component.html',
   styleUrl: './login.component.css',
 })
 export class LoginComponent implements OnInit {
   hidePassword: boolean = true;
+  loading: boolean = false;
   constructor(
     private loginService: LoginService,
     private router: Router,
@@ -39,19 +42,34 @@ export class LoginComponent implements OnInit {
   mensaje: string = '';
   ngOnInit(): void {}
   login() {
+    if (!this.username || !this.password) {
+      this.snackBar.open('Por favor, completa todos los campos', 'Aviso', {
+        duration: 2000,
+      });
+      return;
+    }
+
+    this.loading = true; // Mostrar spinner
     let request = new JwtRequest();
     request.username = this.username;
     request.password = this.password;
-    this.loginService.login(request).subscribe(
-      (data: any) => {
-        sessionStorage.setItem('token', data.jwttoken);
-        this.router.navigate(['homes']);
-      },
-      (error) => {
-        this.mensaje = 'Credenciales incorrectas!!!';
-        this.snackBar.open(this.mensaje, 'Aviso', { duration: 2000 });
-      }
-    );
+    this.loginService
+      .login(request)
+      .subscribe(
+        (data: any) => {
+          sessionStorage.setItem('token', data.jwttoken);
+          this.router.navigate(['homes']).then(() => {
+            window.location.reload();
+          });
+        },
+        (error) => {
+          this.mensaje = 'Ingresaste mal la contraseña o el usuario';
+          this.snackBar.open(this.mensaje, 'Aviso', { duration: 2000 });
+        }
+      )
+      .add(() => {
+        this.loading = false;
+      });
   }
 
   togglePasswordVisibility() {
