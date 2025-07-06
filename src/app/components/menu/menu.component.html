@@ -3,7 +3,14 @@
     <div class="logo-empresa-container">
       <img src="assets/favicon.ico" alt="Logo" class="logo-img" />
       <span class="empresa-nombre">CoopNovel</span>
+      <br />
+      <div class="usuario-info">
+        <span class="usuario-nombre">{{ usNombre }} {{ usApellido }}</span>
+        <br />
+        <span class="usuario-rol">{{ role }}</span>
+      </div>
     </div>
+
     <mat-nav-list>
       <!-- HOME -->
       <button
@@ -131,10 +138,21 @@
       <button
         mat-button
         [matMenuTriggerFor]="SUSCRIPCIONES"
-        *ngIf="isAdministrador() || isAutor() || isColaborador() || isLector()"
+        *ngIf="isAdministrador()"
       >
         <mat-icon>subscriptions</mat-icon>
         <span>Suscripciones</span>
+      </button>
+
+      <button
+        mat-button
+        routerLink="/suscripciones/cantidad-suscripciones"
+        *ngIf="isAdministrador() || isAutor() || isColaborador() || isLector()"
+        routerLinkActive="active-link"
+        [routerLinkActiveOptions]="{ exact: true }"
+      >
+        <mat-icon>assignment_ind</mat-icon>
+        <span>Ver Escritores</span>
       </button>
 
       <!-- ROLES -->
@@ -147,12 +165,6 @@
       <button mat-button [matMenuTriggerFor]="REPORTES">
         <mat-icon>report</mat-icon>
         <span>Reportes</span>
-      </button>
-
-      <!-- USUARIO -->
-      <button mat-button [matMenuTriggerFor]="menuSalir">
-        <mat-icon>person</mat-icon>
-        <span>Detalle</span>
       </button>
 
       <button mat-button (click)="cerrar()">
@@ -263,45 +275,37 @@
     <button mat-menu-item routerLink="/suscripciones/insertar">
       Registrar
     </button>
+    <button mat-menu-item routerLink="/suscripciones/cantidad-suscripciones">
+      Buscar
+    </button>
+  </mat-menu>
+  <mat-menu #ROLES="matMenu">
+    <button mat-menu-item routerLink="/roles">Listar</button>
+    <button mat-menu-item routerLink="/roles/insertar">Registrar</button>
+  </mat-menu>
 
-    <mat-menu #ROLES="matMenu">
-      <button mat-menu-item routerLink="/roles">Listar</button>
-      <button mat-menu-item routerLink="/roles/insertar">Registrar</button>
-    </mat-menu>
-
-    <mat-menu #REPORTES="matMenu">
-      <button mat-menu-item routerLink="/reportes">Edad</button>
-      <button mat-menu-item routerLink="/reportes/reportecapitulosdescargados">
-        CapDescargados
-      </button>
-      <button mat-menu-item routerLink="/reportes/reportecomentariosxusuarios">
-        Cantidad Comentarios
-      </button>
-      <button
-        mat-menu-item
-        routerLink="/reportes/reporte-top-three-comentarios"
-      >
-        Top 3 usuarios que más comentan
-      </button>
-      <button mat-menu-item routerLink="/reportes/reportecapitulosdescargados">
-        CapDescargados
-      </button>
-      <button mat-menu-item routerLink="/reportes/reportecomentariosxusuarios">
-        Cantidad Comentarios
-      </button>
-      <button mat-menu-item routerLink="/reportes/numero-capitulo">
-        Cantidad de Capitulos
-      </button>
-      <button mat-menu-item routerLink="/reportes/SusccripcionMes">
-        Suscripciones Por mes
-      </button>
-    </mat-menu>
-
-    <mat-menu #menuSalir="matMenu">
-      <button mat-menu-item disabled>
-        Rol:
-        <span>{{ role }}</span>
-      </button>
-    </mat-menu>
-  </mat-menu></mat-sidenav-container
->
+  <mat-menu #REPORTES="matMenu">
+    <button mat-menu-item routerLink="/reportes">Edad</button>
+    <button mat-menu-item routerLink="/reportes/reportecapitulosdescargados">
+      CapDescargados
+    </button>
+    <button mat-menu-item routerLink="/reportes/reportecomentariosxusuarios">
+      Cantidad Comentarios
+    </button>
+    <button mat-menu-item routerLink="/reportes/reporte-top-three-comentarios">
+      Top 3 usuarios que más comentan
+    </button>
+    <button mat-menu-item routerLink="/reportes/reportecapitulosdescargados">
+      CapDescargados
+    </button>
+    <button mat-menu-item routerLink="/reportes/reportecomentariosxusuarios">
+      Cantidad Comentarios
+    </button>
+    <button mat-menu-item routerLink="/reportes/numero-capitulo">
+      Cantidad de Capitulos
+    </button>
+    <button mat-menu-item routerLink="/reportes/SusccripcionMes">
+      Suscripciones Por mes
+    </button>
+  </mat-menu>
+</mat-sidenav-container>

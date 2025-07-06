@@ -1,0 +1,52 @@
+<div class="search-container">
+  <div class="search-info">
+    <strong>Busca a tu autor favorito mediante su nombre, apellido o novela que te guste:</strong>
+  </div>
+  <div class="search-bar">
+    <input
+      type="text"
+      [(ngModel)]="filtro"
+      placeholder="Buscar..."
+    />
+    <button (click)="buscar()">Buscar</button>
+  </div>
+</div>
+
+<div class="card-container">
+  <div class="title-container">
+    <h1>Escritores</h1>
+  </div>
+
+  <div *ngIf="dataSource.data.length === 0" class="no-results">
+    No se encontró ningún escritor o novela escrita con ese criterio.
+  </div>
+
+  <div class="user-card" *ngFor="let suscripcion of dataSource.data">
+    <div class="card-header">
+      <div class="avatar">👤</div>
+      <div>
+        <h2>{{ suscripcion.nombre }} {{ suscripcion.apellido }}</h2>
+        <p class="label">Suscriptores: <strong>{{ suscripcion.suscriptores }}</strong></p>
+        <p class="label">Novelas: <strong>{{ suscripcion.novelas }}</strong></p>
+      </div>
+    </div>
+
+
+    <button
+      class="subscribe-button"
+      *ngIf="!suscripcion.suscrito"
+      (click)="suscribirse(suscripcion.idUsuario)"
+    >
+      Suscribirte
+    </button>
+
+
+    <button
+      class="unsubscribe-button"
+      *ngIf="suscripcion.suscrito"
+      (click)="desuscribirse(suscripcion.idUsuario)"
+    >
+      Desuscribirse
+    </button>
+  </div>
+</div>
