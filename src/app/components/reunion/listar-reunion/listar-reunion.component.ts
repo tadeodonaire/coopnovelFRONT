@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
 import { MatTableDataSource, MatTableModule } from '@angular/material/table';
 import { Reunion } from '../../../models/reuniones';
 import { ReunionService } from '../../../services/reunion.service';
@@ -22,7 +22,7 @@ import { LoginService } from '../../../services/login.service';
   templateUrl: './listar-reunion.component.html',
   styleUrl: './listar-reunion.component.css',
 })
-export class ListarReunionComponent {
+export class ListarReunionComponent implements OnInit, AfterViewInit{
   dataSource: MatTableDataSource<Reunion> = new MatTableDataSource();
   displayedColumns: string[] = [];
 
@@ -42,11 +42,13 @@ export class ListarReunionComponent {
     }
 
     this.reunionService.list().subscribe((data) => {
-      this.dataSource = new MatTableDataSource(data);
+      this.dataSource.data = data;
+      this.dataSource.paginator = this.paginator;
     });
 
     this.reunionService.getList().subscribe((data) => {
-      this.dataSource = new MatTableDataSource(data);
+      this.dataSource.data = data;
+      this.dataSource.paginator = this.paginator;
     });
   }
 
