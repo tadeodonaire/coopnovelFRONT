@@ -34,6 +34,7 @@ export class ListarusuariosComponent implements OnInit {
   dataSource: MatTableDataSource<Usuario> = new MatTableDataSource();
   paginatedData: Usuario[] = [];
   role: string | null = null;
+  
   @ViewChild(MatPaginator) paginator!: MatPaginator;
 
   displayedColumns: string[] = [

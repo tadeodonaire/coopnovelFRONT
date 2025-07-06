@@ -1,18 +1,19 @@
 import { Injectable } from '@angular/core';
 import { environment } from '../../environments/environment';
-import { Subject } from 'rxjs';
+import { Observable, Subject } from 'rxjs';
 import { Suscripciones } from '../models/suscripciones';
 import { HttpClient } from '@angular/common/http';
+import { CantidadSuscripcionesDTO } from '../models/cantidadSuscripcionesDTO';
 import { RepeatUsersDTO } from '../models/repeatUsersDTO';
 
 const base_url = environment.base;
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class SuscripcionesService {
   private url = `${base_url}/suscripciones`;
   private listaCambio = new Subject<Suscripciones[]>();
-  constructor(private http:HttpClient) { }
+  constructor(private http: HttpClient) {}
 
   list() {
     return this.http.get<Suscripciones[]>(this.url);
@@ -38,5 +39,20 @@ export class SuscripcionesService {
 
   getUsersSubscribedMore() {
     return this.http.get<RepeatUsersDTO[]>(`${this.url}/usuarios-suscritos`);
+  }
+  getEscritores(): Observable<CantidadSuscripcionesDTO[]> {
+    return this.http.get<CantidadSuscripcionesDTO[]>(
+      `${this.url}/cantidad-suscripciones`
+    );
+  }
+  eliminarPorUsuarios(idSuscriptor: number, idSuscrito: number) {
+    return this.http.delete(
+      `${this.url}/suscriptor/${idSuscriptor}/suscrito/${idSuscrito}`
+    );
+  }
+  obtenerMisSuscripciones(idSuscriptor: number) {
+    return this.http.get<number[]>(
+      `${this.url}/mis-suscripciones/${idSuscriptor}`
+    );
   }
 }
