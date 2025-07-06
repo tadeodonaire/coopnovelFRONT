@@ -1,5 +1,7 @@
 <div class="container">
   <h1>{{ edicion ? "Actualizar Proyecto" : "Registrar Proyecto" }}</h1>
+  <h1>({{ idUsuario }})-{{ usNombre }}</h1>
+
   <div>
     <form [formGroup]="form" (submit)="aceptar()">
       <mat-form-field class="example-full-width" *ngIf="edicion">
@@ -29,21 +31,6 @@
         />
         <mat-error *ngIf="form.get('hdescripcion')?.hasError('required')">
           La descripcion es obligatorio!!
-        </mat-error>
-      </mat-form-field>
-      <br />
-
-      <mat-form-field class="form-field">
-        <mat-label>Usuario</mat-label>
-        <mat-select matInput placeholder="Usuario" formControlName="husuarios">
-          @for (m of listaUsuarios; track m) {
-          <mat-option [value]="m.idUsuario"
-            >({{ m.idUsuario }}) {{ m.usNombre }}
-          </mat-option>
-          }
-        </mat-select>
-        <mat-error *ngIf="form.get('husuarios')?.hasError('required')">
-          El usuario es obligatorio!!
         </mat-error>
       </mat-form-field>
       <br />
