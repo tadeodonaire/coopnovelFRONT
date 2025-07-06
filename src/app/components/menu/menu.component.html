@@ -88,6 +88,8 @@
         <span>Suscripciones</span>
       </button>
 
+      <button mat-button routerLink="/suscripciones/cantidad-suscripciones" routerLinkActive="active-link" [routerLinkActiveOptions]="{ exact: true }"><mat-icon>assignment_ind</mat-icon><span>Ver escritores</span></button>
+
       <!-- ROLES -->
       <button mat-button [matMenuTriggerFor]="ROLES" *ngIf="isAdministrador()">
         <mat-icon>supervisor_account</mat-icon>
