@@ -68,7 +68,12 @@ export class CreareditarcorreccionesIAComponent implements OnInit {
   }
 
   aceptar() {
-    if (this.form.valid) {
+    if (!this.form.valid){
+      this.snackBar.open('Por favor, complete todos los campos requeridos.', 'Cerrar', {
+        duration: 3000,
+      });
+      return;
+    }
       this.correccionIA.idCorreccionIA = this.form.value.id;
       this.correccionIA.corCorreccionIA = this.form.value.correccionIA;
       this.correccionIA.capitulos.idCapitulo = this.form.value.capitulos;
@@ -88,7 +93,6 @@ export class CreareditarcorreccionesIAComponent implements OnInit {
           });
         });
       }
-    }
     this.router.navigate(['correccionIA']);
   }
 
@@ -120,7 +124,7 @@ export class CreareditarcorreccionesIAComponent implements OnInit {
       },
       error: (err) => {
         console.error('Error IA:', err);
-        this.snackBar.open('Error al generar corrección IA 😢', 'Cerrar', {
+        this.snackBar.open('Error al generar corrección IA', 'Cerrar', {
           duration: 3000,
         });
         this.cargandoIA = false;

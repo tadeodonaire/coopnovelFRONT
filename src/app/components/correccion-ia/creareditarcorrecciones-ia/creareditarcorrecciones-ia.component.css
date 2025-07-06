@@ -44,7 +44,7 @@ mat-error,
 
 /* Botón de envío */
 button[type="submit"] {
-  background-color: #1cb0f6;
+  background-color: #6a1b9a;
   color: white;
   font-size: 16px;
   font-weight: 600;
@@ -57,11 +57,11 @@ button[type="submit"] {
 }
 
 button[type="submit"]:hover {
-  background-color: #1199d6;
+  background-color: #4a0f6e;
 }
 
 button[type="submit"]:disabled {
-  background-color: #a0dffb;
+  background-color: #d1a9e4;
   cursor: not-allowed;
 }
 
