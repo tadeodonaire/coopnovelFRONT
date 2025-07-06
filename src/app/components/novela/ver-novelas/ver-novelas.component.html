@@ -1,17 +1,37 @@
-<div *ngFor="let novela of novelas" class="novela-card">
+<div class="filtro-container">
+  <input
+    type="text"
+    [(ngModel)]="nombreNovelaFiltro"
+    placeholder="Filtrar por nombre de novela"
+    class="input-filtro"
+  />
+  <button mat-raised-button color="primary" (click)="filtrarNovelas()">Filtrar</button>
+  
+  
+  <button mat-raised-button color="warn" (click)="restablecerFiltro()" *ngIf="nombreNovelaFiltro">
+    Restablecer Filtro
+  </button>
+</div>
+
+
+<div *ngIf="novelasFiltradas.length === 0 && nombreNovelaFiltro" class="no-resultados">
+  <p>No existe la novela que buscabas, lo siento!</p>
+</div>
+
+<div *ngFor="let novela of novelasFiltradas" class="novela-card">
   <h2>{{ novela.name }}</h2>
 
-  <!-- Género -->
+  
   <div class="genero-badge">{{ novela.genero }}</div>
 
-  <!-- Autor -->
+  
   <p><strong>Autor:</strong> {{ novela.autor }}</p>
 
-  <!-- Resumen -->
+
   <p><strong>Resumen:</strong></p>
   <p class="resumen-texto">{{ novela.resumen }}</p>
 
-  <!-- Lista de capítulos -->
+  
   <div *ngFor="let cap of novela.children" class="capitulo-card">
     <div class="capitulo-header">
       <button mat-mini-fab color="primary" (click)="toggleCapitulo(cap.name)">
@@ -26,7 +46,7 @@
     </div>
   </div>
 
-  <!-- 📌 Selector nativo + botón -->
+
   <div class="agregar-biblioteca">
     <select
       id="select-{{ novela.name }}"

@@ -12,7 +12,7 @@ import { Proyecto } from '../../../models/proyecto';
 import { ProyectoService } from '../../../services/proyecto.service';
 import { UsuariosService } from '../../../services/usuarios.service';
 import { ActivatedRoute, Params, Router } from '@angular/router';
-import { MatFormField, MatInputModule } from '@angular/material/input';
+import { MatInputModule } from '@angular/material/input';
 import { CommonModule } from '@angular/common';
 import { MatSelectModule } from '@angular/material/select';
 import { MatButtonModule } from '@angular/material/button';
@@ -22,7 +22,6 @@ import { JwtHelperService } from '@auth0/angular-jwt';
   selector: 'app-creareditarproyectos',
   imports: [
     MatInputModule,
-    MatFormField,
     ReactiveFormsModule,
     CommonModule,
     MatSelectModule,
@@ -115,4 +114,7 @@ export class CreareditarproyectosComponent implements OnInit {
       });
     }
   }
+  cancelar() {
+  this.router.navigate(['proyecto']);
+}
 }
