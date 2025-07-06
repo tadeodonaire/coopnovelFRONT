@@ -97,7 +97,7 @@
       </button>
 
       <!-- REPORTES -->
-      <button mat-button [matMenuTriggerFor]="REPORTES">
+      <button mat-button [matMenuTriggerFor]="REPORTES"  *ngIf="isAdministrador()">
         <mat-icon>report</mat-icon>
         <span>Reportes</span>
       </button>
