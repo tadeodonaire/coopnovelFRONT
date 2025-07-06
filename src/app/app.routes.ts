@@ -39,7 +39,6 @@ import { InicioComponent } from './pages/inicio/inicio.component';
 import { BuscarUsuarioComponent } from './components/suscripciones/buscar-usuario/buscar-usuario.component';
 import { SuscritoMoreOnceComponent } from './components/reportes/suscrito-more-once/suscrito-more-once.component';
 
-
 export const routes: Routes = [
   {
     path: '',

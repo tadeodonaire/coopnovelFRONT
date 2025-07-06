@@ -13,147 +13,79 @@
 
     <mat-nav-list>
       <!-- HOME -->
-      <button
-        mat-button
-        [routerLink]="['/homes']"
-        routerLinkActive="active-link"
-        [routerLinkActiveOptions]="{ exact: true }"
-      >
+      <button mat-button [routerLink]="['/homes']" routerLinkActive="active-link" [routerLinkActiveOptions]="{ exact: true }">
         <mat-icon>home</mat-icon>
         <span>Home</span>
       </button>
 
-      <!-- USUARIOS ADMIN -->
-      <button
-        mat-button
-        [matMenuTriggerFor]="USUARIOS"
-        *ngIf="isAdministrador()"
-      >
+      <!-- USUARIOS -->
+      <button mat-button [matMenuTriggerFor]="USUARIOS" *ngIf="isAdministrador()">
         <mat-icon>person</mat-icon>
         <span>Usuarios</span>
       </button>
-
-      <!-- USUARIOS NO ADMIN -->
-      <button
-        mat-button
-        routerLink="/usuarios"
-        routerLinkActive="active-link"
-        [routerLinkActiveOptions]="{ exact: true }"
-        *ngIf="!isAdministrador()"
-      >
+      <button mat-button routerLink="/usuarios" routerLinkActive="active-link" [routerLinkActiveOptions]="{ exact: true }" *ngIf="!isAdministrador()">
         <mat-icon>person</mat-icon>
         <span>Ver Perfil</span>
       </button>
 
       <!-- BIBLIOTECA -->
-      <button
-        mat-button
-        [matMenuTriggerFor]="BIBLIOTECA"
-        *ngIf="isAdministrador() || isAutor() || isColaborador() || isLector()"
-      >
+      <button mat-button [matMenuTriggerFor]="BIBLIOTECA" *ngIf="isAdministrador() || isAutor() || isColaborador() || isLector()">
         <mat-icon>menu_book</mat-icon>
         <span>Biblioteca</span>
       </button>
 
       <!-- PROYECTO -->
-      <button
-        mat-button
-        [matMenuTriggerFor]="PROYECTO"
-        *ngIf="isAdministrador() || isAutor() || isColaborador()"
-      >
+      <button mat-button [matMenuTriggerFor]="PROYECTO" *ngIf="isAdministrador() || isAutor() || isColaborador()">
         <mat-icon>work</mat-icon>
         <span>Proyecto</span>
       </button>
 
       <!-- NOVELA -->
-      <button
-        mat-button
-        [matMenuTriggerFor]="NOVELA"
-        *ngIf="isAdministrador() || isAutor() || isColaborador() || isLector()"
-      >
+      <button mat-button [matMenuTriggerFor]="NOVELA" *ngIf="isAdministrador() || isAutor() || isColaborador() || isLector()">
         <mat-icon>auto_stories</mat-icon>
         <span>Novela</span>
       </button>
 
       <!-- CAPÍTULO -->
-      <button
-        mat-button
-        [matMenuTriggerFor]="CAPITULO"
-        *ngIf="isAdministrador() || isAutor() || isColaborador() || isLector()"
-      >
+      <button mat-button [matMenuTriggerFor]="CAPITULO" *ngIf="isAdministrador() || isAutor() || isColaborador() || isLector()">
         <mat-icon>receipt</mat-icon>
         <span>Capítulo</span>
       </button>
 
       <!-- REUNIÓN -->
-      <button
-        mat-button
-        [matMenuTriggerFor]="REUNION"
-        *ngIf="isAdministrador() || isAutor() || isColaborador() || isLector()"
-      >
+      <button mat-button [matMenuTriggerFor]="REUNION" *ngIf="isAdministrador() || isAutor() || isColaborador() || isLector()">
         <mat-icon>people</mat-icon>
         <span>Reunión</span>
       </button>
 
       <!-- DESCARGAS -->
-      <button
-        mat-button
-        [matMenuTriggerFor]="DESCARGAS"
-        *ngIf="isAdministrador() || isAutor() || isColaborador() || isLector()"
-      >
+      <button mat-button [matMenuTriggerFor]="DESCARGAS" *ngIf="isAdministrador() || isAutor() || isColaborador() || isLector()">
         <mat-icon>cloud_download</mat-icon>
         <span>Descargas</span>
       </button>
 
       <!-- COMENTARIOS -->
-      <button
-        mat-button
-        [matMenuTriggerFor]="COMENTARIOS"
-        *ngIf="isAdministrador() || isAutor() || isColaborador() || isLector()"
-      >
+      <button mat-button [matMenuTriggerFor]="COMENTARIOS" *ngIf="isAdministrador() || isAutor() || isColaborador() || isLector()">
         <mat-icon>comment</mat-icon>
         <span>Comentarios</span>
       </button>
 
       <!-- CORRECCIONES -->
-      <button
-        mat-button
-        [matMenuTriggerFor]="CORRECCIONES"
-        *ngIf="isAdministrador() || isAutor() || isColaborador() || isLector()"
-      >
+      <button mat-button [matMenuTriggerFor]="CORRECCIONES" *ngIf="isAdministrador() || isAutor() || isColaborador() || isLector()">
         <mat-icon>edit</mat-icon>
         <span>Correcciones</span>
       </button>
 
       <!-- NOVELASBIBLIOTECAS -->
-      <button
-        mat-button
-        [matMenuTriggerFor]="NOVELASBIBLIOTECAS"
-        *ngIf="isAdministrador() || isAutor() || isColaborador() || isLector()"
-      >
+      <button mat-button [matMenuTriggerFor]="NOVELASBIBLIOTECAS" *ngIf="isAdministrador() || isAutor() || isColaborador() || isLector()">
         <mat-icon>library_books</mat-icon>
         <span>NovelasBibliotecas</span>
       </button>
 
       <!-- SUSCRIPCIONES -->
-      <button
-        mat-button
-        [matMenuTriggerFor]="SUSCRIPCIONES"
-        *ngIf="isAdministrador()"
-      >
+      <button mat-button [matMenuTriggerFor]="SUSCRIPCIONES" *ngIf="isAdministrador()">
         <mat-icon>subscriptions</mat-icon>
         <span>Suscripciones</span>
-      </button>
-
-      <button
-        mat-button
-        routerLink="/suscripciones/cantidad-suscripciones"
-        *ngIf="isAdministrador() || isAutor() || isColaborador() || isLector()"
-        routerLinkActive="active-link"
-        [routerLinkActiveOptions]="{ exact: true }"
-      >
-        <mat-icon>assignment_ind</mat-icon>
-        <span>Ver Escritores</span>
       </button>
 
       <!-- ROLES -->
@@ -181,22 +113,10 @@
     </div>
   </mat-sidenav-content>
 
-  <!-- Submenús (Siempre a la derecha con xPosition="after") -->
+  <!-- Menús desplegables -->
   <mat-menu #USUARIOS="matMenu">
     <button mat-menu-item routerLink="/usuarios">Listar</button>
-    <button
-      mat-menu-item
-      routerLink="/usuarios/insertar"
-      *ngIf="isAdministrador()"
-    >
-      Registrar
-    </button>
-  </mat-menu>
-
-  <!-- Menús desplegables (no necesitan routerLinkActive) -->
-  <mat-menu #USUARIOS="matMenu">
-    <button mat-menu-item routerLink="/usuarios">Listar</button>
-    <button mat-menu-item routerLink="/usuarios/insertar">Registrar</button>
+    <button mat-menu-item routerLink="/usuarios/insertar" *ngIf="isAdministrador()">Registrar</button>
   </mat-menu>
 
   <mat-menu #BIBLIOTECA="matMenu">
@@ -207,35 +127,17 @@
 
   <mat-menu #PROYECTO="matMenu">
     <button mat-menu-item routerLink="/proyecto">Listar</button>
-    <button
-      mat-menu-item
-      routerLink="/proyecto/insertar"
-      *ngIf="isAdministrador() || isAutor()"
-    >
-      Registrar
-    </button>
+    <button mat-menu-item routerLink="/proyecto/insertar" *ngIf="isAdministrador() || isAutor()">Registrar</button>
   </mat-menu>
 
   <mat-menu #NOVELA="matMenu">
     <button mat-menu-item routerLink="/novela">Listar</button>
-    <button
-      mat-menu-item
-      routerLink="/novela/insertar"
-      *ngIf="isAdministrador() || isAutor()"
-    >
-      Registrar
-    </button>
+    <button mat-menu-item routerLink="/novela/insertar" *ngIf="isAdministrador() || isAutor()">Registrar</button>
   </mat-menu>
 
   <mat-menu #CAPITULO="matMenu">
     <button mat-menu-item routerLink="/capitulo">Listar</button>
-    <button
-      mat-menu-item
-      routerLink="/capitulo/insertar"
-      *ngIf="isAdministrador() || isAutor()"
-    >
-      Registrar
-    </button>
+    <button mat-menu-item routerLink="/capitulo/insertar" *ngIf="isAdministrador() || isAutor()">Registrar</button>
   </mat-menu>
 
   <mat-menu #REUNION="matMenu">
@@ -255,121 +157,32 @@
 
   <mat-menu #CORRECCIONES="matMenu">
     <button mat-menu-item routerLink="/correccionIA">Listar</button>
-    <button
-      mat-menu-item
-      routerLink="/correccionIA/insertar"
-      *ngIf="isAdministrador() || isAutor() || isColaborador()"
-    >
-      Registrar
-    </button>
+    <button mat-menu-item routerLink="/correccionIA/insertar" *ngIf="isAdministrador() || isAutor() || isColaborador()">Registrar</button>
   </mat-menu>
 
   <mat-menu #NOVELASBIBLIOTECAS="matMenu">
     <button mat-menu-item routerLink="/novelasbibliotecas">Listar</button>
-    <button mat-menu-item routerLink="/novelasbibliotecas/insertar">
-      Registrar
-    </button>
+    <button mat-menu-item routerLink="/novelasbibliotecas/insertar">Registrar</button>
   </mat-menu>
 
   <mat-menu #SUSCRIPCIONES="matMenu">
     <button mat-menu-item routerLink="/suscripciones">Listar</button>
-    <button mat-menu-item routerLink="/suscripciones/insertar">
-      Registrar
-    </button>
-    <button mat-menu-item routerLink="/suscripciones/cantidad-suscripciones">
-      Buscar
-    </button>
+    <button mat-menu-item routerLink="/suscripciones/insertar">Registrar</button>
+    <button mat-menu-item routerLink="/suscripciones/cantidad-suscripciones">Buscar</button>
   </mat-menu>
+
   <mat-menu #ROLES="matMenu">
     <button mat-menu-item routerLink="/roles">Listar</button>
     <button mat-menu-item routerLink="/roles/insertar">Registrar</button>
   </mat-menu>
 
-
   <mat-menu #REPORTES="matMenu">
     <button mat-menu-item routerLink="/reportes">Edad</button>
-    <button mat-menu-item routerLink="/reportes/reportecapitulosdescargados">
-      CapDescargados
-    </button>
-    <button mat-menu-item routerLink="/reportes/reportecomentariosxusuarios">
-      Cantidad Comentarios
-    </button>
-    <button mat-menu-item routerLink="/reportes/reporte-top-three-comentarios">
-      Top 3 usuarios que más comentan
-    </button>
-    <button mat-menu-item routerLink="/reportes/reportecapitulosdescargados">
-      CapDescargados
-    </button>
-    <button mat-menu-item routerLink="/reportes/reportecomentariosxusuarios">
-      Cantidad Comentarios
-    </button>
-    <button mat-menu-item routerLink="/reportes/numero-capitulo">
-      Cantidad de Capitulos
-    </button>
-    <button mat-menu-item routerLink="/reportes/SusccripcionMes">
-      Suscripciones Por mes
-    </button>
+    <button mat-menu-item routerLink="/reportes/reportecapitulosdescargados">CapDescargados</button>
+    <button mat-menu-item routerLink="/reportes/reportecomentariosxusuarios">Cantidad Comentarios</button>
+    <button mat-menu-item routerLink="/reportes/top-three-comentarios">Top 3 usuarios que más comentan</button>
+    <button mat-menu-item routerLink="/reportes/usuarios-suscritos">Usuarios suscritos más de una vez</button>
+    <button mat-menu-item routerLink="/reportes/numero-capitulo">Cantidad de Capitulos</button>
+    <button mat-menu-item routerLink="/reportes/SuscripcionMes">Suscripciones Por mes</button>
   </mat-menu>
 </mat-sidenav-container>
-
-    <mat-menu #ROLES="matMenu">
-      <button mat-menu-item routerLink="/roles">Listar</button>
-      <button mat-menu-item routerLink="/roles/insertar">Registrar</button>
-    </mat-menu>
-
-    <mat-menu #REPORTES="matMenu">
-      <button mat-menu-item routerLink="/reportes">Edad</button>
-      <button mat-menu-item routerLink="/reportes/reportecapitulosdescargados">
-        CapDescargados
-      </button>
-      <button mat-menu-item routerLink="/reportes/reportecomentariosxusuarios">
-        Cantidad Comentarios
-      </button>
-      <button
-        mat-menu-item
-        routerLink="/reportes/reporte-top-three-comentarios"
-      >
-        Top 3 usuarios que más comentan
-      </button>
-      <button mat-menu-item routerLink="/reportes/reportecapitulosdescargados">
-        CapDescargados
-      </button>
-      <button mat-menu-item routerLink="/reportes/reportecomentariosxusuarios">
-        Cantidad Comentarios
-      </button>
-      <button mat-menu-item routerLink="/reportes/numero-capitulo">
-        Cantidad de Capitulos
-      </button>
-      <button mat-menu-item routerLink="/reportes/SusccripcionMes">
-        Suscripciones Por mes
-      </button>
-    </mat-menu>
-<mat-menu #REPORTES="matMenu">
-  <button mat-menu-item routerLink="/reportes">Edad</button>
-  <button mat-menu-item routerLink="/reportes/reportecapitulosdescargados">CapDescargados</button>
-  <button mat-menu-item routerLink="/reportes/reportecomentariosxusuarios">Cantidad Comentarios</button>
-  <button mat-menu-item routerLink="/reportes/top-three-comentarios">Top 3 usuarios que más comentan</button>
-  <button mat-menu-item routerLink="/reportes/usuarios-suscritos">Usuarios suscritos más de una vez</button>
-  <button mat-menu-item routerLink="/reportes/reportecapitulosdescargados">
-    CapDescargados
-  </button>
-  <button mat-menu-item routerLink="/reportes/reportecomentariosxusuarios">
-    Cantidad Comentarios
-  </button>
-  <button mat-menu-item routerLink="/reportes/numero-capitulo">
-    Cantidad de Capitulos
-  </button>
-  <button mat-menu-item routerLink="/reportes/SusccripcionMes">
-    Suscripciones Por mes
-  </button>
-</mat-menu>
-
-    <mat-menu #menuSalir="matMenu">
-      <button mat-menu-item disabled>
-        Rol:
-        <span>{{ role }}</span>
-      </button>
-    </mat-menu>
-  </mat-menu></mat-sidenav-container
->
-
