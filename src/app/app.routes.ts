@@ -42,7 +42,7 @@ import { BuscarCorreccionPorIdCapComponent } from './components/reportes/buscar-
 export const routes: Routes = [
   {
     path: '',
-    redirectTo: 'login',
+    redirectTo: 'inicio',
     pathMatch: 'full',
   },
   {
@@ -138,7 +138,7 @@ export const routes: Routes = [
         path: 'ediciones/:id',
         component: CreaeditacapitulosComponent,
         canActivate: [seguridadGuard],
-        data: { rolesPermitidos: ['ADMINISTRADOR', 'AUTOR'] }, 
+        data: { rolesPermitidos: ['ADMINISTRADOR', 'AUTOR'] },
       },
     ],
   },
@@ -149,11 +149,11 @@ export const routes: Routes = [
     children: [
       {
         path: 'insertar',
-        component: CreateEditReunionComponent, 
+        component: CreateEditReunionComponent,
       },
       {
         path: 'ediciones/:id',
-        component: CreateEditReunionComponent, 
+        component: CreateEditReunionComponent,
       },
     ],
     canActivate: [seguridadGuard],
@@ -277,7 +277,7 @@ export const routes: Routes = [
     component: HomeComponent,
     canActivate: [seguridadGuard],
   },
-    {
+  {
     path: 'biblioteca-full',
     component: BibliotecaMainComponent,
     children: [
@@ -286,5 +286,9 @@ export const routes: Routes = [
         component: BibliotecaListaUsuarioComponent,
       },
     ],
+  },
+  {
+    path: 'inicio',
+    component: InicioComponent,
   },
 ];

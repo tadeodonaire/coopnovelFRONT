@@ -60,7 +60,7 @@ export class CorreccionIAService {
     const body = {
       contents: [
         {
-          parts: [{ text: `Eres un genio literario de novelas. Mejora este texto sin exceder 254 caracteres. No expliques nada, solo responde con el texto corregido.\n\n${texto}` }],
+          parts: [{ text: `Eres un genio literario de novelas. Mejora este texto sin exceder 9999999 caracteres. No expliques nada, solo responde con el texto corregido.\n\n${texto}` }],
         },
       ],
     };
