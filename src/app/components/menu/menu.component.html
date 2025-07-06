@@ -135,6 +135,8 @@
   <mat-menu #NOVELA="matMenu">
     <button mat-menu-item routerLink="/novela">Listar</button>
     <button mat-menu-item routerLink="/novela/insertar" *ngIf="isAdministrador() || isAutor()">Registrar</button>
+    <button mat-menu-item routerLink="/novela/ver">Ver Novelas</button>
+
   </mat-menu>
 
   <mat-menu #CAPITULO="matMenu">
@@ -185,6 +187,6 @@
     <button mat-menu-item routerLink="/reportes/top-three-comentarios">Top 3 usuarios que más comentan</button>
     <button mat-menu-item routerLink="/reportes/usuarios-suscritos">Usuarios suscritos más de una vez</button>
     <button mat-menu-item routerLink="/reportes/numero-capitulo">Cantidad de Capitulos</button>
-    <button mat-menu-item routerLink="/reportes/SuscripcionMes">Suscripciones Por mes</button>
+    <button mat-menu-item routerLink="/reportes/suscripcion-mes">Suscripciones Por mes</button>
   </mat-menu>
 </mat-sidenav-container>

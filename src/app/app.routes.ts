@@ -38,6 +38,7 @@ import { BibliotecaListaUsuarioComponent } from './components/biblioteca/bibliot
 import { InicioComponent } from './pages/inicio/inicio.component';
 import { BuscarUsuarioComponent } from './components/suscripciones/buscar-usuario/buscar-usuario.component';
 import { SuscritoMoreOnceComponent } from './components/reportes/suscrito-more-once/suscrito-more-once.component';
+import { VerNovelasComponent } from './components/novela/ver-novelas/ver-novelas.component';
 
 export const routes: Routes = [
   {
@@ -121,6 +122,10 @@ export const routes: Routes = [
         path: 'ediciones/:id',
         component: CreareditarnovelaComponent,
       },
+      {
+        path: 'ver',
+        component: VerNovelasComponent,
+      }
     ],
     canActivate: [seguridadGuard],
   },
