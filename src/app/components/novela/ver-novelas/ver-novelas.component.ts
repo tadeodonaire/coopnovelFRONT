@@ -14,8 +14,15 @@ import { FormsModule } from '@angular/forms';
 import { Novelasbibliotecas } from '../../../models/novelasbibliotecas';
 import { NovelasbibliotecasService } from '../../../services/novelasbibliotecas.service';
 import { Novela } from '../../../models/novela';
+import { Comentario } from '../../../models/comentario';
+import { ComentarioService } from '../../../services/comentario.service';
+import { ComentarioDTO } from '../../../models/ComentarioDTO';
+import { UsuariosService } from '../../../services/usuarios.service';
+import { Usuario } from '../../../models/usuarios';
+import { RouterLink } from '@angular/router';
 
 interface NodoCapitulo {
+  id: number;
   name: string;
   contenido: string;
 }
@@ -38,22 +45,29 @@ interface NodoNovela {
     MatButtonModule,
     MatFormFieldModule,
     MatSelectModule,
-    FormsModule,
+    FormsModule
   ],
   templateUrl: './ver-novelas.component.html',
   styleUrl: './ver-novelas.component.css',
 })
 export class VerNovelasComponent implements OnInit {
   novelas: NodoNovela[] = [];
+  novelasFiltradas: NodoNovela[] = [];
+  nombreNovelaFiltro: string = ''; 
   capituloExpandido: { [nombre: string]: boolean } = {};
   selectedBibliotecas: { [novelaName: string]: number } = {};
   misBibliotecas: Biblioteca[] = [];
   novelasbibliotecas: Novelasbibliotecas = new Novelasbibliotecas();
+  comentariosPorCapitulo: { [capituloNombre: string]: string } = {};
+  comentariosCargados: { [capituloId: number]: ComentarioDTO[] } = {};
+  usuarioActual:Usuario = new Usuario();
 
   constructor(
     private novelaService: NovelaService,
     private bibliotecaService: BibliotecaService,
-    private nbS: NovelasbibliotecasService
+    private nbS: NovelasbibliotecasService,
+    private comentarioService: ComentarioService,
+    private usuarioService:UsuariosService
   ) {}
 
   ngOnInit(): void {
@@ -62,13 +76,40 @@ export class VerNovelasComponent implements OnInit {
     const decoded = helper.decodeToken(token!);
     const idUsuario = decoded.idUsuario;
 
+      this.usuarioService.listId(idUsuario).subscribe(user => {
+    this.usuarioActual = user;
+  });
+
     this.novelaService.getNovelasFull().subscribe((data) => {
       this.novelas = this.agrupar(data);
+      this.novelasFiltradas = this.novelas; 
     });
-    // Cargar bibliotecas del usuario (adaptar si usas JWT u otro método)
+
     this.bibliotecaService.listarPorUsuario(idUsuario).subscribe((data) => {
       this.misBibliotecas = data;
     });
+  }
+
+  filtrarNovelas(): void {
+    if (this.nombreNovelaFiltro.trim()) {
+      this.novelasFiltradas = this.novelas.filter(
+        (novela) =>
+          novela.name
+            .toLowerCase()
+            .includes(this.nombreNovelaFiltro.toLowerCase()) ||
+          novela.autor
+            .toLowerCase()
+            .includes(this.nombreNovelaFiltro.toLowerCase())
+      );
+    } else {
+      this.novelasFiltradas = this.novelas; 
+    }
+  }
+
+
+  restablecerFiltro(): void {
+    this.nombreNovelaFiltro = ''; 
+    this.novelasFiltradas = this.novelas; 
   }
 
   agrupar(data: NovelaFullDTO[]): NodoNovela[] {
@@ -91,6 +132,7 @@ export class VerNovelasComponent implements OnInit {
         const existe = novela.children.find((c) => c.name === d.capTitulo);
         if (!existe) {
           novela.children.push({
+            id: d.idCapitulo,
             name: d.capTitulo,
             contenido: d.capContenido ?? '(Sin contenido)',
           });
@@ -103,11 +145,28 @@ export class VerNovelasComponent implements OnInit {
 
   toggleCapitulo(nombre: string): void {
     this.capituloExpandido[nombre] = !this.capituloExpandido[nombre];
+
+    // Buscar ID del capítulo expandido
+    const capitulo = this.novelas
+      .flatMap((n) => n.children.map((c) => ({ novela: n.name, cap: c })))
+      .find((x) => x.cap.name === nombre);
+
+    if (capitulo) {
+      const capId = capitulo.cap.id;
+      if (!this.comentariosCargados[capId]) {
+        this.comentarioService
+          .listarPorCapitulo(capId)
+          .subscribe((comentarios) => {
+            this.comentariosCargados[capId] = comentarios;
+          });
+      }
+    }
   }
 
   isCapituloExpanded(nombre: string): boolean {
     return this.capituloExpandido[nombre] ?? false;
   }
+
   agregarNovelaABiblioteca(nombreNovela: string): void {
     const idBiblioteca = this.selectedBibliotecas[nombreNovela];
     if (!idBiblioteca) {
@@ -141,6 +200,55 @@ export class VerNovelasComponent implements OnInit {
           alert('❌ Hubo un error al agregar la novela.');
         },
       });
+    });
+  }
+
+  publicarComentario(idCapitulo: number, capituloNombre: string): void {
+    const contenido = this.comentariosPorCapitulo[capituloNombre];
+    if (!contenido || contenido.trim() === '') {
+      alert('El comentario no puede estar vacío.');
+      return;
+    }
+
+    const token = sessionStorage.getItem('token');
+    const helper = new JwtHelperService();
+    const decoded = helper.decodeToken(token!);
+    const idUsuario = decoded.idUsuario;
+    const usNombre = decoded.sub;
+    console.log("El token",decoded)
+
+    const comentario = new Comentario();
+    comentario.comContenido = contenido;
+    comentario.comFecha = new Date();
+    comentario.usuario.idUsuario = idUsuario;
+    comentario.capitulo.idCapitulo = idCapitulo;
+
+    this.comentarioService.insert(comentario).subscribe({
+      next: (comentarioGuardado) => {
+        console.log('comentario guardado:', comentarioGuardado);
+        const nuevoComentarioDTO: ComentarioDTO = {
+          idComentario: comentarioGuardado.idComentario,
+          comContenido: comentarioGuardado.comContenido,
+          comFecha: comentarioGuardado.comFecha,
+          usuario: {
+            idUsuario: idUsuario,
+            usNombre: usNombre,
+            usApellido: this.usuarioActual.usApellido,
+            username: this.usuarioActual.username,
+          },
+          capitulo: {
+            idCapitulo: idCapitulo,
+            capTitulo: capituloNombre,
+          },
+        };
+
+        if (!this.comentariosCargados[idCapitulo]) {
+          this.comentariosCargados[idCapitulo] = [];
+        }
+        this.comentariosCargados[idCapitulo].unshift(nuevoComentarioDTO);
+console.log('nuevoComentarioDTO:', nuevoComentarioDTO);
+        this.comentariosPorCapitulo[capituloNombre] = '';
+      },
     });
   }
 }

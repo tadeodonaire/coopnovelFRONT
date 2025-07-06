@@ -5,6 +5,7 @@ import { Comentario } from '../models/comentario';
 import { HttpClient } from '@angular/common/http';
 import { CantidadComentariosxCapituloDTO } from '../models/CantidadComentariosxCapituloDTO';
 import { TopThreeCommentatorsDTO } from '../models/topThreeCommentatorsDTO';
+import { ComentarioDTO } from '../models/ComentarioDTO';
 
 const base_url = environment.base;
 
@@ -52,4 +53,7 @@ export class ComentarioService {
   listTopTenComentators(): Observable<TopThreeCommentatorsDTO[]> {
     return this.http.get<TopThreeCommentatorsDTO[]>(`${this.url}/top-three-comentators`);
   }
+  listarPorCapitulo(idCap: number): Observable<ComentarioDTO[]> {
+  return this.http.get<ComentarioDTO[]>(`${this.url}/capitulo/${idCap}`);
+}
 }
