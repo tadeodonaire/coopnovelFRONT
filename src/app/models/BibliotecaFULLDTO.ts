@@ -1,24 +1,18 @@
 export class BibliotecaDTO {
-  idNovelaBiblioteca!: number;
+  idBiblioteca: number = 0;
+  bibNombre: string = "";
 
-  idBiblioteca!: number;
-  bibNombre!: string;
+  idNovela: number = 0;
+  novTitulo: string = "";
+  novResumen: string = "";
+  novGenero: string = "";
 
-  idNovela!: number;
-  novTitulo!: string;
-  novResumen!: string;
-  novGenero!: string;
+  idCapitulo: number | null = null;
+  capTitulo: string = "";
+  capContenido: string = "";
 
-  idProyecto!: number;
-  proyTitulo!: string;
-  proyDescripcion!: string;
-
-  idUsuario!: number;
-  usNombre!: string;
-  usApellido!: string;
-  username!: string;
-
-  idCapitulo?: number; // Puede ser null
-  capTitulo?: string;
-  capContenido?: string;
+  idUsuario: number = 0;
+  usNombre: string = "";
+  usApellido: string = "";
+  username: string = "";
 }
