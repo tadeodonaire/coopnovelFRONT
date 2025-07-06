@@ -1,0 +1,77 @@
+.novela-card {
+  margin-bottom: 30px;
+  padding: 20px;
+  border: 1px solid #ddd;
+  border-radius: 10px;
+  background-color: #fdfdfd;
+}
+
+.genero-badge {
+  display: inline-block;
+  background-color: #1cb0f6;
+  color: white;
+  padding: 4px 10px;
+  border-radius: 20px;
+  font-size: 14px;
+  margin: 8px 0 16px;
+}
+
+.resumen-texto {
+  white-space: pre-line;
+  margin-bottom: 20px;
+}
+
+.capitulo-card {
+  margin-left: 20px;
+  margin-bottom: 15px;
+  padding-left: 10px;
+  border-left: 3px solid #1976d2;
+}
+
+.capitulo-header {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.capitulo-nombre {
+  font-size: 0.95rem;
+  font-weight: 500;
+}
+
+.capitulo-contenido {
+  margin-left: 46px;
+  margin-top: 6px;
+  background-color: #f5f5f5;
+  padding: 10px;
+  border-radius: 6px;
+  font-size: 0.9rem;
+}
+
+.no-resultados {
+  margin-top: 20px;
+  text-align: center;
+  color: #ff0000;
+  font-size: 1.2rem;
+  font-weight: bold;
+}
+
+
+.filtro-container {
+  margin-bottom: 20px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.input-filtro {
+  padding: 8px;
+  font-size: 1rem;
+  border-radius: 4px;
+  border: 1px solid #ccc;
+  width: 200px;
+}
+
+button {
+  margin-left: 10px;
+}

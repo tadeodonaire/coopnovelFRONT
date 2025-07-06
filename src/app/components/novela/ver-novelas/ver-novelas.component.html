@@ -1,0 +1,108 @@
+<div class="filtro-container">
+  <input
+    type="text"
+    [(ngModel)]="nombreNovelaFiltro"
+    placeholder="Filtrar por nombre de novela"
+    class="input-filtro"
+  />
+  <button mat-raised-button color="primary" (click)="filtrarNovelas()">Filtrar</button>
+  
+  
+  <button mat-raised-button color="warn" (click)="restablecerFiltro()" *ngIf="nombreNovelaFiltro">
+    Restablecer Filtro
+  </button>
+</div>
+
+
+<div *ngIf="novelasFiltradas.length === 0 && nombreNovelaFiltro" class="no-resultados">
+  <p>No existe la novela que buscabas, lo siento!</p>
+</div>
+
+<div *ngFor="let novela of novelasFiltradas" class="novela-card">
+  <h2>{{ novela.name }}</h2>
+
+  
+  <div class="genero-badge">{{ novela.genero }}</div>
+
+  
+  <p><strong>Autor:</strong> {{ novela.autor }}</p>
+
+
+  <p><strong>Resumen:</strong></p>
+  <p class="resumen-texto">{{ novela.resumen }}</p>
+
+  <!-- Lista de capítulos -->
+<div *ngFor="let cap of novela.children" class="capitulo-card">
+  <div class="capitulo-header">
+    <button mat-mini-fab color="primary" (click)="toggleCapitulo(cap.name)">
+      <mat-icon>
+        {{ isCapituloExpanded(cap.name) ? 'expand_more' : 'chevron_right' }}
+      </mat-icon>
+    </button>
+    <strong class="capitulo-nombre">{{ cap.name }}</strong>
+  </div>
+
+  <div class="capitulo-contenido" *ngIf="isCapituloExpanded(cap.name)">
+    <p>{{ cap.contenido }}</p>
+
+    <!-- ✅ Caja de comentario -->
+    <textarea
+      [(ngModel)]="comentariosPorCapitulo[cap.name]"
+      placeholder="Escribe un comentario..."
+      class="comentario-input"
+      rows="2"
+    ></textarea>
+
+    <!-- ✅ Botón Publicar -->
+    <button
+      mat-stroked-button
+      color="primary"
+      (click)="publicarComentario(cap.id, cap.name)"
+      style="margin-top: 5px"
+    >
+      💬 Publicar Comentario
+    </button>
+
+
+<!-- ✅ Lista de comentarios con validación -->
+<div *ngIf="comentariosCargados[cap.id] as comentarios">
+  <h4 *ngIf="comentarios.length > 0">🗨 Comentarios:</h4>
+
+  <div *ngFor="let com of comentarios">
+    <p><strong>{{ com.usuario.username }}:</strong> {{ com.comContenido }}</p>
+    <small>{{ com.comFecha}}</small>
+    <hr />
+  </div>
+
+  <div *ngIf="comentarios.length === 0">
+    <p><em>😶 Aún no hay comentarios.</em></p>
+  </div>
+</div>
+
+
+
+  </div>
+</div>
+  <!-- 📌 Selector nativo + botón -->
+  <div class="agregar-biblioteca">
+    <select
+      id="select-{{ novela.name }}"
+      [(ngModel)]="selectedBibliotecas[novela.name]"
+      class="custom-select"
+    >
+      <option value="" disabled selected>Selecciona una biblioteca</option>
+      <option *ngFor="let b of misBibliotecas" [value]="b.idBiblioteca">
+        {{ b.bibNombre }}
+      </option>
+    </select>
+
+    <button
+      mat-raised-button
+      color="accent"
+      [disabled]="!selectedBibliotecas[novela.name]"
+      (click)="agregarNovelaABiblioteca(novela.name)"
+    >
+      ➕ Agregar a Biblioteca
+    </button>
+  </div>
+</div>

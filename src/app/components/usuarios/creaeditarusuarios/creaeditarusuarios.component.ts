@@ -2,7 +2,6 @@ import { CommonModule } from '@angular/common';
 import { ChangeDetectionStrategy, Component, signal } from '@angular/core';
 import {
   FormBuilder,
-  FormControl,
   FormGroup,
   FormsModule,
   ReactiveFormsModule,
@@ -52,9 +51,10 @@ export class CreaeditarusuariosComponent {
   estado: Boolean = false;
   id: number = 0;
   edicion: boolean = false;
-
-  esAdmin: boolean = false; // <- NUEVO
-  estaLogueado: boolean = false; // <- NUEVO
+  maxFecha: string = '';
+  minFecha: string = '';
+  esAdmin: boolean = false;
+  estaLogueado: boolean = false;
 
   constructor(
     private uS: UsuariosService,
@@ -67,9 +67,17 @@ export class CreaeditarusuariosComponent {
   ) {}
 
   ngOnInit() {
+    const hoy = new Date();
+    const maxFechaDate = new Date(
+      hoy.getFullYear() - 5,
+      hoy.getMonth(),
+      hoy.getDate()
+    );
+    this.maxFecha = maxFechaDate.toISOString().split('T')[0];
+    this.minFecha = '1900-01-01'; // o ajusta según tu app
     // Determina si el usuario actual está logueado y si es admin
     const rol = this.loginService.showRole();
-    this.esAdmin = rol === 'ADMIN';
+    this.esAdmin = rol === 'ADMINISTRADOR';
     this.estaLogueado = this.loginService.verificar();
 
     this.route.params.subscribe((data: Params) => {
@@ -82,7 +90,10 @@ export class CreaeditarusuariosComponent {
         apellido: ['', Validators.required],
         fecha: ['', Validators.required],
         usuario: ['', Validators.required],
-        contrasena: ['', this.edicion ? [] : Validators.required],
+        contrasena: [
+          '',
+          this.edicion ? [] : [Validators.required, Validators.minLength(5)],
+        ],
         estado: [
           this.edicion ? '' : true,
           this.edicion ? Validators.required : [],
@@ -110,7 +121,6 @@ export class CreaeditarusuariosComponent {
       this.usuario.password = this.form.value.contrasena;
       this.usuario.usEnable = this.edicion ? this.form.value.estado : true;
       this.usuario.role.id = this.form.value.rol;
-
       if (this.edicion) {
         this.uS.update(this.usuario).subscribe(() => {
           this.uS.list().subscribe((data) => {

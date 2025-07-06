@@ -1,17 +1,36 @@
-<div class="center-page">
-  <div class="welcome-container">
+<div class="home-wrapper">
+  <!-- Primera columna: Bienvenida -->
+  <div class="home-column">
     <div class="header">
       <h1 class="titulo">COOPNOVEL</h1>
       <img src="assets/favicon.ico" alt="Logo" class="logo" />
     </div>
-
-    <p class="bienvenido">Bienvenido, {{usNombre}} {{usApellido}}</p>
-
+    <p class="bienvenido">Bienvenido, {{ usNombre }} {{ usApellido }}</p>
     <p class="frase">
-      “Aprender a leer es lo más importante que me ha pasado. Casi 70 años después sigo recordando con emoción aquel
-      momento mágico en que las letras se transformaron en palabras y adquirieron sentido.”
+      “Aprender a leer es lo más importante que me ha pasado. Casi 70 años
+      después sigo recordando con emoción aquel momento mágico en que las letras
+      se transformaron en palabras y adquirieron sentido.”
       <br />
       <span class="autor">– Mario Vargas Llosa</span>
     </p>
+  </div>
+
+  <!-- Barra divisoria -->
+  <div class="home-divider"></div>
+
+  <!-- Segunda columna: Libro recomendado -->
+  <div class="home-column recomendacion">
+    <h4 class="recomendacion-titulo">📚 Recomendación del día</h4>
+    <div *ngIf="imagen">
+      <img
+        [src]="imagen"
+        [alt]="titulo"
+        class="recomendacion-imagen"
+      />
+    </div>
+    <div class="recomendacion-info">
+      <div class="recomendacion-libro">{{ titulo }}</div>
+      <div class="recomendacion-autor">{{ autor }}</div>
+    </div>
   </div>
 </div>

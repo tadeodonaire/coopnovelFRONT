@@ -13,6 +13,7 @@ import {
   MatPaginatorModule,
   PageEvent,
 } from '@angular/material/paginator';
+import { LoginService } from '../../../services/login.service';
 
 @Component({
   selector: 'app-listarusuarios',
@@ -32,6 +33,8 @@ import {
 export class ListarusuariosComponent implements OnInit {
   dataSource: MatTableDataSource<Usuario> = new MatTableDataSource();
   paginatedData: Usuario[] = [];
+  role: string | null = null;
+  
   @ViewChild(MatPaginator) paginator!: MatPaginator;
 
   displayedColumns: string[] = [
@@ -46,17 +49,32 @@ export class ListarusuariosComponent implements OnInit {
     'eliminar',
   ];
 
-  constructor(private uS: UsuariosService, private snackBar: MatSnackBar) {}
+  constructor(
+    private uS: UsuariosService,
+    private snackBar: MatSnackBar,
+    private loginService: LoginService
+  ) {}
 
   ngOnInit(): void {
+    this.role = this.loginService.showRole();
+    const username = this.loginService.getUsername();
+
     this.uS.list().subscribe((data) => {
-      this.dataSource = new MatTableDataSource(data);
-      this.updatePaginatedData(0, 6); 
+      if (this.role === 'ADMINISTRADOR') {
+        this.dataSource = new MatTableDataSource(data);
+      } else {
+        const filteredData = data.filter((user) => user.username === username);
+        this.dataSource = new MatTableDataSource(filteredData);
+      }
+      this.updatePaginatedData(0, 6);
     });
-    this.uS.getList().subscribe((data) => {
-      this.dataSource = new MatTableDataSource(data);
-      this.updatePaginatedData(0, 6)
-    });
+
+    if (this.role === 'ADMINISTRADOR') {
+      this.uS.getList().subscribe((data) => {
+        this.dataSource = new MatTableDataSource(data);
+        this.updatePaginatedData(0, 6);
+      });
+    }
   }
 
   updatePaginatedData(startIndex: number, pageSize: number) {

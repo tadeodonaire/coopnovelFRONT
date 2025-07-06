@@ -1,0 +1,134 @@
+.title-container {
+  width: 100%;
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.title-container h1 {
+  font-size: 2rem;
+  font-weight: bold;
+  color: #333;
+}
+
+.card-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  justify-content: center;
+}
+
+.user-card {
+  background: #fff;
+  border-radius: 16px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  padding: 16px;
+  width: 260px;
+  display: flex;
+  flex-direction: column;
+  transition: transform 0.3s ease;
+}
+
+.user-card:hover {
+  transform: scale(1.02);
+}
+
+.card-header {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.avatar {
+  font-size: 40px;
+  background-color: #e0f7fa;
+  border-radius: 50%;
+  padding: 10px;
+}
+
+.label {
+  margin-top: 5px;
+  color: #555;
+}
+.search-container {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 15px;
+  margin-bottom: 25px;
+}
+
+.search-info {
+  text-align: center;
+  font-size: 1rem;
+  color: #444;
+}
+
+.search-bar {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+}
+
+.search-bar input {
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  width: 280px;
+}
+
+.search-bar button {
+  background-color: #1cb0f6;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.search-bar button:hover {
+  background-color: #0288d1;
+}
+
+.no-results {
+  text-align: center;
+  color: #d32f2f;
+  font-weight: bold;
+  margin: 20px 0;
+  font-size: 1.1rem;
+}
+
+.subscribe-button {
+  margin-top: 15px;
+  background-color: #8e24aa;
+  color: #fff;
+  border: none;
+  padding: 10px 16px;
+  border-radius: 10px;
+  cursor: pointer;
+  font-weight: bold;
+  width: 100%;
+  transition: background-color 0.3s ease;
+}
+
+.subscribe-button:hover {
+  background-color: #6a1b9a;
+}
+
+.unsubscribe-button {
+  margin-top: 15px;
+  background-color: #d32f2f;
+  color: #fff;
+  border: none;
+  padding: 10px 16px;
+  border-radius: 10px;
+  cursor: pointer;
+  font-weight: bold;
+  width: 100%;
+  transition: background-color 0.3s ease;
+}
+
+.unsubscribe-button:hover {
+  background-color: #b71c1c;
+}

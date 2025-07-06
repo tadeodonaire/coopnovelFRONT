@@ -12,16 +12,16 @@ import { Proyecto } from '../../../models/proyecto';
 import { ProyectoService } from '../../../services/proyecto.service';
 import { UsuariosService } from '../../../services/usuarios.service';
 import { ActivatedRoute, Params, Router } from '@angular/router';
-import { MatFormField, MatInputModule } from '@angular/material/input';
+import { MatInputModule } from '@angular/material/input';
 import { CommonModule } from '@angular/common';
 import { MatSelectModule } from '@angular/material/select';
 import { MatButtonModule } from '@angular/material/button';
+import { JwtHelperService } from '@auth0/angular-jwt';
 
 @Component({
   selector: 'app-creareditarproyectos',
   imports: [
     MatInputModule,
-    MatFormField,
     ReactiveFormsModule,
     CommonModule,
     MatSelectModule,
@@ -39,6 +39,9 @@ export class CreareditarproyectosComponent implements OnInit {
   id: number = 0;
   edicion: boolean = false;
 
+  usNombre: string = '';
+  idUsuario: number = 0;
+
   constructor(
     private formBuilder: FormBuilder,
     private pS: ProyectoService,
@@ -48,6 +51,16 @@ export class CreareditarproyectosComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
+
+  const token = sessionStorage.getItem('token');
+  const helper = new JwtHelperService();
+  const decoded = helper.decodeToken(token!);
+
+  this.idUsuario = decoded.idUsuario;
+  this.usNombre = decoded.sub;
+  console.log(decoded)
+
+
     this.route.params.subscribe((data: Params) => {
       this.id = data['id'];
       this.edicion = data['id'] != null;
@@ -59,19 +72,19 @@ export class CreareditarproyectosComponent implements OnInit {
       hcodigo: [''],
       htitulo: ['', Validators.required],
       hdescripcion: ['', Validators.required],
-      husuarios: ['', Validators.required],
     });
-    this.uS.list().subscribe((data=>{
+    this.uS.list().subscribe((data) => {
       this.listaUsuarios = data;
-    }))
+    });
   }
 
   aceptar() {
+
     if (this.form.valid) {
       this.proye.idProyecto = this.form.value.hcodigo;
       this.proye.proyTitulo = this.form.value.htitulo;
       this.proye.proyDescripcion = this.form.value.hdescripcion;
-      this.proye.usario.idUsuario = this.form.value.husuarios;
+      this.proye.usario.idUsuario = this.idUsuario;
       if (this.edicion) {
         this.pS.update(this.proye).subscribe((data) => {
           this.pS.list().subscribe((data) => {
@@ -101,4 +114,7 @@ export class CreareditarproyectosComponent implements OnInit {
       });
     }
   }
+  cancelar() {
+  this.router.navigate(['proyecto']);
+}
 }

@@ -3,6 +3,7 @@ import { environment } from '../../environments/environment';
 import { Novela } from '../models/novela';
 import { Subject } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
+import { NovelaFullDTO } from '../models/NovelaFULLDTO';
 
 const base_url = environment.base;
 @Injectable({
@@ -37,4 +38,7 @@ export class NovelaService {
     deleteN(id: number) {
       return this.http.delete(`${this.url}/${id}`);
     }
+    getNovelasFull() {
+  return this.http.get<NovelaFullDTO[]>(`${this.url}/NovelasVer`);
+}
 }

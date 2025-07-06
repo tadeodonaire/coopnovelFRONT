@@ -1,40 +1,104 @@
-<div class="titulo-container">
-  <h1 class="titulo">👥 Listar Usuarios</h1>
+<!-- Tarjetas solo para ADMINISTRADOR -->
+<div *ngIf="role === 'ADMINISTRADOR'">
+  <div class="tarjetas-container">
+    <mat-card *ngFor="let element of paginatedData" class="tarjeta-usuario">
+      <mat-card-header>
+        <div mat-card-avatar class="avatar-icon">
+          <mat-icon>person</mat-icon>
+        </div>
+        <mat-card-title>
+          {{ element.usNombre }} {{ element.usApellido }}
+        </mat-card-title>
+        <mat-card-subtitle>👤 {{ element.username }}</mat-card-subtitle>
+      </mat-card-header>
+
+      <mat-card-content>
+        <p><strong>⭐ Tipo de cuenta:</strong> {{ element.role.rol }}</p>
+        <p><strong>📧 Correo:</strong> {{ element.usCorreo }}</p>
+        <p>
+          <strong>🎂 Fecha de Nacimiento:</strong>
+          {{ element.usFecNacimiento | date: 'dd/MM/yyyy' }}
+        </p>
+        <p>
+          <strong>🔒 Estado:</strong>
+          <span
+            [ngClass]="element.usEnable ? 'estado-activo' : 'estado-inactivo'"
+          >
+            {{ element.usEnable ? 'Habilitado ✅' : 'Deshabilitado ❌' }}
+          </span>
+        </p>
+      </mat-card-content>
+
+      <mat-card-actions align="end">
+        <button
+          mat-mini-fab
+          color="primary"
+          [routerLink]="['editar', element.idUsuario]"
+          aria-label="Editar usuario"
+        >
+          <mat-icon>edit</mat-icon>
+        </button>
+        <button
+          mat-mini-fab
+          color="warn"
+          (click)="eliminar(element.idUsuario)"
+          aria-label="Eliminar usuario"
+        >
+          <mat-icon>delete</mat-icon>
+        </button>
+      </mat-card-actions>
+    </mat-card>
+  </div>
+
+  <mat-paginator
+    [length]="dataSource.data.length"
+    [pageSize]="6"
+    [pageSizeOptions]="[3, 6, 9]"
+    (page)="onPageChange($event)"
+  >
+  </mat-paginator>
 </div>
 
-<div class="tarjetas-container">
-  <mat-card *ngFor="let element of paginatedData" class="tarjeta-usuario">
+<!-- Tarjeta de PERFIL solo para NO ADMINISTRADOR -->
+<div *ngIf="role !== 'ADMINISTRADOR' && paginatedData.length > 0">
+  <mat-card class="perfil-usuario-card">
     <mat-card-header>
       <div mat-card-avatar class="avatar-icon">
         <mat-icon>person</mat-icon>
       </div>
-      <mat-card-title>{{ element.usNombre }} {{ element.usApellido }}</mat-card-title>
-      <mat-card-subtitle>👤 {{ element.username }}</mat-card-subtitle>
+      <mat-card-title>
+        {{ paginatedData[0].usNombre }} {{ paginatedData[0].usApellido }}
+      </mat-card-title>
+      <mat-card-subtitle>👤 {{ paginatedData[0].username }}</mat-card-subtitle>
     </mat-card-header>
 
     <mat-card-content>
-      <p><strong>📧 Correo:</strong> {{ element.usCorreo }}</p>
-      <p><strong>🎂 Fecha de Nacimiento:</strong> {{ element.usFecNacimiento | date: 'dd/MM/yyyy' }}</p>
-      <p><strong>🔒 Estado:</strong> 
-        <span [ngClass]="element.usEnable ? 'estado-activo' : 'estado-inactivo'">
-          {{ element.usEnable ? 'Habilitado ✅' : 'Deshabilitado ❌' }}
+      <p><strong>⭐ Tipo de cuenta:</strong> {{ paginatedData[0].role.rol }}</p>
+      <p><strong>📧 Correo:</strong> {{ paginatedData[0].usCorreo }}</p>
+      <p>
+        <strong>🎂 Fecha de Nacimiento:</strong>
+        {{ paginatedData[0].usFecNacimiento | date: 'dd/MM/yyyy' }}
+      </p>
+      <p>
+        <strong>🔒 Estado:</strong>
+        <span
+          [ngClass]="
+            paginatedData[0].usEnable ? 'estado-activo' : 'estado-inactivo'
+          "
+        >
+          {{ paginatedData[0].usEnable ? 'Habilitado ✅' : 'Deshabilitado ❌' }}
         </span>
       </p>
     </mat-card-content>
 
     <mat-card-actions align="end">
-      <button mat-mini-fab color="primary" [routerLink]="['editar', element.idUsuario]" aria-label="Editar usuario">
-        <mat-icon>edit</mat-icon>
-      </button>
-      <button mat-mini-fab color="warn" (click)="eliminar(element.idUsuario)" aria-label="Eliminar usuario">
-        <mat-icon>delete</mat-icon>
+      <button
+        mat-stroked-button
+        color="primary"
+        [routerLink]="['editar', paginatedData[0].idUsuario]"
+      >
+        Editar Perfil
       </button>
     </mat-card-actions>
   </mat-card>
 </div>
-
-<mat-paginator [length]="dataSource.data.length"
-               [pageSize]="6"
-               [pageSizeOptions]="[3, 6, 9]"
-               (page)="onPageChange($event)">
-</mat-paginator>

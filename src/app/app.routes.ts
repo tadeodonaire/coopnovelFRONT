@@ -36,8 +36,9 @@ import { CreaeditarolesComponent } from './components/roles/creaeditaroles/creae
 import { BibliotecaMainComponent } from './components/biblioteca/biblioteca-main/biblioteca-main.component';
 import { BibliotecaListaUsuarioComponent } from './components/biblioteca/biblioteca-lista-usuario/biblioteca-lista-usuario.component';
 import { InicioComponent } from './pages/inicio/inicio.component';
-import { CapitulosSinCorreccionIAComponent } from './components/reportes/capitulos-sin-correccion-ia/capitulos-sin-correccion-ia.component';
-import { BuscarCorreccionPorIdCapComponent } from './components/reportes/buscar-correccion-por-id-cap/buscar-correccion-por-id-cap.component';
+import { BuscarUsuarioComponent } from './components/suscripciones/buscar-usuario/buscar-usuario.component';
+import { SuscritoMoreOnceComponent } from './components/reportes/suscrito-more-once/suscrito-more-once.component';
+import { VerNovelasComponent } from './components/novela/ver-novelas/ver-novelas.component';
 
 export const routes: Routes = [
   {
@@ -57,14 +58,10 @@ export const routes: Routes = [
   {
     path: 'usuarios',
     component: UsuariosComponent,
-    canActivate: [seguridadGuard],
-    data: { rolesPermitidos: ['ADMINISTRADOR'] }, // solo admin
   },
   {
     path: 'usuarios/editar/:id',
     component: CreaeditarusuariosComponent,
-    canActivate: [seguridadGuard],
-    data: { rolesPermitidos: ['ADMINISTRADOR'] },
   },
   {
     path: 'descargas',
@@ -125,6 +122,10 @@ export const routes: Routes = [
         path: 'ediciones/:id',
         component: CreareditarnovelaComponent,
       },
+      {
+        path: 'ver',
+        component: VerNovelasComponent,
+      }
     ],
     canActivate: [seguridadGuard],
   },
@@ -170,6 +171,10 @@ export const routes: Routes = [
         path: 'ediciones/:id',
         component: CreateEditComentarioComponent,
       },
+      {
+        path: 'nuevo/:capituloId',
+        component: CreateEditComentarioComponent,
+      }
     ],
     canActivate: [seguridadGuard],
   },
@@ -212,6 +217,10 @@ export const routes: Routes = [
       {
         path: 'editar/:id',
         component: CreareditarsuscripcionesComponent,
+      },
+      {
+        path: 'cantidad-suscripciones',
+        component: BuscarUsuarioComponent,
       },
     ],
   },
@@ -259,12 +268,8 @@ export const routes: Routes = [
         component: TopThreeCommentatorsComponent,
       },
       {
-        path: 'reporteCapitulosSinCorreccionIA',
-        component: CapitulosSinCorreccionIAComponent
-      },
-      {
-        path: 'buscar-correccion-por-id-cap',
-        component: BuscarCorreccionPorIdCapComponent
+        path: 'usuarios-suscritos',
+        component: SuscritoMoreOnceComponent,
       }
     ],
   },
