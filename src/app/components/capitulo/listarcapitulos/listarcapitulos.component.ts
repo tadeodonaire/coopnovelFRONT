@@ -33,7 +33,7 @@ export class ListarcapitulosComponent {
     const rol = this.loginService.showRole();
 
     // Columnas básicas visibles para todos los roles
-    this.displayedColumns = ['novela', 'titulo', 'contenido', 'descarga', 'id'];
+    this.displayedColumns = ['novela', 'titulo', 'contenido', 'id'];
 
     // Agregamos columnas condicionalmente
     if (rol === 'ADMINISTRADOR') {

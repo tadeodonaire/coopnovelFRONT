@@ -51,15 +51,13 @@ export class CreareditarproyectosComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
+    const token = sessionStorage.getItem('token');
+    const helper = new JwtHelperService();
+    const decoded = helper.decodeToken(token!);
 
-  const token = sessionStorage.getItem('token');
-  const helper = new JwtHelperService();
-  const decoded = helper.decodeToken(token!);
-
-  this.idUsuario = decoded.idUsuario;
-  this.usNombre = decoded.sub;
-  console.log(decoded)
-
+    this.idUsuario = decoded.idUsuario;
+    this.usNombre = decoded.sub;
+    console.log(decoded);
 
     this.route.params.subscribe((data: Params) => {
       this.id = data['id'];
@@ -79,7 +77,6 @@ export class CreareditarproyectosComponent implements OnInit {
   }
 
   aceptar() {
-
     if (this.form.valid) {
       this.proye.idProyecto = this.form.value.hcodigo;
       this.proye.proyTitulo = this.form.value.htitulo;
@@ -115,6 +112,6 @@ export class CreareditarproyectosComponent implements OnInit {
     }
   }
   cancelar() {
-  this.router.navigate(['proyecto']);
-}
+    this.router.navigate(['proyecto']);
+  }
 }

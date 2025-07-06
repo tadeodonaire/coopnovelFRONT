@@ -21,7 +21,6 @@ import { ProyectoService } from '../../../services/proyecto.service';
   selector: 'app-creareditarnovela',
   imports: [
     MatInputModule,
-    MatFormField,
     CommonModule,
     MatSelectModule,
     MatButtonModule,
@@ -32,14 +31,13 @@ import { ProyectoService } from '../../../services/proyecto.service';
   styleUrl: './creareditarnovela.component.css',
 })
 export class CreareditarnovelaComponent implements OnInit {
-
   form: FormGroup = new FormGroup({});
   listaProyectos: Proyecto[] = [];
   nove: Novela = new Novela();
 
   id: number = 0;
   edicion: boolean = false;
-  proyectoId: number | null = null; 
+  proyectoId: number | null = null;
 
   constructor(
     private formBuilder: FormBuilder,
@@ -52,7 +50,7 @@ export class CreareditarnovelaComponent implements OnInit {
   ngOnInit(): void {
     this.route.queryParams.subscribe((params) => {
       this.proyectoId = params['proyectoId'];
-      console.log('Proyecto ID capturado:', this.proyectoId); 
+      console.log('Proyecto ID capturado:', this.proyectoId);
     });
 
     this.route.params.subscribe((data: Params) => {
@@ -126,5 +124,9 @@ export class CreareditarnovelaComponent implements OnInit {
         console.log('Proyecto ID asignado al campo:', this.proyectoId);
       }
     }
+  }
+
+  cancelar() {
+    this.router.navigate(['novela']);
   }
 }

@@ -1,0 +1,131 @@
+.card-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(700px, 1fr)); /* Tarjetas anchas */
+  gap: 20px;
+  padding: 20px;
+}
+
+.user-card {
+  position: relative;
+  background-color: #fff;
+  border-radius: 10px;
+  border: 3px solid #6a1b9a; /* Borde morado oscuro */
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+  transition: transform 0.3s ease;
+}
+
+.card-header {
+  padding: 15px;
+  padding-top: 40px; /* Deja espacio arriba para los botones */
+}
+
+.card-header h2 {
+  font-size: 1.5rem;
+  margin-bottom: 10px;
+}
+
+.capitulos-container {
+  padding-top: 20px;
+}
+
+.capitulo {
+  margin-bottom: 15px;
+  background-color: #f7f7f7;
+  padding: 15px;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  border-left: 5px solid #8e24aa; /* Borde morado para los capítulos */
+  margin-top: 20px;
+  width: calc(100% - 40px); /* 2 cm menos que el card de la novela */
+  margin-left: 20px; /* Alineación a la izquierda con espacio */
+  position: relative; /* Necesario para los botones flotantes */
+}
+
+.capitulo h3 {
+  font-size: 1.2rem;
+  color: #8e24aa; /* Color para el título del capítulo */
+  margin-bottom: 10px;
+}
+
+.capitulo p {
+  font-size: 1rem;
+  color: #333;
+}
+
+.card-actions {
+  display: flex;
+  justify-content: space-around;
+  padding: 10px;
+  background-color: #f5f5f5;
+}
+
+.card-actions-top-right {
+  position: absolute;
+  top: 15px;
+  right: 15px;
+  display: flex;
+  gap: 10px;
+}
+
+.action-button {
+  background-color: #8e24aa;
+  color: white;
+  border-radius: 8px;
+  padding: 8px 16px;
+  transition: background-color 0.3s ease;
+}
+
+.action-button:hover {
+  background-color: #6a1b9a;
+}
+
+mat-icon {
+  margin-right: 8px;
+}
+
+button {
+  margin-top: 10px;
+  font-size: 14px;
+}
+
+/* Línea divisoria entre el título y el contenido del capítulo */
+.separator {
+  border: 0;
+  border-top: 1px solid #ddd; /* Línea gris entre el título y el contenido */
+  margin: 15px 0; /* Espacio alrededor de la línea */
+}
+
+/* Estilos para los botones de la parte inferior del capítulo */
+.capitulo-actions {
+  position: absolute;
+  bottom: 15px;
+  right: 15px; /* Los posicionamos en la esquina inferior derecha */
+  display: flex;
+  gap: 10px;
+  justify-content: space-between;
+  width: auto; /* El ancho no es necesario en este caso */
+}
+
+/* Hacer los botones cuadrados */
+.capitulo-actions button {
+  background-color: #8e24aa; /* Color de fondo */
+  color: white;
+  width: 40px; /* Ancho fijo */
+  height: 40px; /* Alto fijo */
+  border-radius: 8px; /* Borde redondeado */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background-color 0.3s ease; /* Efecto de transición */
+  padding: 0; /* Sin relleno extra */
+}
+
+/* Hover para los botones */
+.capitulo-actions button:hover {
+  background-color: #6a1b9a; /* Color en hover */
+}
+
+.capitulo-actions button mat-icon {
+  font-size: 20px; /* Tamaño del icono dentro del botón */
+}
