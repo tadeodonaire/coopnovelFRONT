@@ -1,0 +1,26 @@
+/* Botón Eliminar */
+button.eliminar-btn {
+  background-color: #8e24aa;
+  color: white;
+  font-size: 16px;
+  font-weight: 600;
+  padding: 12px 20px;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  width: auto;
+  transition: background 0.3s ease;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px; /* espacio entre ícono y texto */
+  font-family: 'Nunito', sans-serif;
+}
+
+button.eliminar-btn:hover {
+  background-color: #6a1b9a;
+}
+
+button.eliminar-btn mat-icon {
+  color: white;
+  font-size: 20px;
+}

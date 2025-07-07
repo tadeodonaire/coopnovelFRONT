@@ -39,6 +39,8 @@ import { InicioComponent } from './pages/inicio/inicio.component';
 import { BuscarUsuarioComponent } from './components/suscripciones/buscar-usuario/buscar-usuario.component';
 import { SuscritoMoreOnceComponent } from './components/reportes/suscrito-more-once/suscrito-more-once.component';
 import { VerNovelasComponent } from './components/novela/ver-novelas/ver-novelas.component';
+import { CapitulosSinCorreccionIAComponent } from './components/reportes/capitulos-sin-correccion-ia/capitulos-sin-correccion-ia.component';
+import { BuscarCorreccionPorIdCapComponent } from './components/reportes/buscar-correccion-por-id-cap/buscar-correccion-por-id-cap.component';
 
 export const routes: Routes = [
   {
@@ -270,6 +272,14 @@ export const routes: Routes = [
       {
         path: 'usuarios-suscritos',
         component: SuscritoMoreOnceComponent,
+      },
+      {
+        path: 'CapitulosSinCorreccionIA',
+        component: CapitulosSinCorreccionIAComponent,
+      },
+      {
+        path: 'CorreccionPorIdCap',
+        component: BuscarCorreccionPorIdCapComponent
       }
     ],
   },
