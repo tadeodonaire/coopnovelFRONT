@@ -1,4 +1,5 @@
 export const environment={
   production:false,
-  base:"http://localhost:8084"
+  base:"https://coopnovel.onrender.com",
+  //base:"http://localhost:8084"
 }
