@@ -1,0 +1,17 @@
+<table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+
+  <!-- ID Column -->
+  <ng-container matColumnDef="idCapitulo">
+    <th mat-header-cell *matHeaderCellDef> ID </th>
+    <td mat-cell *matCellDef="let cap"> {{cap.idCapitulo}} </td>
+  </ng-container>
+
+  <!-- Título Column -->
+  <ng-container matColumnDef="capTitulo">
+    <th mat-header-cell *matHeaderCellDef> Título </th>
+    <td mat-cell *matCellDef="let cap"> {{cap.capTitulo}} </td>
+  </ng-container>
+
+  <tr mat-header-row *matHeaderRowDef="displayerColumns"></tr>
+  <tr mat-row *matRowDef="let row; columns: displayerColumns;"></tr>
+</table>

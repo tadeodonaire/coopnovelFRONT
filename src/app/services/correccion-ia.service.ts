@@ -3,6 +3,9 @@ import { environment } from '../../environments/environment';
 import { Observable, Subject } from 'rxjs';
 import { CorreccionesIA } from '../models/correccionesIA';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { CapitulosSinCorreccionIAComponent } from '../components/reportes/capitulos-sin-correccion-ia/capitulos-sin-correccion-ia.component';
+import { CapitulosSinCorreccionIADTO } from '../models/capitulos-sin-correccion-iadto';
+import { ListarCorreccionPorIdCapDTO } from '../models/listar-correccion-por-id-cap-dto';
 
 const base_url = environment.base;
 
@@ -65,4 +68,13 @@ export class CorreccionIAService {
     const url = `${this.API_URL}?key=${this.API_KEY}`;
     return this.http.post(url, body, { headers });
   }
+
+  getCapSinCorrecciones(): Observable<CapitulosSinCorreccionIADTO[]> {
+    return this.http.get<CapitulosSinCorreccionIADTO[]>(`${this.url}/CapituloSinCorreccion`);
+  }
+
+  getCorreccionPorIdCapitulo(idCapitulo: number): Observable<ListarCorreccionPorIdCapDTO[]> {
+  return this.http.get<ListarCorreccionPorIdCapDTO[]>(`${this.url}/CorreccionPorIDCapitulo?idCapitulo=${idCapitulo}`);
+}
+  
 }
