@@ -98,7 +98,7 @@ export class CreareditarcorreccionesIAComponent implements OnInit {
       },
       error: (err) => {
         console.error('Error IA:', err);
-        this.snackBar.open('Error al generar corrección IA 😢', 'Cerrar', {
+        this.snackBar.open('Error al generar corrección IA', 'Cerrar', {
           duration: 3000,
         });
         this.cargandoIA = false;

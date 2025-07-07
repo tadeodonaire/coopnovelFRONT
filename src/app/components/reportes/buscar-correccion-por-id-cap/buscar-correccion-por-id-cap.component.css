@@ -1,5 +1,5 @@
-/* Botón Eliminar */
-button.eliminar-btn {
+/* Botón Buscar */
+button.buscar-btn {
   background-color: #8e24aa;
   color: white;
   font-size: 16px;
@@ -10,17 +10,18 @@ button.eliminar-btn {
   cursor: pointer;
   width: auto;
   transition: background 0.3s ease;
+  font-family: 'Nunito', sans-serif;
   display: inline-flex;
   align-items: center;
-  gap: 6px; /* espacio entre ícono y texto */
-  font-family: 'Nunito', sans-serif;
+  gap: 6px;
 }
 
-button.eliminar-btn:hover {
+button.buscar-btn:hover {
   background-color: #6a1b9a;
 }
 
-button.eliminar-btn mat-icon {
+button.buscar-btn:disabled {
+  background-color: #d1a9e4;
+  cursor: not-allowed;
   color: white;
-  font-size: 20px;
 }

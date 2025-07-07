@@ -1,0 +1,32 @@
+<div class="container">
+  <h2>Buscar Corrección por ID de Capítulo</h2>
+
+  <mat-form-field appearance="outline">
+    <mat-label>ID del Capítulo</mat-label>
+    <input matInput type="number" [(ngModel)]="idCap" />
+  </mat-form-field>
+
+  <button mat-raised-button class="buscar-btn" color="primary" (click)="buscarCorreccion()">
+    Buscar
+  </button>
+
+  <mat-progress-spinner
+    *ngIf="cargando"
+    mode="indeterminate"
+    diameter="40"
+    color="accent"
+  ></mat-progress-spinner>
+
+  <div *ngIf="resultado" class="resultado">
+    <mat-card>
+      <mat-card-title>ID Capítulo: {{ resultado.idCapitulo }}</mat-card-title>
+      <mat-card-content>
+        <h3>Contenido Original</h3>
+        <p>{{ resultado.capContenido }}</p>
+
+        <h3>Corrección por IA</h3>
+        <p>{{ resultado.corCorreccionIA }}</p>
+      </mat-card-content>
+    </mat-card>
+  </div>
+</div>
