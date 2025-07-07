@@ -10,16 +10,27 @@
 }
 
 h1 {
-  color: #1cb0f6;
+  color: #6a1b9a;
   font-size: 28px;
   margin-bottom: 24px;
   text-align: center;
 }
 
+h1 span {
+  color: #8e24aa;
+}
+
+.button-group {
+  display: flex;
+  flex-direction: column;
+  gap: 12px; /* Espacio entre los botones */
+}
+
 label {
   display: block;
-  margin-bottom: 6px;
+  margin-bottom: 8px;
   font-weight: 600;
+  color: #222;
 }
 
 input[type="text"],
@@ -35,7 +46,7 @@ input[type="id"] {
 }
 
 input:focus {
-  border-color: #1cb0f6;
+  border-color: #6a1b9a;
   outline: none;
 }
 
@@ -53,7 +64,7 @@ input:focus {
 }
 
 button[type="submit"] {
-  background-color: #1cb0f6;
+  background-color: #8e24aa;
   color: white;
   font-size: 16px;
   font-weight: 600;
@@ -66,10 +77,28 @@ button[type="submit"] {
 }
 
 button[type="submit"]:hover {
-  background-color: #1199d6;
+  background-color: #6a1b9a; 
 }
 
 button[type="submit"]:disabled {
-  background-color: #a0dffb;
+  background-color: #8e24aa;
   cursor: not-allowed;
+}
+
+.cancel-button {
+  background-color: #6c757d;  /* Celeste claro para el botón de cancelar */
+  color: white;
+  font-size: 20px;
+  font-weight: 700;
+  padding: 14px 0;
+  border: none;
+  border-radius: 16px;
+  cursor: pointer;
+  width: 100%;
+  transition: background 0.3s ease;
+  box-shadow: none;
+}
+
+.cancel-button:hover {
+  background-color: #5a6268;  /* Hover celeste más oscuro */
 }

@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { environment } from '../../environments/environment';
 import { Capitulos } from '../models/capitulos';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { Observable, Subject } from 'rxjs';
 import { NumeroCapitulosPorNovelaDTO } from '../models/numeroCapitulosPorNovelaDTO';
 import { CapitulosDescargadosxUsuarioDTO } from '../models/CapitulosDescargadosxUsuarioDTO';
@@ -53,5 +53,11 @@ export class CapituloService {
   getQuantityCapDes():Observable<CapitulosDescargadosxUsuarioDTO[]>{
     return this.http.get<[CapitulosDescargadosxUsuarioDTO]>(`${this.url}/capitulos-descargados`);
   }
+
+  listByNovelaId(novelaId: number): Observable<Capitulos[]> {
+    const params = new HttpParams().set('novelaId', novelaId.toString());
+    return this.http.get<Capitulos[]>(`${this.url}`, { params });
+  }
+
   
 }

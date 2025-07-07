@@ -17,6 +17,7 @@ import { CapituloService } from '../../../services/capitulo.service';
 import { NovelaService } from '../../../services/novela.service';
 import { DescargaService } from '../../../services/descarga.service';
 import { ActivatedRoute, Params, Router } from '@angular/router';
+import { MatCardModule } from '@angular/material/card';
 
 @Component({
   selector: 'app-creaeditacapitulos',
@@ -27,87 +28,104 @@ import { ActivatedRoute, Params, Router } from '@angular/router';
     CommonModule,
     MatSelectModule,
     MatButtonModule,
+    MatCardModule,
   ],
   templateUrl: './creaeditacapitulos.component.html',
   styleUrl: './creaeditacapitulos.component.css',
 })
-export class CreaeditacapitulosComponent  implements OnInit{
+export class CreaeditacapitulosComponent implements OnInit {
   form: FormGroup = new FormGroup({});
   listaNovelas: Novela[] = [];
-  listaDescargas: Descargas[] = [];
   capitulo: Capitulos = new Capitulos();
-  id: number = 0;
-  edicion: boolean = false;
+  novelaId: number | null = null; // Para almacenar el id de la novela
+  novelaTitulo: string = ''; // Para almacenar el título de la novela
+  novelaResumen: string = ''; // Para almacenar el resumen de la novela
+  idCapitulo: number | null = null; // Para almacenar el id del capítulo que se está editando
+  edicion: boolean = false; // Flag para saber si estamos en modo edición o no
 
   constructor(
     private formBuilder: FormBuilder,
     private cS: CapituloService,
     private nS: NovelaService,
-    private dS: DescargaService,
     private router: Router,
     private route: ActivatedRoute
   ) {}
 
   ngOnInit(): void {
-    this.route.params.subscribe((data: Params) => {
-      this.id = data['id'];
-      this.edicion = data['id'] != null;
+    // Obtener los parámetros de la URL
+    this.route.params.subscribe((params: Params) => {
+      this.novelaId = params['novelaId']; // Obtener novelaId desde la URL
+      this.idCapitulo = params['id']; // Obtener idCapitulo desde la URL
+
+      this.edicion = this.idCapitulo != null; // Si el idCapitulo está presente, estamos en modo edición
       this.init();
     });
 
+    // Definir el formulario
     this.form = this.formBuilder.group({
-      id: [''],
-      titulo: ['', Validators.required],
-      contenido: ['', Validators.required],
-      novelas: ['', Validators.required],
-      descargas: ['', Validators.required],
+      titulo: ['', Validators.required],  // Título del capítulo
+      contenido: ['', Validators.required], // Contenido del capítulo
     });
 
+    // Cargar las novelas disponibles
     this.nS.list().subscribe((data) => {
       this.listaNovelas = data;
-    });
-    this.dS.list().subscribe((data) => {
-      this.listaDescargas = data;
     });
   }
 
   aceptar() {
     if (this.form.valid) {
-      this.capitulo.idCapitulo = this.form.value.id;
-      this.capitulo.capTitulo = this.form.value.titulo;
-      this.capitulo.capContenido = this.form.value.contenido;
-      this.capitulo.descargas.idDescarga = this.form.value.descargas;
-      this.capitulo.novelas.idNovela = this.form.value.novelas;
+      // Verificar si novelaId tiene un valor válido (no es null) y si tenemos idCapitulo
+      if (this.novelaId !== null && this.idCapitulo !== null) {
+        // Asignamos novelaId a la novela del capítulo solo si es válido
+        this.capitulo.capTitulo = this.form.value.titulo;
+        this.capitulo.capContenido = this.form.value.contenido;
+        this.capitulo.novelas.idNovela = this.novelaId; // Asignar la novelaId
 
-      console.log(this.form.value);
-
-      if (this.edicion) {
-        this.cS.update(this.capitulo).subscribe((data) => {
-          this.cS.list().subscribe((data) => {
-            this.cS.setList(data);
+        if (this.edicion) {
+          // Actualizar capítulo
+          this.capitulo.idCapitulo = this.idCapitulo; // Asegurarse de que el idCapitulo se asigna
+          this.cS.update(this.capitulo).subscribe(() => {
+            this.cS.list().subscribe((data) => {
+              this.cS.setList(data);
+            });
           });
-        });
+        } else {
+          // Insertar nuevo capítulo
+          this.cS.insert(this.capitulo).subscribe(() => {
+            this.cS.list().subscribe((data) => {
+              this.cS.setList(data);
+            });
+          });
+        }
       } else {
-        this.cS.insert(this.capitulo).subscribe((data) => {
-          this.cS.list().subscribe((data) => {
-            this.cS.setList(data);
-          });
-        });
+        // Manejo de error si novelaId o idCapitulo son null
+        console.error('Error: novelaId o idCapitulo es null');
       }
     }
-    this.router.navigate(['capitulo']);
+    this.router.navigate(['novela']);
   }
 
   init() {
-    if (this.edicion) {
-      this.cS.listId(this.id).subscribe((data) => {
-        this.form = new FormGroup({
-          id: new FormControl(data.idCapitulo),
-          titulo: new FormControl(data.capTitulo),
-          contenido: new FormControl(data.capContenido),
-          descargas: new FormControl(data.descargas.idDescarga),
-          novelas: new FormControl(data.novelas.idNovela),
+    if (this.novelaId) {
+      // Si el id de la novela está presente en la URL, prellenamos el título y resumen
+      const novela = this.listaNovelas.find(n => n.idNovela === this.novelaId);
+      if (novela) {
+        this.novelaTitulo = novela.novTitulo; // Asignamos el título de la novela
+        this.novelaResumen = novela.novResumen; // Asignamos el resumen de la novela
+      }
+    }
+
+    if (this.edicion && this.idCapitulo !== null) {
+      // Si estamos en modo edición, obtener el capítulo con el idCapitulo
+      this.cS.listId(this.idCapitulo).subscribe((data: Capitulos) => {
+        this.capitulo = data; // Asignar los datos del capítulo al formulario
+        this.form.setValue({
+          titulo: this.capitulo.capTitulo,
+          contenido: this.capitulo.capContenido,
         });
+        // Asignar el idNovela al capítulo
+        this.novelaId = this.capitulo.novelas.idNovela;
       });
     }
   }

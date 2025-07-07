@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Comentario } from '../../../models/comentario';
 import { Usuario } from '../../../models/usuarios';
@@ -26,7 +26,7 @@ import { LoginService } from '../../../services/login.service';
     MatDatepickerModule,
     ReactiveFormsModule
   ],
-  changeDetection: ChangeDetectionStrategy.OnPush,
+  //changeDetection: ChangeDetectionStrategy.OnPush,
   templateUrl: './create-edit-comentario.component.html',
   providers: [provideNativeDateAdapter()],
   styleUrl: './create-edit-comentario.component.css'
@@ -92,6 +92,7 @@ export class CreateEditComentarioComponent {
 
       //actualizar trae data
       this.init();
+
     });
 
     this.form = this.formBuilder.group({
