@@ -33,36 +33,53 @@ export class ListarReunionComponent implements OnInit, AfterViewInit{
     private loginService: LoginService
   ) {}
 
-  ngOnInit(): void {
-    const rol = this.loginService.showRole();
-    this.displayedColumns = ['c1', 'c2', 'c3', 'c4', 'c5', 'c6', 'c7'];
+ngOnInit(): void {
+  const rol = this.loginService.showRole();
+  const idUsuario = this.loginService.getUserId();
 
-    if (rol === 'ADMINISTRADOR' || rol === 'AUTOR') {
-      this.displayedColumns.push('c8');
+  this.displayedColumns = ['c1', 'c2', 'c3', 'c4', 'c5', 'c6', 'c7'];
+  if (rol === 'ADMINISTRADOR' || rol === 'AUTOR') {
+    this.displayedColumns.push('c8');
+  }
+
+  this.reunionService.list().subscribe((data) => {
+    let reunionesFiltradas = data;
+
+    if (rol !== 'ADMINISTRADOR') {
+      reunionesFiltradas = data.filter(
+        (reu) => reu.organizadorReu?.idUsuario === idUsuario
+      );
     }
 
-    this.reunionService.list().subscribe((data) => {
-      this.dataSource.data = data;
-      this.dataSource.paginator = this.paginator;
-    });
+    this.dataSource.data = reunionesFiltradas;
+    this.dataSource.paginator = this.paginator;
+  });
+}
 
-    this.reunionService.getList().subscribe((data) => {
-      this.dataSource.data = data;
-      this.dataSource.paginator = this.paginator;
-    });
-  }
 
   ngAfterViewInit() {
     this.dataSource.paginator = this.paginator;
   }
 
-  eliminar(id: number) {
-    this.reunionService.delete(id).subscribe((data) => {
-      this.reunionService.list().subscribe((data) => {
-        this.reunionService.setList(data);
-      });
+eliminar(id: number) {
+  this.reunionService.delete(id).subscribe(() => {
+    const rol = this.loginService.showRole();
+    const idUsuario = this.loginService.getUserId();
+
+    this.reunionService.list().subscribe((data) => {
+      let reunionesFiltradas = data;
+
+      if (rol !== 'ADMINISTRADOR') {
+        reunionesFiltradas = data.filter(
+          (reu) => reu.organizadorReu?.idUsuario === idUsuario
+        );
+      }
+
+      this.dataSource.data = reunionesFiltradas;
     });
-  }
+  });
+}
+
 
   isAdministrador(): boolean {
     return this.loginService.showRole() === 'ADMINISTRADOR';

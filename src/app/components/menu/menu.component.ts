@@ -48,6 +48,7 @@ export class MenuComponent implements OnInit {
 
   ngOnInit(): void {
     const username = this.loginService.getUsername();
+    this.role = this.loginService.showRole();
     if (username) {
       this.usuarioService.list().subscribe((usuarios) => {
         const usuario = usuarios.find((u) => u.username === username);

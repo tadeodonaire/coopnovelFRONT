@@ -4,12 +4,13 @@ import { Proyecto } from '../../../models/proyecto';
 import { ProyectoService } from '../../../services/proyecto.service';
 import { CommonModule } from '@angular/common';
 import { MatButtonModule } from '@angular/material/button';
-import { RouterLink } from '@angular/router';
+import { NavigationEnd, Router, RouterLink } from '@angular/router';
 import { MatIconModule } from '@angular/material/icon';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { MatPaginator, MatPaginatorModule } from '@angular/material/paginator';
 import { LoginService } from '../../../services/login.service';
 import { MatCardModule } from '@angular/material/card';
+import { filter } from 'rxjs';
 
 @Component({
   selector: 'app-listarproyectos',
@@ -20,7 +21,7 @@ import { MatCardModule } from '@angular/material/card';
     RouterLink,
     MatIconModule,
     MatPaginatorModule,
-    MatCardModule
+    MatCardModule,
   ],
   templateUrl: './listarproyectos.component.html',
   styleUrl: './listarproyectos.component.css',
@@ -34,17 +35,29 @@ export class ListarproyectosComponent implements OnInit, AfterViewInit {
   constructor(
     private pS: ProyectoService,
     private snacbar: MatSnackBar,
-    private loginService: LoginService
+    private loginService: LoginService,
+    private router: Router
   ) {}
 
   ngOnInit(): void {
+ const rol = this.loginService.showRole();
+  this.displayedColumns = ['c1', 'c2', 'c3', 'c4'];
+  if (rol === 'ADMINISTRADOR' || rol === 'COLABORADOR' || rol === 'AUTOR') {
+    this.displayedColumns.push('c5', 'c6');
+  }
+
+  // Escuchar navegación
+  this.router.events
+    .pipe(filter((event) => event instanceof NavigationEnd))
+    .subscribe(() => {
+      this.cargarProyectos();
+    });
+
+  this.cargarProyectos();
+  }
+  cargarProyectos(): void {
     const rol = this.loginService.showRole();
     const idUsuario = this.loginService.getUserId();
-
-    this.displayedColumns = ['c1', 'c2', 'c3', 'c4'];
-    if (rol === 'ADMINISTRADOR' || rol === 'COLABORADOR' || rol === 'AUTOR') {
-      this.displayedColumns.push('c5', 'c6');
-    }
 
     this.pS.list().subscribe((data) => {
       let proyectosFiltrados = data;
