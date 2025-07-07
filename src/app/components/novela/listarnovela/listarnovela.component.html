@@ -50,10 +50,10 @@
     </div>
 
     <div
-      class="capitulos-container"
-      *ngIf="selectedNovelaId === novela.idNovela && capitulos.length > 0"
-    >
-      <div *ngFor="let capitulo of capitulos" class="capitulo">
+  class="capitulos-container"
+ *ngIf="tieneCapitulos(novela.idNovela!)">
+  <div *ngFor="let capitulo of capitulosPorNovela[novela.idNovela]" class="capitulo">
+
         <h3>{{ capitulo.capTitulo }}</h3>
 
         <hr class="separator" />

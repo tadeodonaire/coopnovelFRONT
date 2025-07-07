@@ -10,6 +10,9 @@ import { MatPaginator, MatPaginatorModule } from '@angular/material/paginator';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { CapituloService } from '../../../services/capitulo.service';
 import { Capitulos } from '../../../models/capitulos';
+import { JwtHelperService } from '@auth0/angular-jwt';
+import { NovelaFullDTO } from '../../../models/NovelaFULLDTO';
+import { Roles } from '../../../models/roles';
 
 @Component({
   selector: 'app-listarnovela',
@@ -25,11 +28,12 @@ import { Capitulos } from '../../../models/capitulos';
   styleUrl: './listarnovela.component.css',
 })
 export class ListarnovelaComponent implements OnInit {
-  dataSource: MatTableDataSource<Novela> = new MatTableDataSource();
+  dataSource: MatTableDataSource<NovelaFullDTO> = new MatTableDataSource();
   displayedColumns: string[] = ['c1', 'c2', 'c3', 'c4', 'c5', 'c6', 'c7'];
   capitulos: Capitulos[] = [];
   selectedNovelaId: number | null = null;
   expansionState: { [key: number]: boolean } = {};
+  capitulosPorNovela: { [novelaId: number]: Capitulos[] } = {};
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;
 
@@ -41,13 +45,15 @@ export class ListarnovelaComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.nS.list().subscribe((data) => {
-      this.nS.setList(data);
-    });
+    const token = sessionStorage.getItem('token');
+    const helper = new JwtHelperService();
+    const decodedToken = helper.decodeToken(token!);
+    const idUsuario = decodedToken.idUsuario;
+    console.log(decodedToken)
 
-    this.nS.getList().subscribe((data) => {
-      this.dataSource.data = data;
-      this.dataSource.paginator = this.paginator;
+    this.nS.getNovelasFull().subscribe((data) => {
+      const novelasDelUsuario = data.filter((n) => n.idUsuario === idUsuario);
+      this.dataSource.data = novelasDelUsuario;
     });
   }
 
@@ -82,7 +88,7 @@ export class ListarnovelaComponent implements OnInit {
   }
 
   // Método para aumentar el capítulo
-  aumentarCapitulo(novela: Novela) {
+  aumentarCapitulo(novela: NovelaFullDTO) {
     this.router.navigate(['capitulo/insertar', novela.idNovela]);
   }
 
@@ -93,23 +99,33 @@ export class ListarnovelaComponent implements OnInit {
       this.dataSource.paginator.firstPage();
     }
   }
+  tieneCapitulos(novelaId: number): boolean {
+    return (
+      this.selectedNovelaId === novelaId &&
+      this.capitulosPorNovela[novelaId] &&
+      this.capitulosPorNovela[novelaId].length > 0
+    );
+  }
 
-  obtenerCapitulos(novelaId: number) {
-    if (this.selectedNovelaId === novelaId) {
-      this.selectedNovelaId = null;
-      this.capitulos = [];
-    } else {
-      this.capituloService
-        .listByNovelaId(novelaId)
-        .subscribe((data: Capitulos[]) => {
-          this.capitulos = data;
-          this.capitulos.forEach((cap) => {
-            this.expansionState[cap.idCapitulo] = false;
-          });
-          this.selectedNovelaId = novelaId;
-        });
+obtenerCapitulos(novelaId: number) {
+  const token = sessionStorage.getItem('token');
+  const helper = new JwtHelperService();
+  const decodedToken = helper.decodeToken(token!);
+
+  if (this.selectedNovelaId === novelaId) {
+    this.selectedNovelaId = null;
+  } else {
+    const novelaSeleccionada = this.dataSource.data.find(
+      (n) => n.idNovela === novelaId
+    );
+    if (novelaSeleccionada) {
+this.nS.listByNovelaId(novelaId).subscribe((capitulos: Capitulos[]) => {
+  this.capitulosPorNovela[novelaId] = capitulos;
+  this.selectedNovelaId = novelaId;
+});
     }
   }
+}
 
   toggleCapituloContent(capitulo: Capitulos) {
     this.expansionState[capitulo.idCapitulo] =
