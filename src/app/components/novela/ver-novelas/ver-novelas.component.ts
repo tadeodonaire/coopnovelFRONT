@@ -20,7 +20,6 @@ import { ComentarioDTO } from '../../../models/ComentarioDTO';
 import { UsuariosService } from '../../../services/usuarios.service';
 import { Usuario } from '../../../models/usuarios';
 import { RouterLink } from '@angular/router';
-import { ComentariosNovelaDTO } from '../../../models/ComentariosNovelaDTO';
 
 interface NodoCapitulo {
   id: number;
@@ -29,7 +28,6 @@ interface NodoCapitulo {
 }
 
 interface NodoNovela {
-  id: number;
   name: string;
   resumen: string;
   genero: string;
@@ -63,8 +61,6 @@ export class VerNovelasComponent implements OnInit {
   comentariosPorCapitulo: { [capituloNombre: string]: string } = {};
   comentariosCargados: { [capituloId: number]: ComentarioDTO[] } = {};
   usuarioActual:Usuario = new Usuario();
-  comentariosPorNovela: { [novelaTitulo: string]: ComentariosNovelaDTO[] } = {};
-
 
   constructor(
     private novelaService: NovelaService,
@@ -119,19 +115,18 @@ export class VerNovelasComponent implements OnInit {
   agrupar(data: NovelaFullDTO[]): NodoNovela[] {
     const novelas: NodoNovela[] = [];
 
-  data.forEach((d) => {
-    let novela = novelas.find((n) => n.id === d.idNovela);
-    if (!novela) {
-      novela = {
-        id: d.idNovela, // <--- guardar el id aquí
-        name: d.novTitulo,
-        resumen: d.novResumen,
-        genero: d.novGenero,
-        autor: `${d.usNombre} ${d.usApellido} (@${d.username})`,
-        children: [],
-      };
-      novelas.push(novela);
-    }
+    data.forEach((d) => {
+      let novela = novelas.find((n) => n.name === d.novTitulo);
+      if (!novela) {
+        novela = {
+          name: d.novTitulo,
+          resumen: d.novResumen,
+          genero: d.novGenero,
+          autor: `${d.usNombre} ${d.usApellido} (@${d.username})`,
+          children: [],
+        };
+        novelas.push(novela);
+      }
 
       if (d.idCapitulo && d.capTitulo) {
         const existe = novela.children.find((c) => c.name === d.capTitulo);
@@ -148,39 +143,25 @@ export class VerNovelasComponent implements OnInit {
     return novelas;
   }
 
- toggleCapitulo(novela: NodoNovela, capitulo: NodoCapitulo): void {
-  const capituloNombre = capitulo.name;
-  const capituloId = capitulo.id;
+  toggleCapitulo(nombre: string): void {
+    this.capituloExpandido[nombre] = !this.capituloExpandido[nombre];
 
-  this.capituloExpandido[capituloNombre] = !this.capituloExpandido[capituloNombre];
+    // Buscar ID del capítulo expandido
+    const capitulo = this.novelas
+      .flatMap((n) => n.children.map((c) => ({ novela: n.name, cap: c })))
+      .find((x) => x.cap.name === nombre);
 
-  if (!this.comentariosCargados[capituloId]) {
-this.novelaService
-  .getComentariosPorNovela(novela.id)
-  .subscribe((comentarios) => {
-    const comentariosDelCapitulo = comentarios
-      .filter((c) => c.idCapitulo === capituloId)
-      .map((c) => ({
-        idComentario: c.idComentario,
-        comContenido: c.contenido,          // ✅ contenido va aquí
-        comFecha: new Date(c.fecha),
-        usuario: {
-          idUsuario: c.idUsuario,
-          usNombre: c.username,      // ⚠️ username usado como nombre
-          usApellido: c.usApellido,
-          username: c.username,
-        },
-        capitulo: {
-          idCapitulo: c.idCapitulo,
-          capTitulo: c.capTitulo,
-        },
-      }));
-
-    this.comentariosCargados[capituloId] = comentariosDelCapitulo;
-  });
-
+    if (capitulo) {
+      const capId = capitulo.cap.id;
+      if (!this.comentariosCargados[capId]) {
+        this.comentarioService
+          .listarPorCapitulo(capId)
+          .subscribe((comentarios) => {
+            this.comentariosCargados[capId] = comentarios;
+          });
+      }
+    }
   }
-}
 
   isCapituloExpanded(nombre: string): boolean {
     return this.capituloExpandido[nombre] ?? false;

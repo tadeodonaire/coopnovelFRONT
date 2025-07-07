@@ -2,14 +2,14 @@
   <h1>Registro de CorreccionesIA</h1>
   <form [formGroup]="form" (submit)="aceptar()">
     <!-- Seleccionamos el capítulo (campo deshabilitado) -->
-<mat-form-field>
-  <mat-label>Capítulos</mat-label>
-  <mat-select formControlName="capitulos" [disabled]="edicion">
-    <mat-option *ngFor="let l of listaCapitulos" [value]="l.idCapitulo">
-      ({{ l.idCapitulo }}) {{ l.capTitulo }}
-    </mat-option>
-  </mat-select>
-</mat-form-field>
+    <mat-form-field>
+      <mat-label>Capítulos</mat-label>
+      <mat-select formControlName="capitulos">
+        <mat-option *ngFor="let l of listaCapitulos" [value]="l.idCapitulo">
+          ({{ l.idCapitulo }}) {{ l.capTitulo }}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
 
     <!-- Corrección IA generada -->
     <mat-form-field>

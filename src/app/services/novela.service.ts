@@ -1,11 +1,9 @@
 import { Injectable } from '@angular/core';
 import { environment } from '../../environments/environment';
 import { Novela } from '../models/novela';
-import { Observable, Subject } from 'rxjs';
+import { Subject } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 import { NovelaFullDTO } from '../models/NovelaFULLDTO';
-import { Capitulos } from '../models/capitulos';
-import { ComentariosNovelaDTO } from '../models/ComentariosNovelaDTO';
 
 const base_url = environment.base;
 @Injectable({
@@ -43,10 +41,4 @@ export class NovelaService {
     getNovelasFull() {
   return this.http.get<NovelaFullDTO[]>(`${this.url}/NovelasVer`);
 }
-  listByNovelaId(idNovela: number) {
-    return this.http.get<Capitulos[]>(`${this.url}/capitulos/novela/${idNovela}`);
-  }
-    getComentariosPorNovela(idNovela: number): Observable<ComentariosNovelaDTO[]> {
-    return this.http.get<ComentariosNovelaDTO[]>(`${this.url}/comentarios/novela/${idNovela}`);
-  }
 }
