@@ -6,7 +6,7 @@
 .titulo {
   font-size: 2rem;
   font-weight: 600;
-  color: #3f51b5; /* color primario de Angular Material */
+  color: #8e24aa; /* color primario de Angular Material */
 }
 
 .tarjetas-container {
@@ -15,6 +15,29 @@
   gap: 20px;
   padding: 0 40px 40px;
   justify-items: center;
+}
+
+.primary-button {
+  background-color: #8e24aa;
+  color: white;
+  border-radius: 20px;
+  padding: 8px 16px;
+  font-size: 14px;
+  transition: background-color 0.3s ease;
+}
+
+.primary-button:hover {
+  background-color: #6a1b9a;
+}
+
+.genero-badge {
+  display: inline-block;
+  background-color: #8e24aa;
+  color: white;
+  padding: 4px 10px;
+  border-radius: 20px;
+  font-size: 14px;
+  margin: 8px 0 16px;
 }
 
 .tarjeta-biblioteca {
@@ -30,7 +53,7 @@
 }
 
 .avatar-icon {
-  background-color: #3f51b5;
+  background-color: #8e24aa;
   color: white;
   display: flex;
   align-items: center;
