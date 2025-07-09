@@ -17,7 +17,7 @@ export class CorreccionIAService {
   private listaCambio = new Subject<CorreccionesIA[]>();
 
   // Tu API key y URL para Gemini
-  private readonly API_KEY = 'AIzaSyCdslaznxwGxsNoJUO5N2fmN-OXbxK2nLE';
+  private readonly API_KEY = 'AIzaSyDb1YTltSdXIAKqATw6SrtHGx1oNqPmO2c';
   private readonly API_URL =
     'https://generativelanguage.googleapis.com/v1/models/gemini-1.5-flash:generateContent';
 
