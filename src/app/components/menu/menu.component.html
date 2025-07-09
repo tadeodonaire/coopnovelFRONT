@@ -71,7 +71,7 @@
       <button
         mat-button
         [matMenuTriggerFor]="CAPITULO"
-        *ngIf="isAdministrador() || isAutor() || isColaborador() || isLector()"
+        *ngIf="isAdministrador()"
       >
         <mat-icon>receipt</mat-icon>
         <span>Capítulo</span>
@@ -88,20 +88,12 @@
       </button>
 
       <!-- DESCARGAS -->
-      <button
-        mat-button
-        [matMenuTriggerFor]="DESCARGAS"
-        *ngIf="isAdministrador() || isAutor() || isColaborador() || isLector()"
-      >
-        <mat-icon>cloud_download</mat-icon>
-        <span>Descargas</span>
-      </button>
 
       <!-- COMENTARIOS -->
       <button
         mat-button
         [matMenuTriggerFor]="COMENTARIOS"
-        *ngIf="isAdministrador() || isAutor() || isColaborador() || isLector()"
+        *ngIf="isAdministrador()"
       >
         <mat-icon>comment</mat-icon>
         <span>Comentarios</span>
@@ -121,7 +113,7 @@
       <button
         mat-button
         [matMenuTriggerFor]="NOVELASBIBLIOTECAS"
-        *ngIf="isAdministrador() || isAutor() || isColaborador() || isLector()"
+        *ngIf="isAdministrador()"
       >
         <mat-icon>library_books</mat-icon>
         <span>NovelasBibliotecas</span>

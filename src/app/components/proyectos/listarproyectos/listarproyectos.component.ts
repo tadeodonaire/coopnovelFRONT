@@ -4,7 +4,7 @@ import { Proyecto } from '../../../models/proyecto';
 import { ProyectoService } from '../../../services/proyecto.service';
 import { CommonModule } from '@angular/common';
 import { MatButtonModule } from '@angular/material/button';
-import { RouterLink } from '@angular/router';
+import { NavigationEnd, Router, RouterLink } from '@angular/router';
 import { MatIconModule } from '@angular/material/icon';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { MatPaginator, MatPaginatorModule } from '@angular/material/paginator';
@@ -32,7 +32,8 @@ export class ListarproyectosComponent implements OnInit {
   constructor(
     private pS: ProyectoService,
     private snacbar: MatSnackBar,
-    private loginService: LoginService
+    private loginService: LoginService,
+    private router: Router
   ) {}
 
   ngOnInit(): void {
