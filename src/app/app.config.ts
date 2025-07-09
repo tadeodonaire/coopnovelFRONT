@@ -38,10 +38,10 @@ export const appConfig: ApplicationConfig = {
       JwtModule.forRoot({
         config: {
           tokenGetter: tokenGetter,
-          //allowedDomains: ['localhost:8084'],
-          //disallowedRoutes: ['http://localhost:8084/login/forget'],
-          allowedDomains: ['coopnovel.onrender.com'],
-          disallowedRoutes: ['http://coopnovel.onrender.com/login/forget'],
+          allowedDomains: ['localhost:8084'],
+          disallowedRoutes: ['http://localhost:8084/login/forget'],
+          //allowedDomains: ['coopnovel.onrender.com'],
+          //disallowedRoutes: ['http://coopnovel.onrender.com/login/forget'],
         },
       })
     ),
