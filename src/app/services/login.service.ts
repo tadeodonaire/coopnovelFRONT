@@ -9,7 +9,7 @@ import { JwtHelperService } from '@auth0/angular-jwt';
 export class LoginService {
   constructor(private http: HttpClient) {}
   login(request: JwtRequest) {
-    return this.http.post('http://localhost:8084/login', request);
+    return this.http.post('https://localhost:8084/login', request);
   }
   verificar() {
     let token = sessionStorage.getItem('token');
