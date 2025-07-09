@@ -1,0 +1,16 @@
+<div>
+    <div style="text-align: center" class="title-container">
+        <h1 class="title">Reporte de Usuarios suscritos más de una vez</h1>
+    </div>
+    <div style="text-align: center" class="chart-container" style="background: #c0f5f5; padding: 2rem; border-radius: 18px; box-shadow: 0 4px 18px rgba(142, 36, 170, 0.08); max-width: 700px; margin: 0 auto">
+        <canvas
+        baseChart
+        [datasets]="barChartData"
+        [labels]="barChartLabels"
+        [options]="barChartOptions"
+        [legend]="barChartLegend"
+        [type]="barChartType"
+        >
+        </canvas>
+    </div>
+</div>

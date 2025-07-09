@@ -34,10 +34,10 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 })
 export class CreareditarcorreccionesIAComponent implements OnInit {
   cargandoIA: boolean = false;
-  form: FormGroup = new FormGroup({});
+  form!: FormGroup; // Usamos el operador de exclamación para indicar que se inicializa más tarde
   listaCapitulos: Capitulos[] = [];
+  idCapitulo: number = 0;
   correccionIA: CorreccionesIA = new CorreccionesIA();
-  id: number = 0;
   edicion: boolean = false;
 
   constructor(
@@ -50,68 +50,54 @@ export class CreareditarcorreccionesIAComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.route.params.subscribe((data: Params) => {
-      this.id = data['id'];
-      this.edicion = data['id'] != null;
-      this.init();
-    });
+    console.log('[ngOnInit] Iniciando componente');
 
+    // Inicializamos el formulario primero
     this.form = this.formBuilder.group({
-      id: [''],
       correccionIA: ['', [Validators.required]],
       capitulos: ['', [Validators.required]],
     });
 
+    // Luego, obtenemos los parámetros y procedemos con la inicialización
+    this.route.params.subscribe((data: Params) => {
+      console.log('[ngOnInit] Params:', data);
+
+      this.idCapitulo = Number(data['id']); // Asegura que sea number  // Obtener idCapitulo de la URL
+
+      this.edicion = this.idCapitulo != null;
+      this.init(); // Inicializamos el formulario con la información del capítulo
+    });
+
+    // Obtener los capítulos para mostrarlos en el selector
     this.cS.list().subscribe((data) => {
       this.listaCapitulos = data;
+
+      // Ahora que la lista está lista, puedes setear el valor en el select
+      if (this.edicion && this.idCapitulo) {
+        this.form.get('capitulos')?.setValue(this.idCapitulo);
+        console.log('[setValue] Valor actual del form:', this.form.get('capitulos')?.value);
+      }
     });
   }
 
-  aceptar() {
-    if (this.form.valid) {
-      this.correccionIA.idCorreccionIA = this.form.value.id;
-      this.correccionIA.corCorreccionIA = this.form.value.correccionIA;
-      this.correccionIA.capitulos.idCapitulo = this.form.value.capitulos;
-
-      console.log(this.form.value);
-
-      if (this.edicion) {
-        this.coS.update(this.correccionIA).subscribe((data) => {
-          this.cS.list().subscribe((data) => {
-            this.cS.setList(data);
-          });
-        });
-      } else {
-        this.coS.insert(this.correccionIA).subscribe((data) => {
-          this.coS.list().subscribe((data) => {
-            this.coS.setList(data);
-          });
-        });
-      }
-    }
-    this.router.navigate(['correccionIA']);
-  }
-
   init() {
-    if (this.edicion) {
-      this.coS.listId(this.id).subscribe((data) => {
-        this.form = new FormGroup({
-          id: new FormControl(data.idCorreccionIA),
-          correccionIA: new FormControl(data.corCorreccionIA),
-          capitulos: new FormControl(data.capitulos.idCapitulo),
-        });
+    if (this.edicion && this.idCapitulo) {
+      // Solo manipulamos el formulario si está completamente inicializado
+
+      // Llamamos al servicio para obtener el contenido del capítulo
+      this.cS.listId(this.idCapitulo).subscribe((capitulo) => {
+        if (capitulo) {
+          this.generarCorreccionIA(capitulo.capContenido);
+        }
       });
     }
   }
-  generarCorreccionIA(idCapitulo: number) {
-    const capitulo = this.listaCapitulos.find(
-      (c) => c.idCapitulo === idCapitulo
-    );
-    if (!capitulo) return;
 
+  generarCorreccionIA(textoCapitulo: string) {
     this.cargandoIA = true;
 
-    this.coS.generarCorreccionIA(capitulo.capContenido).subscribe({
+    // Llamamos al servicio de Corrección IA
+    this.coS.generarCorreccionIA(textoCapitulo).subscribe({
       next: (response) => {
         const respuestaTexto =
           response.candidates?.[0]?.content?.parts?.[0]?.text || '';
@@ -120,11 +106,57 @@ export class CreareditarcorreccionesIAComponent implements OnInit {
       },
       error: (err) => {
         console.error('Error IA:', err);
-        this.snackBar.open('Error al generar corrección IA 😢', 'Cerrar', {
+        this.snackBar.open('Error al generar corrección IA', 'Cerrar', {
           duration: 3000,
         });
         this.cargandoIA = false;
       },
     });
+  }
+
+  aceptar() {
+    if (this.form.valid) {
+      this.correccionIA.corCorreccionIA = this.form.value.correccionIA;
+      this.correccionIA.capitulos.idCapitulo = this.idCapitulo;
+
+      console.log('Se enviará:', this.correccionIA);
+
+      // Verificamos si el capítulo ya existe en la base de datos
+      this.cS
+        .listId(this.correccionIA.capitulos.idCapitulo)
+        .subscribe((capitulo) => {
+          if (capitulo) {
+            this.correccionIA.capitulos = capitulo;
+
+            if (this.edicion) {
+              // Actualizar la corrección IA
+              this.coS.update(this.correccionIA).subscribe(() => {
+                this.snackBar.open(
+                  'Corrección actualizada correctamente',
+                  'Cerrar',
+                  { duration: 3000 }
+                );
+                this.router.navigate(['correccionIA']);
+              });
+            } else {
+              // Insertar una nueva corrección IA
+              this.coS.insert(this.correccionIA).subscribe(() => {
+                this.snackBar.open(
+                  'Corrección guardada correctamente',
+                  'Cerrar',
+                  { duration: 3000 }
+                );
+                this.router.navigate(['correccionIA']);
+              });
+            }
+          } else {
+            this.snackBar.open(
+              'El capítulo no existe en la base de datos',
+              'Cerrar',
+              { duration: 3000 }
+            );
+          }
+        });
+    }
   }
 }

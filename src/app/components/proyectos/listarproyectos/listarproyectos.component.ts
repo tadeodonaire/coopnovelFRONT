@@ -9,6 +9,8 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { MatPaginator, MatPaginatorModule } from '@angular/material/paginator';
 import { LoginService } from '../../../services/login.service';
+import { MatCardModule } from '@angular/material/card';
+import { filter } from 'rxjs';
 
 @Component({
   selector: 'app-listarproyectos',
@@ -19,11 +21,12 @@ import { LoginService } from '../../../services/login.service';
     RouterLink,
     MatIconModule,
     MatPaginatorModule,
+    MatCardModule,
   ],
   templateUrl: './listarproyectos.component.html',
   styleUrl: './listarproyectos.component.css',
 })
-export class ListarproyectosComponent implements OnInit {
+export class ListarproyectosComponent implements OnInit, AfterViewInit {
   dataSource: MatTableDataSource<Proyecto> = new MatTableDataSource();
   displayedColumns: string[] = [];
 
@@ -37,26 +40,53 @@ export class ListarproyectosComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    const rol = this.loginService.showRole();
-    this.displayedColumns = ['c1', 'c2', 'c3', 'c4'];
+ const rol = this.loginService.showRole();
+  this.displayedColumns = ['c1', 'c2', 'c3', 'c4'];
+  if (rol === 'ADMINISTRADOR' || rol === 'COLABORADOR' || rol === 'AUTOR') {
+    this.displayedColumns.push('c5', 'c6');
+  }
 
-    if (rol === 'ADMINISTRADOR' || rol === 'COLABORADOR' || rol === 'AUTOR') {
-      this.displayedColumns.push('c5', 'c6');
-    }
+  // Escuchar navegación
+  this.router.events
+    .pipe(filter((event) => event instanceof NavigationEnd))
+    .subscribe(() => {
+      this.cargarProyectos();
+    });
+
+  this.cargarProyectos();
+  }
+  cargarProyectos(): void {
+    const rol = this.loginService.showRole();
+    const idUsuario = this.loginService.getUserId();
 
     this.pS.list().subscribe((data) => {
-      this.pS.setList(data);
-    });
-    this.pS.getList().subscribe((data) => {
-      this.dataSource.data = data;
+      let proyectosFiltrados = data;
+
+      if (rol !== 'ADMINISTRADOR') {
+        proyectosFiltrados = data.filter(
+          (proy) => proy.usario.idUsuario === idUsuario
+        );
+      }
+
+      this.dataSource.data = proyectosFiltrados;
       this.dataSource.paginator = this.paginator;
     });
   }
 
   eliminar(id: number) {
-    this.pS.deleteP(id).subscribe((data) => {
+    this.pS.deleteP(id).subscribe(() => {
       this.pS.list().subscribe((data) => {
-        this.pS.setList(data);
+        const rol = this.loginService.showRole();
+        const idUsuario = this.loginService.getUserId();
+
+        let proyectosFiltrados = data;
+        if (rol !== 'ADMINISTRADOR') {
+          proyectosFiltrados = data.filter(
+            (proy) => proy.usario.idUsuario === idUsuario
+          );
+        }
+
+        this.dataSource.data = proyectosFiltrados;
       });
     });
 
@@ -72,18 +102,19 @@ export class ListarproyectosComponent implements OnInit {
 
   applyFilter(value: string) {
     this.dataSource.filter = value.trim().toLowerCase();
-
     if (this.dataSource.paginator) {
-      this.dataSource.paginator.firstPage(); // Reiniciar al inicio de paginado
+      this.dataSource.paginator.firstPage();
     }
   }
 
   isAdministrador(): boolean {
     return this.loginService.showRole() === 'ADMINISTRADOR';
   }
+
   isAutor(): boolean {
     return this.loginService.showRole() === 'AUTOR';
   }
+
   isColaborador(): boolean {
     return this.loginService.showRole() === 'COLABORADOR';
   }

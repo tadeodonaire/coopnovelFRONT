@@ -1,59 +1,108 @@
 <div>
-    <h1>Lista de Novelas</h1>
+  <h1>Lista de Novelas</h1>
 </div>
-<div>
-    <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
 
-    <!-- Position Column -->
-    <ng-container matColumnDef="c1">
-      <th mat-header-cell *matHeaderCellDef> ID </th>
-      <td mat-cell *matCellDef="let element"> {{element.idNovela}} </td>
-    </ng-container>
-
-    <!-- Name Column -->
-    <ng-container matColumnDef="c2">
-      <th mat-header-cell *matHeaderCellDef> Titulo </th>
-      <td mat-cell *matCellDef="let element"> {{element.novTitulo}} </td>
-    </ng-container>
-
-    <!-- Weight Column -->
-    <ng-container matColumnDef="c3">
-      <th mat-header-cell *matHeaderCellDef> Resumen </th>
-      <td mat-cell *matCellDef="let element"> {{element.novResumen}} </td>
-    </ng-container>
-
-    <!-- Weight Column -->
-    <ng-container matColumnDef="c4">
-      <th mat-header-cell *matHeaderCellDef> Genero </th>
-      <td mat-cell *matCellDef="let element"> {{element.novGenero}} </td>
-    </ng-container>
-
-    <!-- Symbol Column -->
-    <ng-container matColumnDef="c5">
-      <th mat-header-cell *matHeaderCellDef> Proyecto Asociado </th>
-      <td mat-cell *matCellDef="let element"> {{element.proyectos.proyTitulo}} </td>
-    </ng-container>
-
-    <ng-container matColumnDef="c6">
-      <th mat-header-cell *matHeaderCellDef> Actualizar </th>
-      <td mat-cell *matCellDef="let element"> 
-        <button matButton="outlined" [routerLink]="['ediciones',element.idNovela]" aria-label="Editar Novela"
+<div class="card-container">
+  <div class="user-card" *ngFor="let novela of dataSource.data">
+    <div class="card-header">
+      <div class="card-actions-top-right">
+        <button
+          mat-raised-button
+          [routerLink]="['ediciones', novela.idNovela]"
+          class="action-button"
+          aria-label="Editar novela"
         >
-        <mat-icon style="color: rgb(198, 60, 33)">edit</mat-icon>
+          <mat-icon>edit</mat-icon>
+          Editar
         </button>
-      </td>
-    </ng-container>
+        <button
+          mat-raised-button
+          (click)="eliminar(novela.idNovela)"
+          class="action-button"
+          aria-label="Eliminar novela"
+        >
+          <mat-icon>delete_forever</mat-icon>
+          Eliminar
+        </button>
+        <button
+          mat-raised-button
+          (click)="aumentarCapitulo(novela)"
+          color="accent"
+          class="action-button"
+          aria-label="Aumentar Capítulo"
+        >
+          <mat-icon>add_circle</mat-icon>
+          Aumentar Capítulo
+        </button>
+      </div>
 
-    <ng-container matColumnDef="c7">
-      <th mat-header-cell *matHeaderCellDef> Eliminar </th>           
-      <td mat-cell *matCellDef="let element" (click)="eliminar(element.idNovela)" aria-label="Eliminar Novela">    
-        <mat-icon style="color: brown">delete_forever</mat-icon>
-      </td>    
-    </ng-container>
+      <h2>{{ novela.novTitulo }}</h2>
+      <p><strong>Resumen:</strong> {{ novela.novResumen }}</p>
+      <p><strong>Género:</strong> {{ novela.novGenero }}</p>
 
-    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
-  </table>
-  <p>Total de registros: {{ dataSource.filteredData.length }}</p>
-    <mat-paginator #paginator [pageSizeOptions]="[4, 8, 12]" showFirstLastButtons ></mat-paginator>
+      <button mat-raised-button (click)="obtenerCapitulos(novela.idNovela)">
+        {{
+          selectedNovelaId === novela.idNovela
+            ? "Cerrar Capitulos"
+            : "Ver Capitulos"
+        }}
+      </button>
+    </div>
+
+    <div
+  class="capitulos-container"
+ *ngIf="tieneCapitulos(novela.idNovela!)">
+  <div *ngFor="let capitulo of capitulosPorNovela[novela.idNovela]" class="capitulo">
+
+        <h3>{{ capitulo.capTitulo }}</h3>
+
+        <hr class="separator" />
+
+        <button
+          mat-raised-button
+          color="accent"
+          (click)="toggleCapituloContent(capitulo)"
+        >
+          Ver más
+        </button>
+
+        <div *ngIf="expansionState[capitulo.idCapitulo]">
+          <p>{{ capitulo.capContenido }}</p>
+
+          <div class="capitulo-actions">
+            <button
+              mat-raised-button
+              color="primary"
+              (click)="editarCapitulo(capitulo)"
+            >
+              Editar Capítulo
+            </button>
+
+            <button
+              mat-raised-button
+              color="warn"
+              (click)="eliminarCapitulo(capitulo.idCapitulo)"
+            >
+              Eliminar Capítulo
+            </button>
+            <!-- Botón Mejorar con IA -->
+            <button
+              mat-raised-button
+              color="accent"
+              (click)="mejorarConIA(capitulo.idCapitulo)"
+            >
+              Mejorar con IA
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
 </div>
+
+<p>Total de registros: {{ dataSource.filteredData.length }}</p>
+<mat-paginator
+  #paginator
+  [pageSizeOptions]="[4, 8, 12]"
+  showFirstLastButtons
+></mat-paginator>

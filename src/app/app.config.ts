@@ -1,9 +1,20 @@
-import { ApplicationConfig, importProvidersFrom, provideZoneChangeDetection } from '@angular/core';
+import {
+  ApplicationConfig,
+  importProvidersFrom,
+  provideZoneChangeDetection,
+} from '@angular/core';
 import { provideRouter } from '@angular/router';
 import { JwtModule } from '@auth0/angular-jwt';
 import { routes } from './app.routes';
-import { provideClientHydration, withEventReplay } from '@angular/platform-browser';
-import { provideHttpClient, withFetch, withInterceptorsFromDi } from '@angular/common/http';
+import {
+  provideClientHydration,
+  withEventReplay,
+} from '@angular/platform-browser';
+import {
+  provideHttpClient,
+  withFetch,
+  withInterceptorsFromDi,
+} from '@angular/common/http';
 import { provideCharts, withDefaultRegisterables } from 'ng2-charts';
 
 export function tokenGetter() {
@@ -17,17 +28,22 @@ export function tokenGetter() {
   return token && token.split('.').length === 3 ? token : null;
 }
 export const appConfig: ApplicationConfig = {
-  providers: [provideZoneChangeDetection({ eventCoalescing: true }), 
-    provideRouter(routes), 
+  providers: [
+    provideZoneChangeDetection({ eventCoalescing: true }),
+    provideRouter(routes),
     provideClientHydration(withEventReplay()),
-  provideHttpClient(withFetch(),withInterceptorsFromDi()), provideCharts(withDefaultRegisterables()),
+    provideHttpClient(withFetch(), withInterceptorsFromDi()),
+    provideCharts(withDefaultRegisterables()),
     importProvidersFrom(
       JwtModule.forRoot({
         config: {
           tokenGetter: tokenGetter,
-          allowedDomains: ['localhost:8084'],
-          disallowedRoutes: ['http://localhost:8084/login/forget'],
+          //allowedDomains: ['localhost:8084'],
+          //disallowedRoutes: ['http://localhost:8084/login/forget'],
+          allowedDomains: ['coopnovel.onrender.com'],
+          disallowedRoutes: ['http://coopnovel.onrender.com/login/forget'],
         },
       })
-    )]
+    ),
+  ],
 };

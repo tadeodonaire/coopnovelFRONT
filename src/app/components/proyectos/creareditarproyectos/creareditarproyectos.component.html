@@ -1,46 +1,43 @@
-<div class="container">
+<div class="form-container">
   <h1>{{ edicion ? "Actualizar Proyecto" : "Registrar Proyecto" }}</h1>
-  <div>
-    <!-- Mostrar el usuario autenticado -->
-    <div style="margin-bottom: 16px; color: #555; font-size: 15px;">
-      <strong>Usuario autenticado:</strong> {{ loginService.getUserId() }}
+  <h1>({{ idUsuario }})-{{ usNombre }}</h1>
+
+  <form [formGroup]="form" (submit)="aceptar()">
+
+    <!-- ID del Proyecto (solo en edición) -->
+    <div class="form-group" *ngIf="edicion">
+      <label for="hcodigo">Código del Proyecto</label>
+      <input id="hcodigo" type="text" formControlName="hcodigo" readonly class="input-id">
+      <mat-error *ngIf="form.get('hcodigo')?.hasError('required') && form.get('hcodigo')?.touched">
+        Este campo es obligatorio
+      </mat-error>
     </div>
-    <form [formGroup]="form" (submit)="aceptar()">
-      <mat-form-field class="example-full-width" *ngIf="edicion">
-        <mat-label>ID</mat-label>
-        <input matInput formControlName="hcodigo" />
-        <mat-error *ngIf="form.get('hcodigo')?.hasError('required')">
-          El codigo del proyecto es obligatorio!!
-        </mat-error>
-      </mat-form-field>
-      <br />
 
-      <mat-form-field class="example-full-width">
-        <mat-label>Titulo</mat-label>
-        <input matInput placeholder="Titulo" formControlName="htitulo" />
-        <mat-error *ngIf="form.get('htitulo')?.hasError('required')">
-          El Titulo es obligatorio!!
-        </mat-error>
-      </mat-form-field>
-      <br />
+    <!-- Titulo -->
+    <div class="form-group">
+      <label for="htitulo">Titulo del Proyecto</label>
+      <input id="htitulo" type="text" formControlName="htitulo" placeholder="Eg: Proyecto de Desarrollo">
+      <mat-error *ngIf="form.get('htitulo')?.hasError('required') && form.get('htitulo')?.touched">
+        Este campo es obligatorio
+      </mat-error>
+    </div>
 
-      <mat-form-field class="example-full-width">
-        <mat-label>Descripcion</mat-label>
-        <input
-          matInput
-          placeholder="descripcion"
-          formControlName="hdescripcion"
-        />
-        <mat-error *ngIf="form.get('hdescripcion')?.hasError('required')">
-          La descripcion es obligatorio!!
-        </mat-error>
-      </mat-form-field>
-      <br />
+    <!-- Descripción -->
+    <div class="form-group">
+      <label for="hdescripcion">Descripción del Proyecto</label>
+      <textarea id="hdescripcion" formControlName="hdescripcion" placeholder="Descripción breve del proyecto"></textarea>
+      <mat-error *ngIf="form.get('hdescripcion')?.hasError('required') && form.get('hdescripcion')?.touched">
+        Este campo es obligatorio
+      </mat-error>
+    </div>
 
+    <!-- Botón de Envío con clase de estilo -->
+    <button type="submit" class="submit-button" [disabled]="form.invalid">
+      {{ edicion ? "Actualizar" : "Registrar" }}
+    </button>
 
-      <button type="submit" [disabled]="form.invalid">
-        {{ edicion ? "Actualizar" : "Registrar" }}
-      </button>
-    </form>
-  </div>
+    <!-- Botón de Cancelar -->
+    <button type="button" class="cancel-button" (click)="cancelar()">Volver a proyectos</button>
+
+  </form>
 </div>

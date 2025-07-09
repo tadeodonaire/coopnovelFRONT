@@ -1,60 +1,62 @@
-<div class="container">
-    <h1>{{ edicion ? "Actualizar Novela" : "Registrar Novela" }}</h1>
-    <div>
-        <form [formGroup]="form" (submit)="aceptar()">
-            
-            <mat-form-field class="example-full-width" *ngIf="edicion">
-                <mat-label>ID</mat-label>
-                <input matInput formControlName="hcodigo" />
-                <mat-error *ngIf="form.get('hcodigo')?.hasError('required')">
-                    El codigo de la novela es obligatorio!!
-                </mat-error>
-                </mat-form-field>
-                <br />
+<div class="form-container">
+  <h1>{{ edicion ? "Actualizar Novela" : "Registrar Novela" }}</h1>
 
-            <mat-form-field class="example-full-width">
-                <mat-label>Titulo</mat-label>
-                <input matInput placeholder="Titulo" formControlName="htitulo" />
-                <mat-error *ngIf="form.get('htitulo')?.hasError('required')">
-                    El Titulo es obligatorio!!
-                </mat-error>
-                </mat-form-field>
-                <br />
+  <form [formGroup]="form" (submit)="aceptar()">
 
-            <mat-form-field class="example-full-width">
-                <mat-label>Resumen</mat-label>
-                <input matInput placeholder="resumen" formControlName="hresumen" />
-                <mat-error *ngIf="form.get('hresumen')?.hasError('required')">
-                    El resumen es obligatorio!!
-                </mat-error>
-                </mat-form-field>
-                <br>
-
-            <mat-form-field class="example-full-width">
-                <mat-label>Genero</mat-label>
-                <input matInput placeholder="genero" formControlName="hgenero" />
-                <mat-error *ngIf="form.get('hgenero')?.hasError('required')">
-                    El genero es obligatorio!!
-                </mat-error>
-                </mat-form-field>
-                <br>
-
-            <mat-form-field class="form-field">
-            <mat-label>Proyecto</mat-label>
-            <mat-select matInput placeholder="Proyecto" formControlName="hproyecto">
-                @for (m of listaProyectos; track m) {
-                <mat-option [value]="m.idProyecto">({{ m.idProyecto}}) {{m.proyTitulo}} </mat-option>
-                }
-            </mat-select>
-            <mat-error *ngIf="form.get('hproyecto')?.hasError('required')">
-                    El proyecto es obligatorio!!
-                </mat-error>
-            </mat-form-field>
-            <br />
-
-            <button type="submit" [disabled]="form.invalid">
-                {{ edicion ? "Actualizar" : "Registrar" }}
-            </button>
-        </form>
+    <!-- Código de la Novela (solo en edición) -->
+    <div class="form-group" *ngIf="edicion">
+      <label for="hcodigo">Código de la Novela</label>
+      <input id="hcodigo" type="text" formControlName="hcodigo" readonly class="input-id">
+      <mat-error *ngIf="form.get('hcodigo')?.hasError('required') && form.get('hcodigo')?.touched">
+        Este campo es obligatorio
+      </mat-error>
     </div>
+
+    <!-- Titulo -->
+    <div class="form-group">
+      <label for="htitulo">Titulo de la Novela</label>
+      <input id="htitulo" type="text" formControlName="htitulo" placeholder="Eg: La Muerte LN">
+      <mat-error *ngIf="form.get('htitulo')?.hasError('required') && form.get('htitulo')?.touched">
+        Este campo es obligatorio
+      </mat-error>
+    </div>
+
+    <!-- Resumen -->
+    <div class="form-group">
+      <label for="hresumen">Resumen de la Novela</label>
+      <textarea id="hresumen" formControlName="hresumen" placeholder="Resumen breve de la novela"></textarea>
+      <mat-error *ngIf="form.get('hresumen')?.hasError('required') && form.get('hresumen')?.touched">
+        Este campo es obligatorio
+      </mat-error>
+    </div>
+
+    <!-- Género -->
+    <div class="form-group">
+      <label for="hgenero">Género de la Novela</label>
+      <input id="hgenero" type="text" formControlName="hgenero" placeholder="Eg: Fantasía">
+      <mat-error *ngIf="form.get('hgenero')?.hasError('required') && form.get('hgenero')?.touched">
+        Este campo es obligatorio
+      </mat-error>
+    </div>
+
+    <!-- Proyecto (solo en edición) -->
+    <div class="form-group" *ngIf="edicion">
+      <label for="hproyecto">Proyecto Asociado</label>
+      <mat-select id="hproyecto" formControlName="hproyecto">
+        <mat-option *ngFor="let m of listaProyectos" [value]="m.idProyecto">
+          ({{ m.idProyecto }}) {{ m.proyTitulo }}
+        </mat-option>
+      </mat-select>
+      <mat-error *ngIf="form.get('hproyecto')?.hasError('required')">
+        El proyecto es obligatorio
+      </mat-error>
+    </div>
+
+    <!-- Botones -->
+    <button type="submit" class="submit-button" [disabled]="form.invalid">
+      {{ edicion ? "Actualizar" : "Registrar" }}
+    </button>
+    <button type="button" class="cancel-button" (click)="cancelar()">Volver a Novelas</button>
+
+  </form>
 </div>

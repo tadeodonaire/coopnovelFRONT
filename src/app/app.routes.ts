@@ -36,6 +36,11 @@ import { CreaeditarolesComponent } from './components/roles/creaeditaroles/creae
 import { BibliotecaMainComponent } from './components/biblioteca/biblioteca-main/biblioteca-main.component';
 import { BibliotecaListaUsuarioComponent } from './components/biblioteca/biblioteca-lista-usuario/biblioteca-lista-usuario.component';
 import { InicioComponent } from './pages/inicio/inicio.component';
+import { BuscarUsuarioComponent } from './components/suscripciones/buscar-usuario/buscar-usuario.component';
+import { SuscritoMoreOnceComponent } from './components/reportes/suscrito-more-once/suscrito-more-once.component';
+import { VerNovelasComponent } from './components/novela/ver-novelas/ver-novelas.component';
+import { CapitulosSinCorreccionIAComponent } from './components/reportes/capitulos-sin-correccion-ia/capitulos-sin-correccion-ia.component';
+import { BuscarCorreccionPorIdCapComponent } from './components/reportes/buscar-correccion-por-id-cap/buscar-correccion-por-id-cap.component';
 
 export const routes: Routes = [
   {
@@ -119,6 +124,10 @@ export const routes: Routes = [
         path: 'ediciones/:id',
         component: CreareditarnovelaComponent,
       },
+      {
+        path: 'ver',
+        component: VerNovelasComponent,
+      }
     ],
     canActivate: [seguridadGuard],
   },
@@ -127,7 +136,7 @@ export const routes: Routes = [
     component: CapituloComponent,
     canActivate: [seguridadGuard],
     children: [
-      { path: 'insertar', component: CreaeditacapitulosComponent },
+      { path: 'insertar/:novelaId', component: CreaeditacapitulosComponent },
       {
         path: 'ediciones/:id',
         component: CreaeditacapitulosComponent,
@@ -164,6 +173,10 @@ export const routes: Routes = [
         path: 'ediciones/:id',
         component: CreateEditComentarioComponent,
       },
+      {
+        path: 'nuevo/:capituloId',
+        component: CreateEditComentarioComponent,
+      }
     ],
     canActivate: [seguridadGuard],
   },
@@ -172,7 +185,7 @@ export const routes: Routes = [
     component: CorreccionIAComponent,
     children: [
       {
-        path: 'insertar',
+        path: 'insertar/:id',
         component: CreareditarcorreccionesIAComponent,
       },
       {
@@ -206,6 +219,10 @@ export const routes: Routes = [
       {
         path: 'editar/:id',
         component: CreareditarsuscripcionesComponent,
+      },
+      {
+        path: 'cantidad-suscripciones',
+        component: BuscarUsuarioComponent,
       },
     ],
   },
@@ -252,6 +269,18 @@ export const routes: Routes = [
         path: 'top-three-comentarios', // mejor nombre para URL
         component: TopThreeCommentatorsComponent,
       },
+      {
+        path: 'usuarios-suscritos',
+        component: SuscritoMoreOnceComponent,
+      },
+      {
+        path: 'CapitulosSinCorreccionIA',
+        component: CapitulosSinCorreccionIAComponent,
+      },
+      {
+        path: 'CorreccionPorIdCap',
+        component: BuscarCorreccionPorIdCapComponent
+      }
     ],
   },
   {

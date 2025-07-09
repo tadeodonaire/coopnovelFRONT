@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, inject, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, inject, OnInit } from '@angular/core';
 import { AbstractControl, FormBuilder, FormControl, FormGroup, FormsModule, ReactiveFormsModule, ValidationErrors, ValidatorFn, Validators } from '@angular/forms';
 import { Reunion } from '../../../models/reuniones';
 import { MatSnackBar } from '@angular/material/snack-bar';
@@ -12,6 +12,7 @@ import { UsuariosService } from '../../../services/usuarios.service';
 import { Usuario } from '../../../models/usuarios';
 import { MatSelectModule } from '@angular/material/select';
 import { provideNativeDateAdapter } from '@angular/material/core';
+import { LoginService } from '../../../services/login.service';
 
 @Component({
   selector: 'app-create-edit-reunion',
@@ -23,7 +24,7 @@ import { provideNativeDateAdapter } from '@angular/material/core';
     MatSelectModule,
     MatDatepickerModule,
     ReactiveFormsModule],
-  changeDetection: ChangeDetectionStrategy.OnPush,
+  //changeDetection: ChangeDetectionStrategy.OnPush,
   templateUrl: './create-edit-reunion.component.html',
   providers: [provideNativeDateAdapter()],
   styleUrl: './create-edit-reunion.component.css'
@@ -32,6 +33,8 @@ export class CreateEditReunionComponent implements OnInit {
   form: FormGroup = new FormGroup({});
   reuniones: Reunion = new Reunion();
   status: boolean = true;
+
+  host: Usuario = new Usuario();
 
   listaUsuarios: Usuario[] = [];
 
@@ -50,6 +53,8 @@ export class CreateEditReunionComponent implements OnInit {
   constructor(
     private rS: ReunionService,
     private uS: UsuariosService,
+    private loginService: LoginService,
+    private cdr: ChangeDetectorRef,
     private formBuilder: FormBuilder,
     private router: Router,
     private route: ActivatedRoute
@@ -61,8 +66,7 @@ export class CreateEditReunionComponent implements OnInit {
     this.route.params.subscribe((data: Params) => {
       this.id = data['id'];
       this.edicion = data['id'] != null;
-      //actualizar trae data
-      this.init();
+
     });
     //
     this.form = this.formBuilder.group({
@@ -70,12 +74,46 @@ export class CreateEditReunionComponent implements OnInit {
       tema: ['', [Validators.required, Validators.pattern(/^[a-zA-ZáéíóúÁÉÍÓÚñÑ\s]+$/), Validators.minLength(3)]],
       link: ['', [Validators.required, Validators.minLength(8), Validators.maxLength(50), Validators.pattern(/^(https?:\/\/)?[\w\-\.]+(\.[\w\-]+)+[/#?]?.*$/)]],
       fecha: ['', [Validators.required, this.fechaMinimaValidator()]],
-      organizador: ['', Validators.required],
+      organizador: [this.host.username],
       participante: ['', Validators.required],
     });
-    this.uS.list().subscribe(data => {
-      this.listaUsuarios = data;
-    })
+
+    let username = this.loginService.getUsername();
+    console.log(username);
+
+    if (username) {
+      // ✅ Una sola suscripción que maneja todo
+      this.uS.list().subscribe(usuarios => {
+        // 1. Encontrar el usuario logueado
+        const userFound = usuarios.find(u => u.username === username);
+
+        if (userFound) {
+          console.log('Usuario encontrado:', userFound['username']);
+          this.host = userFound;
+          console.log(this.host.username);
+
+          // ✅ Actualizar el formulario con el usuario encontrado(organizador)
+          this.form.patchValue({
+            organizador: this.host.username
+          });
+        }
+
+        // 3. Filtrar lista de participantes (excluyendo organizador)
+        this.listaUsuarios = usuarios.filter(usuario => usuario.username !== username);
+
+        console.log('Lista participantes:', this.listaUsuarios.length);
+
+        //actualizar trae data
+        this.init();
+
+        // ✅ Forzar detección de cambios
+        this.cdr.detectChanges();
+
+      });
+    }
+    // this.uS.list().subscribe(data => {
+    //   this.listaUsuarios = data.filter(usersF => usersF.username !== username);
+    // })
   }
 
   fechaMinimaValidator(): ValidatorFn {
@@ -99,7 +137,7 @@ export class CreateEditReunionComponent implements OnInit {
       this.reuniones.reuTema = this.form.value.tema;
       this.reuniones.reuLink = this.form.value.link;
       this.reuniones.reuFecha = this.form.value.fecha;
-      this.reuniones.organizadorReu.idUsuario = this.form.value.organizador;
+      this.reuniones.organizadorReu.idUsuario = this.host.idUsuario;
       this.reuniones.participanteReu.idUsuario = this.form.value.participante;
 
       if (this.edicion) {
@@ -133,10 +171,13 @@ export class CreateEditReunionComponent implements OnInit {
           tema: new FormControl(data.reuTema),
           link: new FormControl(data.reuLink),
           fecha: new FormControl(data.reuFecha),
-          organizador: new FormControl(data.organizadorReu.idUsuario, Validators.required),
+          organizador: new FormControl(data.organizadorReu.usNombre),
           participante: new FormControl(data.participanteReu.idUsuario, Validators.required),
         });
       });
+
+      // ✅ Forzar detección de cambios después de cargar datos
+      this.cdr.detectChanges();
     }
   }
 }

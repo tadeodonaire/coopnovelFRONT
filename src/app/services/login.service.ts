@@ -9,7 +9,7 @@ import { JwtHelperService } from '@auth0/angular-jwt';
 export class LoginService {
   constructor(private http: HttpClient) {}
   login(request: JwtRequest) {
-    return this.http.post('http://localhost:8084/login', request);
+    return this.http.post('https://coopnovel.onrender.com/login', request);
   }
   verificar() {
     let token = sessionStorage.getItem('token');
@@ -31,12 +31,24 @@ export class LoginService {
     const decoded = helper.decodeToken(token);
     return decoded?.sub ?? null;
   }
-  getUserId(): string | null {
+  getUserId(): number | null {
     const token = sessionStorage.getItem('token');
     if (!token) return null;
     const helper = new JwtHelperService();
     const decoded = helper.decodeToken(token);
-    console.log('TOKEN DECODIFICADO:', decoded); 
+    console.log('TOKEN DECODIFICADO:', decoded);
+    return decoded?.idUsuario ?? null;
+  }
+  
+  getLoggedUsername(): string | null {
+    const token = sessionStorage.getItem('token');
+    if (!token) return null;
+
+    const helper = new JwtHelperService();
+    const decoded = helper.decodeToken(token);
+    console.log('TOKEN DECODIFICADO:', decoded);
+
+    // Ahora devuelve el username (del campo sub)
     return decoded?.sub ?? null;
   }
 }

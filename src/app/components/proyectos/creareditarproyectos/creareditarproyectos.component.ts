@@ -12,17 +12,16 @@ import { Proyecto } from '../../../models/proyecto';
 import { ProyectoService } from '../../../services/proyecto.service';
 import { UsuariosService } from '../../../services/usuarios.service';
 import { ActivatedRoute, Params, Router } from '@angular/router';
-import { MatFormField, MatInputModule } from '@angular/material/input';
+import { MatInputModule } from '@angular/material/input';
 import { CommonModule } from '@angular/common';
 import { MatSelectModule } from '@angular/material/select';
 import { MatButtonModule } from '@angular/material/button';
-import { LoginService } from '../../../services/login.service';
+import { JwtHelperService } from '@auth0/angular-jwt';
 
 @Component({
   selector: 'app-creareditarproyectos',
   imports: [
     MatInputModule,
-    MatFormField,
     ReactiveFormsModule,
     CommonModule,
     MatSelectModule,
@@ -36,19 +35,30 @@ export class CreareditarproyectosComponent implements OnInit {
   form: FormGroup = new FormGroup({});
   listaUsuarios: Usuario[] = [];
   proye: Proyecto = new Proyecto();
+
   id: number = 0;
   edicion: boolean = false;
+
+  usNombre: string = '';
+  idUsuario: number = 0;
 
   constructor(
     private formBuilder: FormBuilder,
     private pS: ProyectoService,
+    private uS: UsuariosService,
     private router: Router,
-    private route: ActivatedRoute,
-    public loginService: LoginService
+    private route: ActivatedRoute
   ) {}
 
   ngOnInit(): void {
-    this.proye.usario = { idUsuario: 0 } as Usuario;
+    const token = sessionStorage.getItem('token');
+    const helper = new JwtHelperService();
+    const decoded = helper.decodeToken(token!);
+
+    this.idUsuario = decoded.idUsuario;
+    this.usNombre = decoded.sub;
+    console.log(decoded);
+
     this.route.params.subscribe((data: Params) => {
       this.id = data['id'];
       this.edicion = data['id'] != null;
@@ -61,50 +71,32 @@ export class CreareditarproyectosComponent implements OnInit {
       htitulo: ['', Validators.required],
       hdescripcion: ['', Validators.required],
     });
+    this.uS.list().subscribe((data) => {
+      this.listaUsuarios = data;
+    });
   }
 
   aceptar() {
-    console.log('Formulario inválido:', this.form.invalid); // Verifica si el formulario está inválido
-    console.log('Estado del formulario:', this.form);
-
-    Object.values(this.form.controls).forEach(control => {
-    console.log('Estado de cada campo:', control.valid, control.errors); // Verifica el estado de cada campo
-    control.markAsTouched();  // Asegúrate de que todos los controles sean tocados
-    control.updateValueAndValidity(); // Actualiza las validaciones de los controles
-    });
     if (this.form.valid) {
       this.proye.idProyecto = this.form.value.hcodigo;
       this.proye.proyTitulo = this.form.value.htitulo;
       this.proye.proyDescripcion = this.form.value.hdescripcion;
-      // Asignar el usuario autenticado
-      const username = this.loginService.getUserId();
-      if (username) {
-        // Asignar el username al campo username del usuario
-        this.proye.usario = new Usuario();
-        this.proye.usario.username = username;
-      } else {
-        console.error('No se encontró usuario autenticado.');
-        return;
-      }
-
+      this.proye.usario.idUsuario = this.idUsuario;
       if (this.edicion) {
         this.pS.update(this.proye).subscribe((data) => {
           this.pS.list().subscribe((data) => {
             this.pS.setList(data);
-            this.router.navigate(['proyecto']);
           });
         });
       } else {
         this.pS.insert(this.proye).subscribe((data) => {
           this.pS.list().subscribe((data) => {
             this.pS.setList(data);
-            this.router.navigate(['proyecto']);
           });
         });
       }
-    } else {
-      console.error('Formulario inválido, no se puede registrar el proyecto');
     }
+    this.router.navigate(['proyecto']);
   }
 
   init() {
@@ -112,10 +104,14 @@ export class CreareditarproyectosComponent implements OnInit {
       this.pS.listId(this.id).subscribe((data) => {
         this.form = new FormGroup({
           hcodigo: new FormControl(data.idProyecto),
-          htitulo: new FormControl(data.proyTitulo, Validators.required),
-          hdescripcion: new FormControl(data.proyDescripcion, Validators.required),
+          htitulo: new FormControl(data.proyTitulo),
+          hdescripcion: new FormControl(data.proyDescripcion),
+          husuarios: new FormControl(data.usario.idUsuario),
         });
       });
     }
+  }
+  cancelar() {
+    this.router.navigate(['proyecto']);
   }
 }

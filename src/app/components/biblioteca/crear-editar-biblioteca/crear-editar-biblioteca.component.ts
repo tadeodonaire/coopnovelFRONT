@@ -1,4 +1,4 @@
-import {Component, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import {
   FormBuilder,
   FormControl,
@@ -19,6 +19,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { CommonModule } from '@angular/common';
 import { Biblioteca } from '../../../models/biblioteca';
 import { BibliotecaService } from '../../../services/biblioteca.service';
+import { JwtHelperService } from '@auth0/angular-jwt';
 
 @Component({
   providers: [provideNativeDateAdapter()],
@@ -35,7 +36,7 @@ import { BibliotecaService } from '../../../services/biblioteca.service';
     MatSelectModule,
     MatDatepickerModule,
     MatSelectModule,
-    MatButtonModule
+    MatButtonModule,
   ],
   templateUrl: './crear-editar-biblioteca.component.html',
   styleUrl: './crear-editar-biblioteca.component.css',
@@ -43,7 +44,7 @@ import { BibliotecaService } from '../../../services/biblioteca.service';
 export class CrearEditarBibliotecaComponent implements OnInit {
   form: FormGroup = new FormGroup({});
   biblioteca: Biblioteca = new Biblioteca();
-
+  idUsuario: number = 0;
   id: number = 0;
   edicion: boolean = false;
 
@@ -59,17 +60,22 @@ export class CrearEditarBibliotecaComponent implements OnInit {
       this.edicion = data['id'] != null;
       //actualizar.traer data
       this.init();
+      const token = sessionStorage.getItem('token');
+      const helper = new JwtHelperService();
+      const decoded = helper.decodeToken(token!);
+      this.idUsuario = decoded.idUsuario;
     });
 
     this.form = this.formBuilder.group({
-      codigo:[''],
+      codigo: [''],
       nombre: ['', Validators.required],
     });
   }
   aceptar() {
     if (this.form.valid) {
-      this.biblioteca.idBiblioteca=this.form.value.codigo;
+      this.biblioteca.idBiblioteca = this.form.value.codigo;
       this.biblioteca.bibNombre = this.form.value.nombre;
+      this.biblioteca.usuario.idUsuario=this.idUsuario;
 
       if (this.edicion) {
         this.bS.modificifar(this.biblioteca).subscribe(() => {
@@ -86,15 +92,18 @@ export class CrearEditarBibliotecaComponent implements OnInit {
       }
     }
 
-    this.router.navigate(['biblioteca']);
+    this.router.navigate(['biblioteca-full']);
+  }
+  Cancelar(){
+    this.router.navigate(['biblioteca-full']);
   }
 
   init() {
     if (this.edicion) {
       this.bS.listId(this.id).subscribe((data) => {
         this.form = new FormGroup({
-          codigo:new FormControl(data.idBiblioteca),
-          nombre:new FormControl(data.bibNombre),
+          codigo: new FormControl(data.idBiblioteca),
+          nombre: new FormControl(data.bibNombre),
         });
       });
     }

@@ -10,12 +10,12 @@
         <p>ID: {{ element.id }}</p>
       </mat-card-content>
 
-      <mat-card-actions>
-        <button mat-flat-button color="primary" [routerLink]="['ediciones', element.id]">
+      <mat-card-actions class="card-actions">
+        <button mat-flat-button color="primary" class="action-button" [routerLink]="['ediciones', element.id]">
           <mat-icon>edit</mat-icon>
           Editar
         </button>
-        <button mat-flat-button color="warn" (click)="eliminar(element.id)">
+        <button mat-flat-button color="warn" class="action-button" (click)="eliminar(element.id)">
           <mat-icon>delete</mat-icon>
           Eliminar
         </button>

@@ -17,12 +17,22 @@
     </mat-card-content>
 
     <mat-card-actions align="end">
-      <button mat-raised-button color="primary" (click)="irABiblioteca(b.id)">
+      <button class="primary-button"  mat-raised-button color="warn" (click)="irABiblioteca(b.id)">
         Entrar a la Biblioteca
       </button>
     </mat-card-actions>
   </mat-card>
+  
 </div>
+    <div class="crear-container">
+  <button mat-raised-button color="accent" (click)="irACrearBiblioteca()">
+    ➕ Crear Nueva Biblioteca
+  </button>
+</div>
+<app-crear-editar-biblioteca
+  *ngIf="mostrarFormulario"
+  (bibliotecaCreada)="onBibliotecaCreada()"
+></app-crear-editar-biblioteca>
 
 <!-- Aquí se mostrarán los componentes hijos, como BibliotecaListaUsuarioComponent -->
 <router-outlet></router-outlet>

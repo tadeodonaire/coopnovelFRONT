@@ -35,4 +35,7 @@ export class BibliotecaService {
   delete(id:number){
     return this.http.delete(`${this.url}/${id}`);
   }
+  listarPorUsuario(idUsuario: number) {
+  return this.http.get<Biblioteca[]>(`${this.url}/usuario/${idUsuario}`);
+}
 }

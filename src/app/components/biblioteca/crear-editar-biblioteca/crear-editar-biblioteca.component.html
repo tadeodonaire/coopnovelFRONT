@@ -14,9 +14,16 @@
       El nombre de la biblioteca es obligatorio.
     </div>
 
-    <button type="submit" [disabled]="form.invalid">
+    <div class="button-group">
+      <button type="submit" [disabled]="form.invalid">
       {{ edicion ? 'Actualizar' : 'Registrar' }}
     </button>
+
+    <button type="button" class="cancel-button" (click)="Cancelar()">
+      Cancelar
+    </button>
+
+    </div>
 
   </form>
 </div>
